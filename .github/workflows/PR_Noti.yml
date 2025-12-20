@@ -1,0 +1,36 @@
+name: Discord notifications
+
+on:
+  pull_request:
+    types: [opened, reopened, closed, ready_for_review]
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build message and send to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEB_HOOK }}
+        run: |
+          EVENT="${GITHUB_EVENT_NAME}"
+          ACTOR="${GITHUB_ACTOR}"
+          REPO="${GITHUB_REPOSITORY}"
+
+          # event payload에서 링크/제목 뽑기 (없으면 repo 링크로 fallback)
+          URL=$(jq -r '.pull_request.html_url // .review.html_url // .repository.html_url // empty' "$GITHUB_EVENT_PATH")
+          TITLE=$(jq -r '.pull_request.title // .review.body // .repository.full_name // empty' "$GITHUB_EVENT_PATH")
+
+          if [ -z "$URL" ]; then
+            URL="https://github.com/$REPO"
+          fi
+
+          CONTENT="📣 **$EVENT**
+          Repo: **$REPO**
+          Actor: **$ACTOR**
+          Title: ${TITLE:-"(no title)"}
+          $URL"
+
+          jq -n --arg content "$CONTENT" '{content: $content}' \
+            | curl -sS -H "Content-Type: application/json" -d @- "$DISCORD_WEBHOOK_URL"
