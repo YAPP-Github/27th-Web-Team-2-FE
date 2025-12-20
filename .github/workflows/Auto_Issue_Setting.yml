@@ -1,0 +1,29 @@
+name: Issue Automation
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  issue-automation:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      repository-projects: write # Classic 프로젝트를 사용할 경우 필요
+
+    steps:
+      # 1. 이슈 생성자를 자동으로 Assignee로 할당
+      - name: Assign the issue creator
+        if: github.event.issue.assignees == '' # 이미 할당된 사람이 없을 때만 실행
+        run: |
+          gh issue edit ${{ github.event.issue.number }} --add-assignee ${{ github.actor }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 2. 프로젝트 자동 할당 (New Projects V2 사용 시)
+      - name: Add to Project
+        uses: actions/add-to-project@v0.6.0
+        with:
+          project-url: https://github.com/orgs/YAPP-Github/projects/29
+
+          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
