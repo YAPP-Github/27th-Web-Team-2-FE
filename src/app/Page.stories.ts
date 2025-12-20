@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { expect, userEvent, within } from 'storybook/test';
-
 import Home from './page';
 
 const meta = {
@@ -16,4 +14,4 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const default_page: Story = {};
+export const Default_Page: Story = {};
