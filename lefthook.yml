@@ -1,0 +1,13 @@
+pre-commit:
+  commands:
+    typecheck:
+      run: npm run typecheck
+    lint:
+      run: npm run lint
+    prettier:
+      run: npm run format:check
+
+commit-msg:
+  commands:
+    commitlint:
+      run: npx --no -- commitlint --edit {1}
