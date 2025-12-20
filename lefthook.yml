@@ -2,10 +2,8 @@ pre-commit:
   commands:
     typecheck:
       run: npm run typecheck
-    lint:
-      run: npm run lint
-    prettier:
-      run: npm run format:check
+    lint-staged:
+      run: npx --no -- lint-staged --config lint-staged.config.mjs
 
 commit-msg:
   commands:
