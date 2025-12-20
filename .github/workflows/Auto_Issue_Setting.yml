@@ -15,7 +15,9 @@ jobs:
       # 1. 이슈 생성자를 자동으로 Assignee로 할당
       - name: Assign the issue creator
         run: |
-          gh issue edit ${{ github.event.issue.number }} --add-assignee ${{ github.actor }}
+          gh issue edit ${{ github.event.issue.number }} \
+            --add-assignee ${{ github.actor }} \
+            --repo ${{ github.repository }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
