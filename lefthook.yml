@@ -1,9 +1,12 @@
 pre-commit:
   commands:
-    typecheck:
-      run: npm run typecheck
     lint-staged:
       run: npx --no -- lint-staged --config lint-staged.config.mjs
+
+pre-push:
+  commands:
+    typecheck:
+      run: npm run typecheck
 
 commit-msg:
   commands:
