@@ -17,9 +17,17 @@
     "prepare": "lefthook install"
   },
   "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "lucide-react": "^0.562.0",
     "next": "16.1.0",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-calendar": "^6.0.0",
+    "react-datepicker": "^9.1.0",
+    "react-dom": "19.2.3",
+    "react-multi-date-picker": "^4.5.2",
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.3",
@@ -33,6 +41,8 @@
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
+    "@types/react-calendar": "^3.9.0",
+    "@types/react-datepicker": "^6.2.0",
     "@types/react-dom": "^19",
     "@vitest/browser-playwright": "^4.0.16",
     "@vitest/coverage-v8": "^4.0.16",
