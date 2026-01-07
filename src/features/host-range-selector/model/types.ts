@@ -1,10 +1,12 @@
-export type HostRangeValue = {
-  start?: string; // YYYY-MM-DD
-  end?: string; // YYYY-MM-DD
-};
+export interface HostRangeSelectorProps {
+  /**
+   * Currently selected dates.
+   * Can be disjoint (e.g., [Dec 1, Dec 5, Dec 10]).
+   */
+  selectedDates: Date[];
 
-export type HostRangeProps = {
-  today: string; // YYYY-MM-DD
-  initial?: HostRangeValue;
-  onChange: (value: HostRangeValue) => void;
-};
+  /**
+   * Callback when selection changes.
+   */
+  onChange: (dates: Date[]) => void;
+}
