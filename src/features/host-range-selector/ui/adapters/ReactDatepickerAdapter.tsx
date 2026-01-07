@@ -30,6 +30,49 @@ export function ReactDatepickerAdapter({
     end: null,
   });
 
+  /* Touch Handlers */
+  const handleTouchStart = (e: React.TouchEvent, date: Date) => {
+    // Prevent default to stop scrolling interaction on the date tile
+    // Note: e.preventDefault() might invoke "passive listener" warnings in some browsers if not set on ref.
+    // However, touch-action: none in CSS is the modern way to handle this.
+
+    if (isDateDisabled(date)) return;
+    setDragState({
+      isDragging: true,
+      start: date,
+      end: date,
+    });
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!dragState.isDragging || !dragState.start) return;
+
+    // Find the element under the finger
+    const touch = e.touches[0];
+    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+
+    // Look for the closest day cell with our data attribute
+    const cell = target?.closest('[data-date-timestamp]');
+    if (cell) {
+      const ts = cell.getAttribute('data-date-timestamp');
+      if (ts) {
+        const hoveredDate = new Date(parseInt(ts, 10));
+
+        // Update end date if different
+        if (dragState.end && !isSameDay(hoveredDate, dragState.end)) {
+          setDragState((prev) => ({
+            ...prev,
+            end: hoveredDate,
+          }));
+        }
+      }
+    }
+  };
+
+  const handleTouchEnd = () => {
+    handleMouseUp(); // Logic is identical
+  };
+
   const handleMouseDown = (date: Date) => {
     if (isDateDisabled(date)) return;
     setDragState({
@@ -191,11 +234,19 @@ export function ReactDatepickerAdapter({
           return (
             <div
               className='flex h-full w-full items-center justify-center'
+              // Mouse Handlers
               onMouseDown={(e) => {
                 e.stopPropagation(); // Prevent DatePicker's default click
                 handleMouseDown(date);
               }}
               onMouseEnter={() => handleMouseEnter(date)}
+              // Touch Handlers
+              data-date-timestamp={date.getTime()} // Identify cell for elementFromPoint
+              onTouchStart={(e) => handleTouchStart(e, date)}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              // Prevent scrolling while dragging on mobile
+              style={{ touchAction: 'none' }}
             >
               {day}
             </div>
