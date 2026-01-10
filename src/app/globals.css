@@ -277,3 +277,137 @@
     letter-spacing: -0.02em;
   }
 }
+
+@layer components {
+  /* Input Component Styles */
+  .input-label {
+    /* text-title-8 */
+    color: var(--color-text-secondary);
+  }
+
+  /* Container for layout */
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%; /* Block behavior: fills parent, prevents padding-based intrinsic growth */
+  }
+
+  .input-container.input-full-width {
+    width: 100%;
+  }
+
+  .input-field {
+    display: flex; /* Kept for compatibility */
+    width: 100%; /* Ensure it fills the wrapper so padding doesn't expand it */
+    height: 48px;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid var(--color-line-clickable);
+    background-color: var(--color-gray-0);
+    padding: 13px 16px;
+    outline: none;
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box; /* Ensure border-box is explicit */
+
+    /* Text Styles: text-body-2 */
+    color: var(--color-text-primary);
+  }
+
+  .input-field::placeholder {
+    color: var(--color-text-quaternary);
+  }
+
+  .input-field:hover {
+    background-color: var(--color-gray-50);
+  }
+
+  .input-field:focus {
+    border-color: var(--color-primary-default);
+    box-shadow: 0 0 0 1px var(--color-primary-default);
+  }
+
+  .input-field:disabled {
+    border-color: var(--color-line-nonclickable);
+    background-color: var(--color-gray-50);
+    color: var(--color-text-quaternary);
+    cursor: not-allowed;
+  }
+
+  .input-field.input-error {
+    border-color: var(--color-status-error);
+  }
+
+  .input-field.input-error:focus {
+    border-color: var(--color-status-error);
+    box-shadow: 0 0 0 1px var(--color-status-error);
+  }
+
+  .input-field.input-full-width {
+    width: 100%;
+  }
+
+  .input-helper-text {
+    /* text-caption-7 */
+    color: var(--color-text-tertiary);
+  }
+
+  .input-error-text {
+    /* text-caption-7 */
+    color: var(--color-status-error);
+  }
+
+  /* Input Extras in globals.css */
+  .input-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .input-right-element {
+    position: absolute;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-text-tertiary);
+  }
+
+  /* Clear button */
+  .input-clear-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--color-text-tertiary);
+    transition: color 0.15s ease;
+  }
+
+  .input-clear-button:hover {
+    color: var(--color-text-secondary);
+  }
+
+  /* Bottom Area */
+  .input-bottom-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 4px;
+    padding: 0 4px; /* Slight indent to align with text usually */
+    min-height: 20px; /* Prevent layout shift if possible */
+  }
+
+  .input-message {
+    flex: 1;
+    display: flex;
+    margin-right: 8px;
+  }
+
+  .input-count {
+    /* text-caption-5 */
+    color: var(--color-text-tertiary);
+    white-space: nowrap;
+    margin-left: auto; /* Align to right */
+  }
+}
