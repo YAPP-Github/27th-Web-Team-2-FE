@@ -29,7 +29,7 @@ export default function TopBar({
 }: TopBarProps) {
   return (
     <header
-      className={`relative flex h-14 w-full shrink-0 items-center justify-between bg-white px-1 ${
+      className={`bg-gray-0 relative flex h-14 w-full shrink-0 items-center justify-between px-1 ${
         className || ''
       }`}
       {...props}
@@ -40,7 +40,7 @@ export default function TopBar({
           <button
             type='button'
             onClick={onLeftClick}
-            className='flex h-full w-full items-center justify-center rounded-full p-2 active:bg-gray-100/50'
+            className='flex h-full w-full items-center justify-center rounded-full p-2 active:bg-gray-100'
             aria-label='Left Action'
           >
             <Icon name={leftIcon} size={24} color={iconColor} />
@@ -49,7 +49,7 @@ export default function TopBar({
       </div>
 
       {/* 제목 영역 - 완벽한 중앙 정렬을 위해 absolute 포지셔닝 사용 */}
-      <h1 className='absolute top-1/2 left-1/2 max-w-[calc(100%-120px)] -translate-x-1/2 -translate-y-1/2 truncate text-center text-base leading-5.5 font-semibold text-[#191F28]'>
+      <h1 className='text-title-7 absolute top-1/2 left-1/2 max-w-[calc(100%-120px)] -translate-x-1/2 -translate-y-1/2 truncate text-center text-gray-900'>
         {title}
       </h1>
 
@@ -59,7 +59,7 @@ export default function TopBar({
           <button
             type='button'
             onClick={onRightClick}
-            className='flex h-full w-full items-center justify-center rounded-full p-2 active:bg-gray-100/50'
+            className='flex h-full w-full items-center justify-center rounded-full p-2 active:bg-gray-100'
             aria-label='Right Action'
           >
             <Icon name={rightIcon} size={24} color={iconColor} />
