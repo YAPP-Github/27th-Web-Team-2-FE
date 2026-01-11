@@ -1,14 +1,20 @@
 pre-commit:
   commands:
     lint-staged:
-      run: /usr/local/bin/npm run lint-staged
+      run: |
+        [ -s "$HOME/.nvm/nvm.sh" ] && . "$HOME/.nvm/nvm.sh"
+        npm run lint-staged
 
 pre-push:
   commands:
     typecheck:
-      run: /usr/local/bin/npm run typecheck
+      run: |
+        [ -s "$HOME/.nvm/nvm.sh" ] && . "$HOME/.nvm/nvm.sh"
+        npm run typecheck
 
 commit-msg:
   commands:
     commitlint:
-      run: /usr/local/bin/npm run commitlint -- --edit {1}
+      run: |
+        [ -s "$HOME/.nvm/nvm.sh" ] && . "$HOME/.nvm/nvm.sh"
+        npm run commitlint -- --edit {1}
