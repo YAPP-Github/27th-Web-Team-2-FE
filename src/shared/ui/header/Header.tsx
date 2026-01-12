@@ -1,3 +1,5 @@
+import Icon from '../icon/Icon';
+
 interface HeaderProps {
   /**
    * 헤더의 변형(Variant)을 결정합니다.
@@ -70,27 +72,7 @@ export function Header({
               type='button'
             >
               {/* Refresh Icon Placeholder or SVG */}
-              <svg
-                width='16'
-                height='16'
-                viewBox='0 0 16 16'
-                fill='none'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <path
-                  d='M8 1.3335C4.3181 1.3335 1.33333 4.31826 1.33333 8.00016C1.33333 11.6821 4.3181 14.6668 8 14.6668C11.6819 14.6668 14.6667 11.6821 14.6667 8.00016C14.6667 6.46889 14.149 5.06456 13.284 3.96266'
-                  stroke='currentColor'
-                  strokeWidth='1.2'
-                  strokeLinecap='round'
-                />
-                <path
-                  d='M13.3333 1.3335V4.00016H10.6667'
-                  stroke='currentColor'
-                  strokeWidth='1.2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                />
-              </svg>
+              <Icon name='ic_refresh' size={16} />
               <span>{standardTime} 기준</span>
             </button>
           )}
