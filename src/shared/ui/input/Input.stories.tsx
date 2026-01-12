@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { useState } from 'react';
 
-import Input from './Input';
+import { Input } from './Input';
 
 const meta = {
   title: 'Shared/UI/Input',
@@ -118,7 +118,9 @@ export const Controlled: Story = {
       <Input
         {...args}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setValue(e.target.value)
+        }
         onClear={() => setValue('')}
       />
     );
