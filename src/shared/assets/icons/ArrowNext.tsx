@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-export default function ArrowNext(props: HTMLAttributes<HTMLDivElement>) {
+const ArrowNext = (props: HTMLAttributes<HTMLDivElement>) => {
   return (
     <div className='relative h-full w-full' data-name='arrow_next' {...props}>
       <div className='absolute top-1/4 right-[33.42%] bottom-1/4 left-[41.58%] flex items-center justify-center'>
@@ -34,4 +34,6 @@ export default function ArrowNext(props: HTMLAttributes<HTMLDivElement>) {
       </div>
     </div>
   );
-}
+};
+
+export default ArrowNext;

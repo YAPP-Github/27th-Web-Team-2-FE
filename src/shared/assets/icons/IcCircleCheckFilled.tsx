@@ -1,8 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-export default function IcCircleCheckFilled(
-  props: HTMLAttributes<HTMLDivElement>,
-) {
+const IcCircleCheckFilled = (props: HTMLAttributes<HTMLDivElement>) => {
   return (
     <div
       className='relative h-full w-full'
@@ -35,4 +33,6 @@ export default function IcCircleCheckFilled(
       </div>
     </div>
   );
-}
+};
+
+export default IcCircleCheckFilled;

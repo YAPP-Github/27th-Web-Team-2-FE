@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-export default function IcHamburger(props: HTMLAttributes<HTMLDivElement>) {
+const IcHamburger = (props: HTMLAttributes<HTMLDivElement>) => {
   return (
     <div className='relative h-full w-full' data-name='ic_hamburger' {...props}>
       <div className='absolute top-1/4 right-[16.67%] bottom-1/4 left-[16.67%]'>
@@ -30,4 +30,6 @@ export default function IcHamburger(props: HTMLAttributes<HTMLDivElement>) {
       </div>
     </div>
   );
-}
+};
+
+export default IcHamburger;

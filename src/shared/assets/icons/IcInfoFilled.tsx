@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-export default function IcInfoFilled(props: HTMLAttributes<HTMLDivElement>) {
+const IcInfoFilled = (props: HTMLAttributes<HTMLDivElement>) => {
   return (
     <div
       className='relative h-full w-full'
@@ -33,4 +33,6 @@ export default function IcInfoFilled(props: HTMLAttributes<HTMLDivElement>) {
       </div>
     </div>
   );
-}
+};
+
+export default IcInfoFilled;

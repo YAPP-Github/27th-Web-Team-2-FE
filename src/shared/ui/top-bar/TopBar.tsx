@@ -17,7 +17,7 @@ interface TopBarProps extends HTMLAttributes<HTMLElement> {
   iconColor?: string;
 }
 
-export default function TopBar({
+const TopBar = ({
   title,
   leftIcon,
   onLeftClick,
@@ -26,7 +26,7 @@ export default function TopBar({
   className,
   iconColor,
   ...props
-}: TopBarProps) {
+}: TopBarProps) => {
   return (
     <header
       className={`bg-gray-0 relative flex h-14 w-full shrink-0 items-center justify-between px-1 ${
@@ -68,4 +68,6 @@ export default function TopBar({
       </div>
     </header>
   );
-}
+};
+
+export default TopBar;

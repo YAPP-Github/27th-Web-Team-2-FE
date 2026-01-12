@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-export default function ArrowPrev(props: HTMLAttributes<HTMLDivElement>) {
+const ArrowPrev = (props: HTMLAttributes<HTMLDivElement>) => {
   return (
     <div className='relative h-full w-full' data-name='arrow_prev' {...props}>
       <div className='absolute top-1/4 right-[33.42%] bottom-1/4 left-[41.58%] flex items-center justify-center'>
@@ -34,4 +34,6 @@ export default function ArrowPrev(props: HTMLAttributes<HTMLDivElement>) {
       </div>
     </div>
   );
-}
+};
+
+export default ArrowPrev;

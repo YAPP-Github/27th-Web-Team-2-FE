@@ -11,14 +11,14 @@ interface IconProps extends HTMLAttributes<HTMLDivElement> {
   ref?: React.Ref<HTMLDivElement>;
 }
 
-export default function Icon({
+const Icon = ({
   name,
   size = 'md',
   className,
   color,
   ref,
   ...props
-}: IconProps) {
+}: IconProps) => {
   const sizeValue =
     typeof size === 'number'
       ? size
@@ -50,4 +50,6 @@ export default function Icon({
       <IconComponent />
     </div>
   );
-}
+};
+
+export default Icon;

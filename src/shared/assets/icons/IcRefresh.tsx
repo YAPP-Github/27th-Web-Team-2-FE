@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-export default function IcRefresh(props: HTMLAttributes<HTMLDivElement>) {
+const IcRefresh = (props: HTMLAttributes<HTMLDivElement>) => {
   return (
     <div className='relative h-full w-full' data-name='ic_refresh' {...props}>
       <div className='absolute inset-[16.66%_16.67%]'>
@@ -30,4 +30,6 @@ export default function IcRefresh(props: HTMLAttributes<HTMLDivElement>) {
       </div>
     </div>
   );
-}
+};
+
+export default IcRefresh;

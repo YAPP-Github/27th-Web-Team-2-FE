@@ -1,8 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-export default function IcCircleCheckOutline(
-  props: HTMLAttributes<HTMLDivElement>,
-) {
+const IcCircleCheckOutline = (props: HTMLAttributes<HTMLDivElement>) => {
   return (
     <div
       className='relative h-full w-full'
@@ -38,4 +36,6 @@ export default function IcCircleCheckOutline(
       </div>
     </div>
   );
-}
+};
+
+export default IcCircleCheckOutline;
