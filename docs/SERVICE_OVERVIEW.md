@@ -87,3 +87,31 @@ The concept of "host" applies only at the moment of meeting creation.
 - **Vote**: Participants selected at least one candidate date
 
 All specifications should use these terms consistently.
+
+---
+
+## Routing Structure
+
+The application uses Next.js App Router with the following routes:
+
+### `/` - Onboarding Page
+
+- **Purpose**: Entry point for new users
+- **Audience**: First-time visitors, hosts creating new meetings
+- **Key Actions**:
+  - Introduction to the service
+  - Create new meeting (host flow)
+  - Access existing meeting via link
+
+### `/[meetingId]` - Meeting Voting Page
+
+- **Purpose**: Voting interface for a specific meeting
+- **Audience**: All participants (including host)
+- **Dynamic Segment**: `meetingId` - unique identifier for each meeting (e.g., `/12df1x41`)
+- **Key Actions**:
+  - View candidate dates
+  - Submit/modify votes
+  - View aggregated voting results
+  - Share meeting link
+
+**Note**: Both host and participants access the same voting interface through the meeting link. There is no role-based UI differentiation after meeting creation.
