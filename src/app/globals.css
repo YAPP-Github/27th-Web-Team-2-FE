@@ -62,7 +62,7 @@
   /* Semantic: Line */
   --color-line-clickable: #d1d6dc;
   --color-line-nonclickable: #e6e8eb;
-  --color-line-selected: #2e6bfa;
+  --color-line-selected: #333d4b;
 
   /* Semantic: Dimmed */
   --color-dimmed-default: #00000080;
@@ -282,7 +282,7 @@
   /* Input Component Styles */
   .input-label {
     /* text-title-8 */
-    color: var(--color-text-secondary);
+    color: var(--color-gray-600);
   }
 
   /* Container for layout */
@@ -323,8 +323,8 @@
   }
 
   .input-field:focus {
-    border-color: var(--color-primary-default);
-    box-shadow: 0 0 0 1px var(--color-primary-default);
+    border-color: var(--color-line-selected);
+    box-shadow: 0 0 0 1px var(--color-line-selected);
   }
 
   .input-field:disabled {
@@ -409,5 +409,50 @@
     color: var(--color-text-tertiary);
     white-space: nowrap;
     margin-left: auto; /* Align to right */
+  }
+
+  /* Button Component Styles */
+  .button-base {
+    /* Layout */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    padding: 16px 20px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Background & Text */
+    background-color: var(--color-primary-default);
+    color: var(--color-text-inverse);
+
+    /* Typography: text-body-2 */
+    font-family: var(--font-pretendard);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.02em;
+  }
+
+  .button-base:hover:not(:disabled) {
+    background-color: var(--color-primary-subtle);
+  }
+
+  .button-base:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  .button-base:disabled {
+    background-color: var(--color-primary-subtler);
+    color: var(--color-text-inverse);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .button-base.button-full-width {
+    width: 100%;
   }
 }

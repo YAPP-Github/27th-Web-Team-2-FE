@@ -156,9 +156,7 @@ export default function Input({
       <div className='input-bottom-area'>
         <div className='input-message'>
           {errorMessage ? (
-            <span className='input-error-text text-caption-7'>
-              {errorMessage}
-            </span>
+            <span className='input-error-text text-body-5'>{errorMessage}</span>
           ) : helperText ? (
             <span className='input-helper-text text-caption-7'>
               {helperText}
