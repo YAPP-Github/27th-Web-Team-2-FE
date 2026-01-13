@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-const IcMenuClose = (props: HTMLAttributes<HTMLDivElement>) => {
+export default function IcMenuClose(props: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className='relative h-full w-full'
@@ -34,6 +34,4 @@ const IcMenuClose = (props: HTMLAttributes<HTMLDivElement>) => {
       </div>
     </div>
   );
-};
-
-export default IcMenuClose;
+}

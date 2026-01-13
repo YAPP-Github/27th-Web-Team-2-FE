@@ -24,13 +24,13 @@ interface ButtonProps extends ComponentProps<'button'> {
  * - Default: primary-default 배경
  * - Disabled: primary-default 배경 + 30% opacity
  */
-const Button = ({
+export default function Button({
   children,
   fullWidth = false,
   disabled = false,
   className,
   ...props
-}: ButtonProps) => {
+}: ButtonProps) {
   const buttonClasses = [
     'button-base',
     fullWidth ? 'button-full-width' : '',
@@ -49,6 +49,4 @@ const Button = ({
       {children}
     </button>
   );
-};
-
-export default Button;
+}

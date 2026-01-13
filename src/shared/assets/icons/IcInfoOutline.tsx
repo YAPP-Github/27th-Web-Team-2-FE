@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-const IcInfoOutline = (props: HTMLAttributes<HTMLDivElement>) => {
+export default function IcInfoOutline(props: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className='relative h-full w-full'
@@ -36,6 +36,4 @@ const IcInfoOutline = (props: HTMLAttributes<HTMLDivElement>) => {
       </div>
     </div>
   );
-};
-
-export default IcInfoOutline;
+}

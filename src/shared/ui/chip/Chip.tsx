@@ -25,7 +25,7 @@ interface ChipProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   selected?: boolean;
 }
 
-const Chip = ({
+export default function Chip({
   children,
   text = 'chip',
   variant = 'line',
@@ -33,7 +33,7 @@ const Chip = ({
   selected = false,
   className,
   ...props
-}: ChipProps) => {
+}: ChipProps) {
   // 기본 스타일
   const baseStyles =
     'relative flex shrink-0 cursor-pointer items-center justify-center whitespace-nowrap rounded border transition-colors';
@@ -77,6 +77,4 @@ const Chip = ({
       {children || text}
     </button>
   );
-};
-
-export default Chip;
+}

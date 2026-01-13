@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-const ArrowUp = (props: HTMLAttributes<HTMLDivElement>) => {
+export default function ArrowUp(props: HTMLAttributes<HTMLDivElement>) {
   return (
     <div className='relative h-full w-full' data-name='arrow_up' {...props}>
       <div className='absolute top-[37.5%] right-1/4 bottom-[37.5%] left-1/4 flex items-center justify-center'>
@@ -34,6 +34,4 @@ const ArrowUp = (props: HTMLAttributes<HTMLDivElement>) => {
       </div>
     </div>
   );
-};
-
-export default ArrowUp;
+}

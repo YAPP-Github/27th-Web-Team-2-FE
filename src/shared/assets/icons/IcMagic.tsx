@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-const IcMagic = (props: HTMLAttributes<HTMLDivElement>) => {
+export default function IcMagic(props: HTMLAttributes<HTMLDivElement>) {
   return (
     <div className='relative h-full w-full' data-name='ic_magic' {...props}>
       <div className='absolute inset-[13.7%_13.76%]'>
@@ -40,6 +40,4 @@ const IcMagic = (props: HTMLAttributes<HTMLDivElement>) => {
       </div>
     </div>
   );
-};
-
-export default IcMagic;
+}

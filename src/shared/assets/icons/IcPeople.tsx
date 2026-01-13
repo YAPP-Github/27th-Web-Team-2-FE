@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-const IcPeople = (props: HTMLAttributes<HTMLDivElement>) => {
+export default function IcPeople(props: HTMLAttributes<HTMLDivElement>) {
   return (
     <div className='relative h-full w-full' data-name='ic_people' {...props}>
       <svg
@@ -21,6 +21,4 @@ const IcPeople = (props: HTMLAttributes<HTMLDivElement>) => {
       </svg>
     </div>
   );
-};
-
-export default IcPeople;
+}

@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-const IcOtherShare = (props: HTMLAttributes<HTMLDivElement>) => {
+export default function IcOtherShare(props: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className='relative h-full w-full'
@@ -25,6 +25,4 @@ const IcOtherShare = (props: HTMLAttributes<HTMLDivElement>) => {
       </svg>
     </div>
   );
-};
-
-export default IcOtherShare;
+}

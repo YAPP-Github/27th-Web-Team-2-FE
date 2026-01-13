@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from 'react';
 
-const IcCircleXFilled = (props: HTMLAttributes<HTMLDivElement>) => {
+export default function IcCircleXFilled(props: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className='relative h-full w-full'
@@ -28,6 +28,4 @@ const IcCircleXFilled = (props: HTMLAttributes<HTMLDivElement>) => {
       </svg>
     </div>
   );
-};
-
-export default IcCircleXFilled;
+}
