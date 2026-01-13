@@ -32,7 +32,7 @@ interface InputProps extends ComponentProps<'input'> {
  * - Clear(X) 버튼 지원
  * - 글자수 카운팅 지원 (maxLength 설정 시)
  */
-export const Input = ({
+export default function Input({
   className,
   label,
   errorMessage,
@@ -47,7 +47,7 @@ export const Input = ({
   onChange,
   onKeyDown,
   ...props
-}: InputProps) => {
+}: InputProps) {
   // 접근성 ID 자동 생성
   const generatedId = useId();
   const inputId = id || generatedId;
@@ -156,9 +156,7 @@ export const Input = ({
       <div className='input-bottom-area'>
         <div className='input-message'>
           {errorMessage ? (
-            <span className='input-error-text text-caption-7'>
-              {errorMessage}
-            </span>
+            <span className='input-error-text text-body-5'>{errorMessage}</span>
           ) : helperText ? (
             <span className='input-helper-text text-caption-7'>
               {helperText}
@@ -174,4 +172,4 @@ export const Input = ({
       </div>
     </div>
   );
-};
+}
