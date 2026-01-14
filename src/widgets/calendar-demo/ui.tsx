@@ -4,19 +4,14 @@ import { useState } from 'react';
 
 import { generateMockVoteData } from '@/entities/voteDateStat/mock';
 import { useDateSelection } from '@/features/host-range-selector/lib';
-import { ReactCalendarAdapter as ReactCalendarHostRangeSelector } from '@/features/host-range-selector/ui/adapters/ReactCalendarAdapter';
 // Adapters - Host
 import { ReactDatepickerAdapter as ReactDatePickerHostRangeSelector } from '@/features/host-range-selector/ui/adapters/ReactDatepickerAdapter';
 // import { MultiDatePickerHostRangeSelector } from '@/features/host-range-selector/ui/adapters/react-multi-date-picker';
-import { ReactCalendarVoteResultsCalendar } from '@/features/vote-results-calendar/ui/adapters/react-calendar';
 // Adapters - Vote
 import { ReactDatePickerVoteResultsCalendar } from '@/features/vote-results-calendar/ui/adapters/react-datepicker';
 import { SegmentedControl } from '@/shared/ui/SegmentedControl';
 
-const LIBRARIES = [
-  { label: 'React Datepicker', value: 'datepicker' },
-  { label: 'React Calendar', value: 'calendar' },
-] as const;
+const LIBRARIES = [{ label: 'React Datepicker', value: 'datepicker' }] as const;
 
 const MODES = [
   { label: '(A) Vote Results', value: 'vote' },
@@ -74,27 +69,14 @@ export function CalendarDemoWidget() {
         <div className='min-h-[500px] p-1'>
           {mode === 'vote' ? (
             // Vote Results Mode
-            library === 'datepicker' ? (
-              <ReactDatePickerVoteResultsCalendar
-                month={VOTE_MONTH}
-                openRange={OPEN_RANGE}
-                stats={MOCK_STATS}
-              />
-            ) : (
-              <ReactCalendarVoteResultsCalendar
-                month={VOTE_MONTH}
-                openRange={OPEN_RANGE}
-                stats={MOCK_STATS}
-              />
-            )
+            <ReactDatePickerVoteResultsCalendar
+              month={VOTE_MONTH}
+              openRange={OPEN_RANGE}
+              stats={MOCK_STATS}
+            />
           ) : // Host Range Mode
           library === 'datepicker' ? (
             <ReactDatePickerHostRangeSelector
-              selectedDates={selectedDates}
-              onChange={handleDateChange}
-            />
-          ) : library === 'calendar' ? (
-            <ReactCalendarHostRangeSelector
               selectedDates={selectedDates}
               onChange={handleDateChange}
             />
