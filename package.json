@@ -26,7 +26,6 @@
     "react-calendar": "^6.0.0",
     "react-datepicker": "^9.1.0",
     "react-dom": "19.2.3",
-    "react-multi-date-picker": "^4.5.2",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
