@@ -4,6 +4,7 @@ import { Check, X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 
 import { VoteDateStat } from '@/entities/voteDateStat/model';
+import Chip from '@/shared/ui/chip';
 
 type VoteResultsShellProps = {
   children: React.ReactNode;
@@ -48,7 +49,7 @@ export function VoteResultsShell({
           <div className='mb-6 flex items-start justify-between'>
             <div>
               <h3 className='mb-1 text-sm font-medium text-slate-500'>
-                {format(parseISO(selectedDate), 'M月 d日 EEEE', { locale: ko })}
+                {format(parseISO(selectedDate), 'M월 d일 EEEE', { locale: ko })}
               </h3>
               <div className='flex items-center gap-2'>
                 <span className='text-2xl font-bold text-slate-900'>
@@ -74,12 +75,13 @@ export function VoteResultsShell({
               {selectedStat && selectedStat.can.length > 0 ? (
                 <div className='flex flex-wrap gap-2'>
                   {selectedStat.can.map((p) => (
-                    <span
+                    <Chip
                       key={p.id}
-                      className='rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700'
-                    >
-                      {p.name}
-                    </span>
+                      text={p.name}
+                      variant='fill'
+                      size='md'
+                      className='bg-slate-100 text-slate-700'
+                    />
                   ))}
                 </div>
               ) : (
@@ -89,21 +91,21 @@ export function VoteResultsShell({
               )}
             </div>
 
-            {/* Impossible */}
             <div>
-              <div className='mb-3 flex items-center gap-2 text-sm font-medium text-red-500'>
+              <div className='mb-3 flex items-center gap-2 text-sm font-medium text-red-600'>
                 <X className='h-4 w-4' />
                 안되는 사람
               </div>
               {selectedStat && selectedStat.cannot.length > 0 ? (
                 <div className='flex flex-wrap gap-2'>
                   {selectedStat.cannot.map((p) => (
-                    <span
+                    <Chip
                       key={p.id}
-                      className='rounded-lg bg-slate-50 px-3 py-1.5 text-sm text-slate-400'
-                    >
-                      {p.name}
-                    </span>
+                      text={p.name}
+                      variant='fill'
+                      size='md'
+                      className='bg-slate-100 text-slate-700'
+                    />
                   ))}
                 </div>
               ) : (
