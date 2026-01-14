@@ -53,7 +53,7 @@ export function Header({
     <header className={`flex w-full flex-col ${className}`}>
       {/* Default Variant */}
       {variant === 'default' && (
-        <div className='flex w-full items-center justify-between bg-white px-5 pt-6 pb-2'>
+        <div className='flex w-full items-center justify-between px-5 pt-6 pb-2'>
           <div className='text-headline-5 text-text-primary'>
             {voteCount !== undefined ? (
               <>
