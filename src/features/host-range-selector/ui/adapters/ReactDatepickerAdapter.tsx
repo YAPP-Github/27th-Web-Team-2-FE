@@ -1,9 +1,11 @@
 import 'react-datepicker/dist/react-datepicker.css';
 
-import { isSameDay } from 'date-fns';
+import { format, isSameDay } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
+
+import Icon from '@/shared/ui/icon/Icon';
 
 import {
   generateDateRange,
@@ -235,6 +237,35 @@ export function ReactDatepickerAdapter({
         inline
         minDate={minDate}
         maxDate={maxDate}
+        renderCustomHeader={({
+          date,
+          decreaseMonth,
+          increaseMonth,
+          prevMonthButtonDisabled,
+          nextMonthButtonDisabled,
+        }) => (
+          <div className='mb-4 flex items-center justify-center gap-9'>
+            <button
+              onClick={decreaseMonth}
+              disabled={prevMonthButtonDisabled}
+              type='button'
+              className='flex items-center justify-center text-slate-400 transition-colors hover:text-slate-400 disabled:opacity-30'
+            >
+              <Icon name='arrow_prev' size={24} />
+            </button>
+            <span className='text-xl font-bold text-slate-800'>
+              {format(date, 'M월')}
+            </span>
+            <button
+              onClick={increaseMonth}
+              disabled={nextMonthButtonDisabled}
+              type='button'
+              className='flex items-center justify-center text-slate-400 transition-colors hover:text-slate-400 disabled:opacity-30'
+            >
+              <Icon name='arrow_next' size={24} />
+            </button>
+          </div>
+        )}
         dayClassName={getDayClass}
         filterDate={(date) => !isDateDisabled(date)}
         dateFormat='yyyy. MM'

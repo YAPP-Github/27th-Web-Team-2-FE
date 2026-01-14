@@ -201,7 +201,7 @@ export function ReactDatePickerVoteResultsCalendar({
                 onClick={decreaseMonth}
                 disabled={prevMonthButtonDisabled}
                 type='button'
-                className='flex items-center justify-center text-slate-200 transition-colors hover:text-slate-400 disabled:opacity-30'
+                className='flex items-center justify-center text-slate-400 transition-colors hover:text-slate-400 disabled:opacity-30'
               >
                 <Icon name='arrow_prev' size={24} />
               </button>
@@ -212,7 +212,7 @@ export function ReactDatePickerVoteResultsCalendar({
                 onClick={increaseMonth}
                 disabled={nextMonthButtonDisabled}
                 type='button'
-                className='flex items-center justify-center text-slate-200 transition-colors hover:text-slate-400 disabled:opacity-30'
+                className='flex items-center justify-center text-slate-400 transition-colors hover:text-slate-400 disabled:opacity-30'
               >
                 <Icon name='arrow_next' size={24} />
               </button>
