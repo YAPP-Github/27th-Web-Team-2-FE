@@ -1,10 +1,10 @@
 import { format, parseISO } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import { Check, X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 
 import { VoteDateStat } from '@/entities/voteDateStat/model';
 import Chip from '@/shared/ui/chip';
+import { Icon } from '@/shared/ui/icon';
 
 type VoteResultsShellProps = {
   children: React.ReactNode;
@@ -61,7 +61,7 @@ export function VoteResultsShell({
               onClick={onCloseDetail}
               className='-mr-2 p-2 text-slate-400 hover:text-slate-600'
             >
-              <X className='h-5 w-5' />
+              <Icon name='ic_menu_close' size={20} />
             </button>
           </div>
 
@@ -69,7 +69,7 @@ export function VoteResultsShell({
             {/* Possible */}
             <div>
               <div className='mb-3 flex items-center gap-2 text-sm font-medium text-blue-600'>
-                <Check className='h-4 w-4' />
+                <Icon name='ic_circle_check_filled' size={16} />
                 가능한 사람
               </div>
               {selectedStat && selectedStat.can.length > 0 ? (
@@ -92,8 +92,8 @@ export function VoteResultsShell({
             </div>
 
             <div>
-              <div className='mb-3 flex items-center gap-2 text-sm font-medium text-red-600'>
-                <X className='h-4 w-4' />
+              <div className='mb-3 flex items-center gap-2 text-sm font-medium text-red-500'>
+                <Icon name='ic_circle_x_filled' size={16} />
                 안되는 사람
               </div>
               {selectedStat && selectedStat.cannot.length > 0 ? (
