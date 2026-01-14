@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+'use client';
+import { useRef, useState } from 'react';
 
 import Chip from '@/shared/ui/chip/Chip';
 
@@ -19,18 +20,18 @@ export default function Dropdown({
   const containerRef = useRef<HTMLDivElement>(null);
 
   // (옵션) 바깥 클릭 시 닫기 - 아코디언에도 그대로 써도 됨
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  // useEffect(() => {
+  //   function handleClickOutside(event: MouseEvent) {
+  //     if (
+  //       containerRef.current &&
+  //       !containerRef.current.contains(event.target as Node)
+  //     ) {
+  //       setIsOpen(false);
+  //     }
+  //   }
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => document.removeEventListener('mousedown', handleClickOutside);
+  // }, []);
 
   const handleToggle = () => setIsOpen((prev) => !prev);
 
@@ -78,7 +79,7 @@ export default function Dropdown({
             <div
               className={[
                 'h-6 w-6 transition-transform duration-200',
-                isOpen ? 'rotate-180' : '',
+                isOpen ? '' : 'rotate-180',
               ].join(' ')}
             >
               <Icon name='arrow_down' size={24} />
