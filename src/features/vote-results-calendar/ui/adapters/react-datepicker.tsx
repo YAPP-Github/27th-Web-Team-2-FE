@@ -107,7 +107,7 @@ export function ReactDatePickerVoteResultsCalendar({
       selectedStat={selectedStat}
       calendarRef={calendarRef}
     >
-      <div className='react-datepicker-custom-wrapper'>
+      <div className='react-datepicker-custom-wrapper flex w-full justify-center'>
         <DatePicker
           locale={ko}
           inline

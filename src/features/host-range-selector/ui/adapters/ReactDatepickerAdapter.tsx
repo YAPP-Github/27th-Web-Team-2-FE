@@ -138,7 +138,7 @@ export function ReactDatepickerAdapter({
       onMouseLeave={handleMouseUp} // Auto-commit if leaving container
     >
       <style>{`
-        .react-datepicker {
+      .react-datepicker {
             border: none;
             font-family: inherit;
             width: 100%;
@@ -168,14 +168,23 @@ export function ReactDatepickerAdapter({
             color: #333;
             font-weight: 500;
         }
+        /* Layout styles moved to globals.css (fluid layout) */
         
-        /* 1. COMMITTED SELECTION (Dark Blue) */
+        /* Ensure all days have the same size/border structure to prevent shifts */
+        .react-datepicker__day {
+            border: 8px solid transparent !important;
+            box-sizing: border-box !important;
+        }
+
+        /* 1. COMMITTED SELECTION (Gray with wide White border) */
         .custom-selected-day {
-            background-color: #2563EB !important;
+            background-color: var(--color-gray-800) !important;
             color: white !important;
+            border-color: white !important;
+            border-radius: 16px !important; /* Adjust radius for inner box shape */
         }
         .custom-selected-day:hover {
-            background-color: #1D4ED8 !important;
+            background-color: var(--color-gray-900) !important;
         }
 
         /* 2. DRAG VISUALIZATION (Light Blue layer) */
