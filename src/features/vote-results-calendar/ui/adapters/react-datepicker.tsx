@@ -18,25 +18,28 @@ export function ReactDatePickerVoteResultsCalendar({
   stats,
   focusedParticipant,
 }: VoteResultsProps & { focusedParticipant?: string | null }) {
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [rawSelectedDate, setRawSelectedDate] = useState<string | null>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
 
   // 문자열 날짜를 라이브러리용 Date 객체로 변환
   const minDate = parseDate(openRange.start);
   const maxDate = parseDate(openRange.end);
 
-  // 필터가 변경되었을 때, 선택된 날짜가 해당 참여자에게 불가능한 경우 선택을 해제합니다.
-  if (focusedParticipant && selectedDate) {
-    const stat = stats.find((s) => s.date === selectedDate);
-    if (stat) {
-      const isParticipantPossible = stat.can.some(
+  // [Derived State] 필터링 조건에 따라 유효한 선택 날짜를 렌더링 중에 계산합니다.
+  // 필터(참여자)가 변경되어도 원본 상태(rawSelectedDate)는 유지되므로, 필터 해제 시 복구됩니다.
+  const selectedDate = (() => {
+    if (!rawSelectedDate) return null;
+
+    if (focusedParticipant) {
+      const stat = stats.find((s) => s.date === rawSelectedDate);
+      const isParticipantPossible = stat?.can.some(
         (p) => p.name === focusedParticipant,
       );
-      if (!isParticipantPossible) {
-        setSelectedDate(null);
-      }
+      if (!isParticipantPossible) return null;
     }
-  }
+
+    return rawSelectedDate;
+  })();
 
   const selectedStat = selectedDate
     ? stats.find((s) => s.date === selectedDate) || null
@@ -60,9 +63,9 @@ export function ReactDatePickerVoteResultsCalendar({
     }
 
     if (selectedDate === dateStr) {
-      setSelectedDate(null); // 토글 해제
+      setRawSelectedDate(null); // 토글 해제
     } else {
-      setSelectedDate(dateStr);
+      setRawSelectedDate(dateStr);
     }
   };
 
@@ -179,7 +182,7 @@ export function ReactDatePickerVoteResultsCalendar({
   return (
     <VoteResultsShell
       selectedDate={selectedDate}
-      onCloseDetail={() => setSelectedDate(null)}
+      onCloseDetail={() => setRawSelectedDate(null)}
       selectedStat={selectedStat}
       calendarRef={calendarRef}
     >
