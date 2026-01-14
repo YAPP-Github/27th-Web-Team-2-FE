@@ -19,7 +19,7 @@ export function ReactDatepickerAdapter({
 }: HostRangeSelectorProps) {
   const { minDate, maxDate } = getNavigationLimits();
 
-  // State for Drag-to-Select
+  // 드래그 선택을 위한 상태
   const [dragState, setDragState] = useState<{
     isDragging: boolean;
     start: Date | null;
@@ -30,11 +30,12 @@ export function ReactDatepickerAdapter({
     end: null,
   });
 
-  /* Touch Handlers */
+  /* 터치 이벤트 핸들러 */
   const handleTouchStart = (e: React.TouchEvent, date: Date) => {
-    // Prevent default to stop scrolling interaction on the date tile
-    // Note: e.preventDefault() might invoke "passive listener" warnings in some browsers if not set on ref.
-    // However, touch-action: none in CSS is the modern way to handle this.
+    // 날짜 타일에서의 스크롤 상호작용 방지
+    // 참고: e.preventDefault()는 ref에 설정되지 않은 경우 일부 브라우저에서
+    // "passive listener" 경고를 유발할 수 있음.
+    // 하지만 CSS의 touch-action: none이 이를 처리하는 현대적인 방법임.
 
     if (isDateDisabled(date)) return;
     setDragState({
@@ -47,18 +48,18 @@ export function ReactDatepickerAdapter({
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!dragState.isDragging || !dragState.start) return;
 
-    // Find the element under the finger
+    // 터치한 위치의 요소 찾기
     const touch = e.touches[0];
     const target = document.elementFromPoint(touch.clientX, touch.clientY);
 
-    // Look for the closest day cell with our data attribute
+    // data 속성을 가진 가장 가까운 날짜 셀 찾기
     const cell = target?.closest('[data-date-timestamp]');
     if (cell) {
       const ts = cell.getAttribute('data-date-timestamp');
       if (ts) {
         const hoveredDate = new Date(parseInt(ts, 10));
 
-        // Update end date if different
+        // 종료 날짜가 다르면 업데이트
         if (dragState.end && !isSameDay(hoveredDate, dragState.end)) {
           setDragState((prev) => ({
             ...prev,
@@ -70,7 +71,7 @@ export function ReactDatepickerAdapter({
   };
 
   const handleTouchEnd = () => {
-    handleMouseUp(); // Logic is identical
+    handleMouseUp(); // 로직 동일
   };
 
   const handleMouseDown = (date: Date) => {
@@ -97,7 +98,7 @@ export function ReactDatepickerAdapter({
       onChange(newSelection);
     }
 
-    // Reset
+    // 초기화
     setDragState({
       isDragging: false,
       start: null,
@@ -105,12 +106,12 @@ export function ReactDatepickerAdapter({
     });
   };
 
-  // Determine class for each day
+  // 각 날짜의 클래스 결정
   const getDayClass = (date: Date) => {
-    // 1. Check if selected (persisted)
+    // 1. 선택된 날짜인지 확인 (저장된 상태)
     const isSelected = selectedDates.some((d) => isSameDay(d, date));
 
-    // 2. Check if in valid drag range (visual only)
+    // 2. 유효한 드래그 범위 내인지 확인 (시각적 표시)
     let isInDragRange = false;
     if (dragState.isDragging && dragState.start && dragState.end) {
       const [start, end] =
@@ -118,7 +119,7 @@ export function ReactDatepickerAdapter({
           ? [dragState.start, dragState.end]
           : [dragState.end, dragState.start];
 
-      // Simple range check
+      // 단순 범위 확인
       if (date >= start && date <= end && !isDateDisabled(date)) {
         isInDragRange = true;
       }
@@ -135,7 +136,7 @@ export function ReactDatepickerAdapter({
     <div
       className='react-datepicker-wrapper-custom flex w-full justify-center select-none'
       onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp} // Auto-commit if leaving container
+      onMouseLeave={handleMouseUp} // 컨테이너를 벗어나면 자동 커밋
     >
       <style>{`
       .react-datepicker {
@@ -168,58 +169,56 @@ export function ReactDatepickerAdapter({
             color: #333;
             font-weight: 500;
         }
-        /* Layout styles moved to globals.css (fluid layout) */
+        /* 레이아웃 스타일은 globals.css로 이동됨 (유동적 레이아웃) */
         
-        /* Ensure all days have the same size/border structure to prevent shifts */
+        /* 밀림 방지를 위해 모든 날짜가 동일한 크기/테두리 구조를 갖도록 보장 */
         .react-datepicker__day {
             border: 8px solid transparent !important;
             box-sizing: border-box !important;
         }
 
-        /* 1. COMMITTED SELECTION (Gray with wide White border) */
+        /* 1. 확정된 선택 (회색 배경 + 굵은 흰색 테두리) */
         .custom-selected-day {
             background-color: var(--color-gray-800) !important;
             color: white !important;
             border-color: white !important;
-            border-radius: 16px !important; /* Adjust radius for inner box shape */
+            border-radius: 16px !important; /* 내부 박스 형태를 위한 반지름 조정 */
         }
         .custom-selected-day:hover {
             background-color: var(--color-gray-900) !important;
         }
 
-        /* 2. DRAG VISUALIZATION (Light Blue layer) */
+        /* 2. 드래그 시각화 (연한 파란색 레이어) */
         .custom-selecting-range {
              background-color: #DBEAFE !important; /* Blue-100 */
              color: #1E3A8A !important;
              border-radius: 8px !important;
         }
         
-        /* Start/End of drag could be styled if we checked for equality, 
-           but simple unification is often cleaner for "add" mode */
+        /* 시작/종료일 스타일 처리: 동일 여부를 확인할 수도 있지만,
+           단순 통합 방식이 "추가" 모드에서 더 깔끔할 수 있음 */
 
-        /* If both selected AND dragging over it? 
-           Usually "selected" wins color-wise, 
-           but maybe we want to show it's being toggled off?
-           For now let's simple cascade: .custom-selecting-range is later, 
-           so it might override. Let's make sure selected wins if we want.
-           Actually, the user wants "toggle".
-           Visualizing "will be removed" is complex. 
-           Let's stick to "Blue-100" overlay for drag range. 
+        /* 이미 선택된 날짜 위로 드래그할 경우?
+           보통 "선택됨" 색상이 우선하지만, 토글(제거)됨을 보여주고 싶을 수 있음.
+           현재는 단순히 custom-selecting-range가 나중에 선언되어 덮어쓸 수 있음.
+           사용자가 원하는 것은 "토글"임.
+           "제거될 것임"을 시각화하는 것은 복잡하므로 
+           일단 드래그 범위에 "Blue-100" 오버레이를 유지함.
         */
 
-        /* Disabled */
+        /* 비활성화됨 */
         .react-datepicker__day--disabled {
             color: #d1d5db !important;
             cursor: not-allowed;
             background: transparent !important;
         }
         
-        /* Hover */
+        /* 호버 상태 */
         .react-datepicker__day:not(.react-datepicker__day--disabled):hover {
             background-color: #F3F4F6;
         }
         
-        /* Clear default selected class behavior if any remains */
+        /* 기본 선택 클래스 동작 초기화 */
         .react-datepicker__day--selected, 
         .react-datepicker__day--keyboard-selected {
             background-color: transparent;
@@ -232,7 +231,7 @@ export function ReactDatepickerAdapter({
       `}</style>
       <DatePicker
         locale={ko}
-        onChange={() => {}} // Controlled manually via mouse events
+        onChange={() => {}} // 마우스 이벤트를 통해 수동 제어
         inline
         minDate={minDate}
         maxDate={maxDate}
@@ -243,18 +242,18 @@ export function ReactDatepickerAdapter({
           return (
             <div
               className='flex h-full w-full items-center justify-center'
-              // Mouse Handlers
+              // 마우스 핸들러
               onMouseDown={(e) => {
-                e.stopPropagation(); // Prevent DatePicker's default click
+                e.stopPropagation(); // DatePicker의 기본 클릭 방지
                 handleMouseDown(date);
               }}
               onMouseEnter={() => handleMouseEnter(date)}
-              // Touch Handlers
-              data-date-timestamp={date.getTime()} // Identify cell for elementFromPoint
+              // 터치 핸들러
+              data-date-timestamp={date.getTime()} // elementFromPoint 식별을 위한 셀 데이터
               onTouchStart={(e) => handleTouchStart(e, date)}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
-              // Prevent scrolling while dragging on mobile
+              // 모바일에서 드래그 중 스크롤 방지
               style={{ touchAction: 'none' }}
             >
               {day}
