@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { generateMockVoteData } from '@/entities/voteDateStat/mock';
+import { useDateSelection } from '@/features/host-range-selector/lib';
 import { ReactCalendarAdapter as ReactCalendarHostRangeSelector } from '@/features/host-range-selector/ui/adapters/ReactCalendarAdapter';
 // Adapters - Host
 import { ReactDatepickerAdapter as ReactDatePickerHostRangeSelector } from '@/features/host-range-selector/ui/adapters/ReactDatepickerAdapter';
@@ -36,7 +37,8 @@ export function CalendarDemoWidget() {
   const [mode, setMode] = useState<ModeType>('vote');
 
   // Host Mode State
-  const [selectedDates, setSelectedDates] = useState<Date[]>([]);
+  const { selectedDates, handleDateChange, formattedDates } =
+    useDateSelection();
 
   return (
     <div className='mx-auto max-w-xl space-y-8 p-6'>
@@ -89,12 +91,12 @@ export function CalendarDemoWidget() {
           library === 'datepicker' ? (
             <ReactDatePickerHostRangeSelector
               selectedDates={selectedDates}
-              onChange={setSelectedDates}
+              onChange={handleDateChange}
             />
           ) : library === 'calendar' ? (
             <ReactCalendarHostRangeSelector
               selectedDates={selectedDates}
-              onChange={setSelectedDates}
+              onChange={handleDateChange}
             />
           ) : (
             // <MultiDatePickerHostRangeSelector
@@ -108,8 +110,22 @@ export function CalendarDemoWidget() {
       </main>
 
       {mode === 'host' && (
-        <div className='text-center text-xs text-slate-400'>
-          Selected Dates: {selectedDates.length}
+        <div className='space-y-2 p-4 pt-0'>
+          <div className='text-center text-xs text-slate-400'>
+            Selected Dates: {selectedDates.length}
+          </div>
+          <div className='rounded-lg bg-slate-900 p-4 font-mono text-xs text-green-400 shadow-inner'>
+            <p className='mb-2 text-slate-500'>{'// API Payload Preview'}</p>
+            {JSON.stringify(
+              {
+                meetingId: 'sample-id',
+                name: 'sample-name',
+                voteDates: formattedDates,
+              },
+              null,
+              2,
+            )}
+          </div>
         </div>
       )}
     </div>
