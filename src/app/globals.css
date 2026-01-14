@@ -580,6 +580,19 @@
   flex-direction: column;
   gap: 0; /* Adjust if vertical gap needed */
 }
+
+/* Hide screen reader only text visually */
+.react-datepicker__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
 .react-datepicker__week,
 .react-datepicker__day-names {
   display: flex !important;

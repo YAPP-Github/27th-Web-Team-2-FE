@@ -7,12 +7,14 @@ import { Icon } from '../icon';
 
 interface DropdownProps {
   participants?: string[];
+  selectedParticipant?: string | null;
   onSelectParticipant?: (name: string) => void;
   className?: string;
 }
 
 export default function Dropdown({
   participants = [],
+  selectedParticipant,
   onSelectParticipant,
   className = '',
 }: DropdownProps) {
@@ -103,6 +105,8 @@ export default function Dropdown({
                         text={name}
                         variant='line'
                         size='md'
+                        // If selectedParticipant is provided, check equality
+                        selected={selectedParticipant === name}
                         onClick={() => onSelectParticipant?.(name)}
                       />
                     ))}

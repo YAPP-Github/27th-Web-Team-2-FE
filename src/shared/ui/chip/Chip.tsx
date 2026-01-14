@@ -50,8 +50,7 @@ export default function Chip({
 
   if (variant === 'line') {
     if (selected) {
-      colorStyles =
-        'bg-blue-10 border-primary-default text-primary-default hover:bg-blue-30';
+      colorStyles = 'bg-gray-800 border-gray-800 text-white hover:bg-gray-900';
     } else {
       colorStyles =
         'bg-gray-0 border-line-nonclickable text-text-secondary hover:text-text-primary hover:bg-gray-50';

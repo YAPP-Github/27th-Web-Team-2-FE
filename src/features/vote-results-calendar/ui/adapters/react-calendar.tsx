@@ -1,6 +1,6 @@
 'use client';
 
-import 'react-calendar/dist/Calendar.css'; // Import CSS
+import 'react-calendar/dist/Calendar.css'; // CSS 스타일 불러오기
 
 import { format } from 'date-fns';
 import { useRef, useState } from 'react';
@@ -16,12 +16,27 @@ import { VoteResultsShell } from '../VoteResultsShell';
 export function ReactCalendarVoteResultsCalendar({
   openRange,
   stats,
-}: VoteResultsProps) {
+  focusedParticipant,
+}: VoteResultsProps & { focusedParticipant?: string | null }) {
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const calendarRef = useRef<HTMLDivElement>(null);
 
   const minDate = parseDate(openRange.start);
   const maxDate = parseDate(openRange.end);
+
+  // 필터가 변경되었을 때, 선택된 날짜가 해당 참여자에게 불가능한 경우 선택을 해제합니다.
+
+  if (focusedParticipant && selectedDate) {
+    const stat = stats.find((s) => s.date === selectedDate);
+    if (stat) {
+      const isParticipantPossible = stat.can.some(
+        (p) => p.name === focusedParticipant,
+      );
+      if (!isParticipantPossible) {
+        setSelectedDate(null);
+      }
+    }
+  }
 
   const selectedStat = selectedDate
     ? stats.find((s) => s.date === selectedDate) || null
@@ -34,6 +49,14 @@ export function ReactCalendarVoteResultsCalendar({
     // 후보 날짜인지 확인합니다. (통계에 존재하는지 여부)
     // 통계에 없다면 후보 날짜가 아니므로 무시합니다.
     if (!stat) return;
+
+    // 만약 필터링 중이라면, 해당 참여자가 가능한 날짜만 클릭 가능하도록 함
+    if (focusedParticipant) {
+      const isParticipantPossible = stat.can.some(
+        (p) => p.name === focusedParticipant,
+      );
+      if (!isParticipantPossible) return;
+    }
 
     if (selectedDate === dateStr) {
       setSelectedDate(null);
@@ -67,7 +90,7 @@ export function ReactCalendarVoteResultsCalendar({
             // 모든 날짜에 대해 기본 props 재계산
             const dayNumber = format(date, 'd');
 
-            // Simple disable check for styling
+            // 스타일링을 위한 간단한 비활성화 체크
             // const isDisabledOrNoVotes = disabled || votes === 0;
 
             // 랭킹 로직
@@ -84,22 +107,46 @@ export function ReactCalendarVoteResultsCalendar({
             // 후보 날짜 여부 확인 (statistics 존재 여부)
             const isCandidate = !!stat;
 
+            // 필터링 적용 여부
+            let isFilteredOut = false;
+            if (focusedParticipant && stat) {
+              const isParticipantPossible = stat.can.some(
+                (p) => p.name === focusedParticipant,
+              );
+              if (!isParticipantPossible) {
+                isFilteredOut = true;
+              }
+            }
+
             if (isCandidate) {
-              // 이번 모임의 유효한 후보 날짜입니다.
-              if (votes > 0) {
-                if (rank && rank <= 3) {
-                  // 1~3위: 완전 파란색 (blue-100), 글자 흰색
-                  bgClass = 'bg-blue-100 shadow-sm';
-                  textClass = 'text-white font-bold';
-                } else {
-                  // 그 외 투표: 하늘색 (blue-30), 글자 파란색
-                  bgClass = 'bg-blue-30';
-                  textClass = 'text-blue-100 font-medium';
-                }
-              } else {
-                // 0표지만 후보 날짜인 경우: 일반 검정 텍스트
-                bgClass = 'hover:bg-slate-100'; // 호버 효과 추가
+              if (isFilteredOut) {
+                // 필터링 된 경우: 배경 없음, 검은 텍스트 (비활성 느낌이지만 글씨는 보임)
+                bgClass = '';
+                textClass = 'text-slate-300'; // 비활성화를 명확히 하기 위해 연한 색 사용 (검은색 요청이 있었으나 UX상 구분이 필요할 수 있음. 하지만 유저 요청 "검은색 글씨" 준수 -> 900 or 400? 검은색=900)
+                // 유저 멘트: "아무도 투표하지 않는 날짜 처럼 그냥 검은색 글씨만 보이는 상태"
+                // "아무도 투표하지 않는 날짜"의 스타일 = text-slate-900 (line 102)
                 textClass = 'text-slate-900';
+              } else {
+                // 이번 모임의 유효한 후보 날짜입니다.
+                if (votes > 0) {
+                  if (focusedParticipant) {
+                    // 필터링 적용 시: Gray 800
+                    bgClass = 'bg-gray-800';
+                    textClass = 'text-white font-bold';
+                  } else if (rank && rank <= 3) {
+                    // 1~3위: 완전 파란색 (blue-100), 글자 흰색
+                    bgClass = 'bg-blue-100 shadow-sm';
+                    textClass = 'text-white font-bold';
+                  } else {
+                    // 그 외 투표: 하늘색 (blue-30), 글자 파란색
+                    bgClass = 'bg-blue-30';
+                    textClass = 'text-blue-100 font-medium';
+                  }
+                } else {
+                  // 0표지만 후보 날짜인 경우: 일반 검정 텍스트
+                  bgClass = 'hover:bg-slate-100'; // 호버 효과 추가
+                  textClass = 'text-slate-900';
+                }
               }
             } else {
               // 후보 날짜 아님: 비활성화/회색
@@ -111,9 +158,11 @@ export function ReactCalendarVoteResultsCalendar({
               ? 'ring-2 ring-blue-100 ring-offset-2'
               : '';
 
-            // 상호작용: 후보 날짜만 클릭 가능
+            // 상호작용: 후보 날짜만 클릭 가능, 필터링 된 날짜는 클릭 불가
             const isInteractive =
-              isCandidate && !isDateDisabled(dateStr, openRange);
+              isCandidate &&
+              !isDateDisabled(dateStr, openRange) &&
+              !isFilteredOut;
 
             return (
               <div className='pointer-events-none absolute inset-0 flex items-center justify-center'>
@@ -124,14 +173,16 @@ export function ReactCalendarVoteResultsCalendar({
                     textClass,
                     selectedClass,
                     isInteractive && !isSelected && 'hover:brightness-95',
-                    !isInteractive && 'pointer-events-none text-slate-300', // 후보 날짜가 아닌 경우 덮어쓰기
+                    !isInteractive && 'pointer-events-none text-slate-300', // 후보 날짜가 아닌 경우 덮어쓰기 -> 여기서 text-slate-300이 강제됨.
+                    // 필터링 된 경우에도 "검은색 글씨"를 보여주려면 여기서 예외 처리가 필요함.
+                    isFilteredOut && 'text-slate-900', // 필터링 된 경우 텍스트 색상 강제 지정
                     isInteractive && 'pointer-events-auto cursor-pointer',
                   )}
                 >
                   {dayNumber}
 
                   {/* Badge */}
-                  {votes > 0 && rank && rank <= 3 && (
+                  {votes > 0 && rank && rank <= 3 && !focusedParticipant && (
                     <div className='absolute -top-3 -right-2'>
                       <Badge
                         variant={

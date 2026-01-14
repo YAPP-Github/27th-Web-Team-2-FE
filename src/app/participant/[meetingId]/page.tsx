@@ -1,8 +1,7 @@
-import { ReactCalendarVoteResultsCalendar } from '@/features/vote-results-calendar/ui/adapters/react-calendar';
 import { Person } from '@/shared/types/common';
-import { Dropdown } from '@/shared/ui/dropdown';
 import { Header } from '@/shared/ui/header';
 import { TopBar } from '@/shared/ui/top-bar';
+import { VoteResultDataView } from '@/widgets/vote-result/ui/VoteResultDataView';
 
 // 1. Mock Data based on User Schema
 const MOCK_DATA = {
@@ -79,7 +78,7 @@ interface ResultPageProps {
 }
 
 export default async function ResultPage({ params }: ResultPageProps) {
-  const { meetingId } = await params;
+  const {} = await params;
 
   // Derive stats
   const stats = getStatsFromMock(MOCK_DATA.dates, MOCK_DATA.participants);
@@ -104,18 +103,11 @@ export default async function ResultPage({ params }: ResultPageProps) {
 
       <Header voteCount={MOCK_DATA.participants.length} />
 
-      <div className='flex flex-col items-center px-5 py-6'>
-        <div className='w-full space-y-4'>
-          {/* Dropdown for participants */}
-          <Dropdown participants={participantNames} className='mb-6' />
-
-          <ReactCalendarVoteResultsCalendar
-            month={openRange.start.slice(0, 7)}
-            openRange={openRange}
-            stats={stats}
-          />
-        </div>
-      </div>
+      <VoteResultDataView
+        participantNames={participantNames}
+        openRange={openRange}
+        stats={stats}
+      />
     </div>
   );
 }
