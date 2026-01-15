@@ -17,7 +17,7 @@ import {
 export async function createMeeting(
   data: CreateMeetRequest,
 ): Promise<CreateMeetResponse> {
-  const ENDPOINT = '/api/v1/meeting';
+  const ENDPOINT = 'v1/meeting';
   // 1) 요청 바디 스키마 검증 (클라이언트 측 검증)
   const json = createMeetRequestDto.parse(data);
 

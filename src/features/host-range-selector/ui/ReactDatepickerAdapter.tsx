@@ -2,7 +2,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 import { format, isSameDay } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 
 import Icon from '@/shared/ui/icon/Icon';
@@ -21,6 +21,18 @@ export function ReactDatepickerAdapter({
 }: HostRangeSelectorProps) {
   const { minDate, maxDate } = getNavigationLimits();
 
+  const dragRef = useRef<{
+    isDragging: boolean;
+    start: Date | null;
+    end: Date | null;
+  }>({
+    isDragging: false,
+    start: null,
+    end: null,
+  });
+
+  const touchHandledRef = useRef(false);
+
   const [dragState, setDragState] = useState<{
     isDragging: boolean;
     start: Date | null;
@@ -32,16 +44,15 @@ export function ReactDatepickerAdapter({
   });
 
   const handleTouchStart = (e: React.TouchEvent, date: Date) => {
+    touchHandledRef.current = true;
     if (isDateDisabled(date)) return;
-    setDragState({
-      isDragging: true,
-      start: date,
-      end: date,
-    });
+    dragRef.current = { isDragging: true, start: date, end: date };
+    setDragState({ isDragging: true, start: date, end: date });
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (!dragState.isDragging || !dragState.start) return;
+    const { isDragging, start, end } = dragRef.current;
+    if (!isDragging || !start) return;
 
     const touch = e.touches[0];
     const target = document.elementFromPoint(touch.clientX, touch.clientY);
@@ -53,55 +64,60 @@ export function ReactDatepickerAdapter({
         const hoveredDate = new Date(parseInt(ts, 10));
 
         if (
-          dragState.end &&
-          !isSameDay(hoveredDate, dragState.end) &&
+          end &&
+          !isSameDay(hoveredDate, end) &&
           !isDateDisabled(hoveredDate)
         ) {
-          setDragState((prev) => ({
-            ...prev,
-            end: hoveredDate,
-          }));
+          dragRef.current.end = hoveredDate;
+          setDragState((prev) => ({ ...prev, end: hoveredDate }));
         }
       }
     }
   };
 
   const handleTouchEnd = () => {
-    handleMouseUp();
+    handleMouseUp(true); // fromTouch = true
+    // 터치 후 발생하는 마우스 이벤트를 무시하기 위해 짧은 딜레이 후 리셋
+    setTimeout(() => {
+      touchHandledRef.current = false;
+    }, 300);
   };
 
   const handleMouseDown = (date: Date) => {
+    if (touchHandledRef.current) return; // 터치 이벤트 후 발생한 마우스 이벤트 무시
     if (isDateDisabled(date)) return;
-    setDragState({
-      isDragging: true,
-      start: date,
-      end: date,
-    });
+    dragRef.current = { isDragging: true, start: date, end: date };
+    setDragState({ isDragging: true, start: date, end: date });
   };
 
   const handleMouseEnter = (date: Date) => {
-    if (!dragState.isDragging || !dragState.start || isDateDisabled(date)) {
+    const { isDragging, start } = dragRef.current;
+    if (!isDragging || !start || isDateDisabled(date)) {
       return;
     }
 
-    setDragState((prev) => ({
-      ...prev,
-      end: date,
-    }));
+    dragRef.current.end = date;
+    setDragState((prev) => ({ ...prev, end: date }));
   };
 
-  const handleMouseUp = () => {
-    if (dragState.isDragging && dragState.start && dragState.end) {
-      const newRange = generateDateRange(dragState.start, dragState.end);
-      const newSelection = toggleDatesSmart(selectedDates, newRange);
-      onChange(newSelection);
+  const handleMouseUp = (fromTouch = false) => {
+    // 터치가 아닌 마우스 이벤트인데 터치가 처리된 상태면 무시
+    if (!fromTouch && touchHandledRef.current) {
+      return;
     }
 
-    setDragState({
-      isDragging: false,
-      start: null,
-      end: null,
-    });
+    const { isDragging, start, end } = dragRef.current;
+    if (!isDragging || !start || !end) {
+      return;
+    }
+
+    dragRef.current = { isDragging: false, start: null, end: null };
+
+    const newRange = generateDateRange(start, end);
+    const newSelection = toggleDatesSmart(selectedDates, newRange);
+    onChange(newSelection);
+
+    setDragState({ isDragging: false, start: null, end: null });
   };
 
   const getDayClass = () => 'bg-transparent';
@@ -109,8 +125,8 @@ export function ReactDatepickerAdapter({
   return (
     <div
       className='react-datepicker-wrapper-custom flex w-full justify-center select-none'
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
+      onMouseUp={() => handleMouseUp(false)}
+      onMouseLeave={() => handleMouseUp(false)}
     >
       <DatePicker
         locale={ko}
@@ -151,6 +167,8 @@ export function ReactDatepickerAdapter({
         filterDate={(date) => !isDateDisabled(date)}
         dateFormat='yyyy. MM'
         renderDayContents={(day, date) => {
+          if (!date) return <span>{day}</span>;
+
           const disabled = isDateDisabled(date);
 
           const isSelected = selectedDates.some((d) => isSameDay(d, date));
@@ -169,6 +187,7 @@ export function ReactDatepickerAdapter({
 
           let bgClass = '';
           let textClass = 'text-slate-900';
+          let selectedClass = '';
 
           if (disabled) {
             bgClass = '';
@@ -176,6 +195,7 @@ export function ReactDatepickerAdapter({
           } else if (isSelected) {
             bgClass = 'bg-gray-800';
             textClass = 'text-white font-bold';
+            selectedClass = 'ring-2 ring-blue-100 ring-offset-2';
           } else if (isInDragRange) {
             bgClass = 'bg-slate-100';
             textClass = 'text-slate-900';
@@ -199,7 +219,7 @@ export function ReactDatepickerAdapter({
               style={{ touchAction: 'none' }}
             >
               <div
-                className={`relative flex h-10 w-10 items-center justify-center rounded-lg text-base font-normal transition-colors ${bgClass} ${textClass} `}
+                className={`relative flex h-10 w-10 items-center justify-center rounded-lg text-base font-normal transition-colors ${bgClass} ${textClass} ${selectedClass}`}
               >
                 {day}
               </div>
