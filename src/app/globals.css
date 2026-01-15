@@ -425,10 +425,6 @@
     cursor: pointer;
     transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
 
-    /* Background & Text */
-    background-color: var(--color-primary-default);
-    color: var(--color-text-inverse);
-
     /* Typography: text-body-2 */
     font-family: var(--font-pretendard);
     font-weight: 500;
@@ -437,22 +433,186 @@
     letter-spacing: -0.02em;
   }
 
-  .button-base:hover:not(:disabled) {
-    background-color: var(--color-primary-subtle);
-  }
-
   .button-base:active:not(:disabled) {
     transform: scale(0.98);
-  }
-
-  .button-base:disabled {
-    background-color: var(--color-primary-subtler);
-    color: var(--color-text-inverse);
-    cursor: not-allowed;
-    opacity: 0.6;
   }
 
   .button-base.button-full-width {
     width: 100%;
   }
+
+  /* Variant: Primary */
+  .button-primary {
+    background-color: var(--color-primary-default);
+    color: var(--color-text-inverse);
+  }
+
+  .button-primary:hover:not(:disabled) {
+    background-color: var(--color-primary-subtle);
+  }
+
+  .button-primary:disabled {
+    background-color: var(--color-primary-subtler);
+    color: var(--color-text-inverse);
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  /* Variant: Secondary (Outline/Ghost like) */
+  .button-secondary {
+    background-color: var(--color-gray-0);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-line-clickable);
+  }
+
+  .button-secondary:hover:not(:disabled) {
+    background-color: var(--color-gray-50);
+  }
+
+  .button-secondary:disabled {
+    background-color: var(--color-gray-50);
+    color: var(--color-text-quaternary);
+    border-color: var(--color-line-nonclickable);
+    cursor: not-allowed;
+  }
+}
+/* Library Overrides */
+
+/* React Calendar Removed */
+
+/* React Datepicker overrides for cleaner look */
+/* Fluid Datepicker Layout */
+.react-datepicker {
+  background-color: white !important;
+  font-family: inherit !important;
+  border: none !important;
+  width: 100% !important; /* Fill container */
+  display: flex !important;
+  flex-direction: column;
+}
+.react-datepicker__month-container {
+  width: 100% !important;
+}
+.react-datepicker__header {
+  background-color: white !important;
+  border-bottom: none !important;
+  padding-top: 10px !important;
+}
+.react-datepicker__month {
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* Adjust if vertical gap needed */
+}
+
+/* Hide screen reader only text visually */
+.react-datepicker__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.react-datepicker__week,
+.react-datepicker__day-names {
+  display: flex !important;
+  justify-content: space-between;
+  width: 100% !important;
+}
+.react-datepicker__day-name {
+  color: #64748b !important;
+  font-weight: 600 !important;
+  flex: 1 !important; /* Distribute evenly */
+  width: auto !important;
+  line-height: 2.5rem !important; /* Mobile friendly height */
+  margin: 0 !important;
+  text-align: center;
+}
+@media (min-width: 640px) {
+  .react-datepicker__day-name {
+    line-height: 54px !important;
+  }
+}
+.react-datepicker__triangle {
+  display: none;
+}
+.react-datepicker__day {
+  flex: 1 !important; /* Distribute evenly */
+  width: auto !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1; /* Keep square */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  margin: 0 !important;
+}
+/* Disable default keyboard selected style to avoid ugly outline */
+.react-datepicker__day:focus {
+  outline: none;
+}
+.react-datepicker__day:hover {
+  background-color: transparent !important;
+}
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+.react-datepicker__day--today {
+  font-weight: normal !important; /* Reset bold if any */
+}
+
+/* Host Range Selector 전용 스타일 */
+.react-datepicker-wrapper-custom .react-datepicker__month-container {
+  width: 100%;
+}
+
+/* 모든 날짜 셀에 투명 테두리 기본 적용 (선택 시 크기 변화 방지) */
+.react-datepicker-wrapper-custom .react-datepicker__day {
+  /* border: 8px solid transparent !important; -> Removed in favor of gap logic in component */
+  box-sizing: border-box !important;
+}
+
+/* 비활성화됨 */
+.react-datepicker-wrapper-custom .react-datepicker__day--disabled {
+  color: #d1d5db !important;
+  cursor: not-allowed;
+  background: transparent !important;
+}
+
+/* 호버 상태 - now handled by component logic generally, keeping valid date hover just in case */
+.react-datepicker-wrapper-custom
+  .react-datepicker__day:not(.react-datepicker__day--disabled):hover {
+  background-color: transparent !important; /* Let component handle bg */
+}
+
+/* 기본 선택 클래스 동작 초기화 */
+.react-datepicker-wrapper-custom .react-datepicker__day--selected,
+.react-datepicker-wrapper-custom .react-datepicker__day--keyboard-selected {
+  background-color: transparent;
+  color: inherit;
+}
+
+/* Multi Date Picker overrides */
+.rmdp-container {
+  width: 100%;
+}
+.rmdp-wrapper {
+  border: none !important;
+  box-shadow: none !important;
+}
+.rmdp-top-class {
+  width: 100% !important;
+}
+.rmdp-day.rmdp-today span {
+  background-color: transparent !important;
+  color: inherit !important;
+  border: 1px solid #2563eb;
+}
+.rmdp-day.rmdp-selected span:not(.highlight) {
+  background-color: #2563eb !important;
 }

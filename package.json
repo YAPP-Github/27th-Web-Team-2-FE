@@ -17,10 +17,15 @@
     "prepare": "lefthook install"
   },
   "dependencies": {
-    "ky": "^1.14.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "next": "16.1.0",
     "react": "19.2.3",
+    "react-datepicker": "^9.1.0",
     "react-dom": "19.2.3",
+    "tailwind-merge": "^3.4.0"
+    "ky": "^1.14.2",
     "zod": "^4.3.5"
   },
   "devDependencies": {
@@ -35,6 +40,7 @@
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
+    "@types/react-datepicker": "^6.2.0",
     "@types/react-dom": "^19",
     "@vitest/browser-playwright": "^4.0.16",
     "@vitest/coverage-v8": "^4.0.16",
