@@ -15,6 +15,11 @@ interface ButtonProps extends ComponentProps<'button'> {
    * @default false
    */
   disabled?: boolean;
+  /**
+   * 버튼 스타일 변형입니다.
+   * @default 'primary'
+   */
+  variant?: 'primary' | 'secondary';
 }
 
 /**
@@ -28,11 +33,13 @@ export default function Button({
   children,
   fullWidth = false,
   disabled = false,
+  variant = 'primary',
   className,
   ...props
 }: ButtonProps) {
   const buttonClasses = [
     'button-base',
+    variant === 'primary' ? 'button-primary' : 'button-secondary',
     fullWidth ? 'button-full-width' : '',
     className || '',
   ]
