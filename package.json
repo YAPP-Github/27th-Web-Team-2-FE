@@ -25,6 +25,8 @@
     "react-datepicker": "^9.1.0",
     "react-dom": "19.2.3",
     "tailwind-merge": "^3.4.0"
+    "ky": "^1.14.2",
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.3",
