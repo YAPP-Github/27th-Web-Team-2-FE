@@ -162,7 +162,7 @@ export function ReactDatePickerVoteResultsCalendar({
 
           {/* 랭킹 뱃지 - 우측 상단 */}
           {votes > 0 && rank !== null && rank <= 3 && !focusedParticipant && (
-            <div className='absolute -top-3 -right-2'>
+            <div className='absolute -top-3 -right-2 z-10'>
               <Badge
                 variant={rank === 1 ? 'rank1' : rank === 2 ? 'rank2' : 'rank3'}
                 size='sm'
