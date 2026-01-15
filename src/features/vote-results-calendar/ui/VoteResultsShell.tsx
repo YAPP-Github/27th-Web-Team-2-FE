@@ -2,7 +2,7 @@ import { format, parseISO } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useEffect, useRef } from 'react';
 
-import { VoteDateStat } from '@/entities/voteDateStat/model';
+import { VoteDateStat } from '@/entities/voteDateStat/dto/voteDateStat.dto';
 import Chip from '@/shared/ui/chip';
 import { Icon } from '@/shared/ui/icon';
 

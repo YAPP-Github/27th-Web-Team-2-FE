@@ -12,8 +12,8 @@ import {
   getNavigationLimits,
   isDateDisabled,
   toggleDatesSmart,
-} from '../../lib/dateUtils';
-import { HostRangeSelectorProps } from '../../model/types';
+} from '../lib/dateUtils';
+import { HostRangeSelectorProps } from '../model/types';
 
 export function ReactDatepickerAdapter({
   selectedDates,
@@ -21,7 +21,6 @@ export function ReactDatepickerAdapter({
 }: HostRangeSelectorProps) {
   const { minDate, maxDate } = getNavigationLimits();
 
-  // 드래그 선택을 위한 상태
   const [dragState, setDragState] = useState<{
     isDragging: boolean;
     start: Date | null;
@@ -32,13 +31,7 @@ export function ReactDatepickerAdapter({
     end: null,
   });
 
-  /* 터치 이벤트 핸들러 */
   const handleTouchStart = (e: React.TouchEvent, date: Date) => {
-    // 날짜 타일에서의 스크롤 상호작용 방지
-    // 참고: e.preventDefault()는 ref에 설정되지 않은 경우 일부 브라우저에서
-    // "passive listener" 경고를 유발할 수 있음.
-    // 하지만 CSS의 touch-action: none이 이를 처리하는 현대적인 방법임.
-
     if (isDateDisabled(date)) return;
     setDragState({
       isDragging: true,
@@ -50,18 +43,15 @@ export function ReactDatepickerAdapter({
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!dragState.isDragging || !dragState.start) return;
 
-    // 터치한 위치의 요소 찾기
     const touch = e.touches[0];
     const target = document.elementFromPoint(touch.clientX, touch.clientY);
 
-    // data 속성을 가진 가장 가까운 날짜 셀 찾기
     const cell = target?.closest('[data-date-timestamp]');
     if (cell) {
       const ts = cell.getAttribute('data-date-timestamp');
       if (ts) {
         const hoveredDate = new Date(parseInt(ts, 10));
 
-        // 종료 날짜가 다르면 업데이트 (비활성화된 날짜는 무시)
         if (
           dragState.end &&
           !isSameDay(hoveredDate, dragState.end) &&
@@ -77,7 +67,7 @@ export function ReactDatepickerAdapter({
   };
 
   const handleTouchEnd = () => {
-    handleMouseUp(); // 로직 동일
+    handleMouseUp();
   };
 
   const handleMouseDown = (date: Date) => {
@@ -90,12 +80,9 @@ export function ReactDatepickerAdapter({
   };
 
   const handleMouseEnter = (date: Date) => {
-    if (
-      !dragState.isDragging ||
-      !dragState.start ||
-      isDateDisabled(date) // 비활성화된 날짜는 무시
-    )
+    if (!dragState.isDragging || !dragState.start || isDateDisabled(date)) {
       return;
+    }
 
     setDragState((prev) => ({
       ...prev,
@@ -110,7 +97,6 @@ export function ReactDatepickerAdapter({
       onChange(newSelection);
     }
 
-    // 초기화
     setDragState({
       isDragging: false,
       start: null,
@@ -118,18 +104,17 @@ export function ReactDatepickerAdapter({
     });
   };
 
-  // 각 날짜의 클래스 결정 (이제 투명하게 처리)
   const getDayClass = () => 'bg-transparent';
 
   return (
     <div
       className='react-datepicker-wrapper-custom flex w-full justify-center select-none'
       onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp} // 컨테이너를 벗어나면 자동 커밋
+      onMouseLeave={handleMouseUp}
     >
       <DatePicker
         locale={ko}
-        onChange={() => {}} // 마우스 이벤트를 통해 수동 제어
+        onChange={() => {}}
         inline
         minDate={minDate}
         maxDate={maxDate}
@@ -168,10 +153,8 @@ export function ReactDatepickerAdapter({
         renderDayContents={(day, date) => {
           const disabled = isDateDisabled(date);
 
-          // 1. 선택된 날짜인지 확인 (저장된 상태)
           const isSelected = selectedDates.some((d) => isSameDay(d, date));
 
-          // 2. 유효한 드래그 범위 내인지 확인 (시각적 표시)
           let isInDragRange = false;
           if (dragState.isDragging && dragState.start && dragState.end) {
             const [start, end] =
@@ -179,7 +162,6 @@ export function ReactDatepickerAdapter({
                 ? [dragState.start, dragState.end]
                 : [dragState.end, dragState.start];
 
-            // 단순 범위 확인
             if (date >= start && date <= end && !disabled) {
               isInDragRange = true;
             }
@@ -190,7 +172,7 @@ export function ReactDatepickerAdapter({
 
           if (disabled) {
             bgClass = '';
-            textClass = 'text-slate-300'; // 비활성화 스타일
+            textClass = 'text-slate-300';
           } else if (isSelected) {
             bgClass = 'bg-gray-800';
             textClass = 'text-white font-bold';
@@ -204,19 +186,16 @@ export function ReactDatepickerAdapter({
           return (
             <div
               className={`flex h-full w-full items-center justify-center py-1 ${disabled ? 'pointer-events-none' : 'cursor-pointer'}`}
-              // 마우스 핸들러 (비활성화된 경우 이벤트 전파 막음)
               onMouseDown={(e) => {
                 if (disabled) return;
                 e.stopPropagation();
                 handleMouseDown(date);
               }}
               onMouseEnter={() => !disabled && handleMouseEnter(date)}
-              // 터치 핸들러
-              data-date-timestamp={date.getTime()} // elementFromPoint 식별을 위한 셀 데이터
+              data-date-timestamp={date.getTime()}
               onTouchStart={(e) => !disabled && handleTouchStart(e, date)}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
-              // 모바일에서 드래그 중 스크롤 방지
               style={{ touchAction: 'none' }}
             >
               <div

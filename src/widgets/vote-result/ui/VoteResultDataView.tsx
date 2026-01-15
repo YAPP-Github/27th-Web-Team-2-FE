@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-import { VoteResultsProps } from '@/entities/voteDateStat/model';
-import { ReactDatePickerVoteResultsCalendar } from '@/features/vote-results-calendar/ui/adapters/react-datepicker';
+import { VoteResultsProps } from '@/entities/voteDateStat/dto/voteDateStat.dto';
+import { ReactDatePickerVoteResultsCalendar } from '@/features/vote-results-calendar/ui/ReactDatepicker';
 import { Dropdown } from '@/shared/ui/dropdown';
 
 interface VoteResultDataViewProps {

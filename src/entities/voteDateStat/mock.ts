@@ -2,7 +2,7 @@ import { addDays, format } from 'date-fns';
 
 import { Person } from '@/shared/types/common';
 
-import { VoteDateStat } from './model';
+import { VoteDateStat } from './dto/voteDateStat.dto';
 
 const NAMES = [
   '상민',

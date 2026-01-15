@@ -2,13 +2,13 @@
 
 import { useState } from 'react';
 
-import { generateMockVoteData } from '@/entities/voteDateStat/mock';
-import { useDateSelection } from '@/features/host-range-selector/lib';
+import { generateMockVoteData } from '@/entities/voteDateStat/lib/mock';
+import { useDateSelection } from '@/features/host-range-selector/model/useDateSelection';
 // Adapters - Host
-import { ReactDatepickerAdapter as ReactDatePickerHostRangeSelector } from '@/features/host-range-selector/ui/adapters/ReactDatepickerAdapter';
+import { ReactDatepickerAdapter as ReactDatePickerHostRangeSelector } from '@/features/host-range-selector/ui/ReactDatepickerAdapter';
 // import { MultiDatePickerHostRangeSelector } from '@/features/host-range-selector/ui/adapters/react-multi-date-picker';
 // Adapters - Vote
-import { ReactDatePickerVoteResultsCalendar } from '@/features/vote-results-calendar/ui/adapters/react-datepicker';
+import { ReactDatePickerVoteResultsCalendar } from '@/features/vote-results-calendar/ui/ReactDatepicker';
 import { SegmentedControl } from '@/shared/ui/SegmentedControl';
 
 const LIBRARIES = [{ label: 'React Datepicker', value: 'datepicker' }] as const;
