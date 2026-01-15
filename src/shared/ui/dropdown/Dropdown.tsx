@@ -91,14 +91,14 @@ export default function Dropdown({
           <div className='overflow-hidden'>
             <div className='flex flex-col gap-3 px-5 pt-4 pb-5'>
               {participants.length > 0 ? (
-                <div className='flex flex-wrap gap-2'>
+                <div className='flex max-h-41 flex-wrap gap-2 overflow-y-auto'>
                   {participants.map((name) => (
                     <Chip
                       key={name}
                       text={name}
                       variant='line'
                       size='md'
-                      // If selectedParticipant is provided, check equality
+                      className='max-w-full truncate'
                       selected={selectedParticipant === name}
                       onClick={() => onSelectParticipant?.(name)}
                     />
