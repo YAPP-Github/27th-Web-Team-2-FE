@@ -1,8 +1,9 @@
 import { Person } from '@/shared/types/common';
 import Button from '@/shared/ui/button/Button';
 import { Header } from '@/shared/ui/header';
-import { TopBar } from '@/shared/ui/top-bar';
 import { VoteResultDataView } from '@/widgets/vote-result/ui/VoteResultDataView';
+
+import ParticipantHeader from './ParticipantHeader';
 
 // 1. Mock Data based on User Schema
 const MOCK_DATA = {
@@ -79,7 +80,7 @@ interface ResultPageProps {
 }
 
 export default async function ResultPage({ params }: ResultPageProps) {
-  const {} = await params;
+  const { meetingId } = await params;
 
   // Derive stats
   const stats = getStatsFromMock(MOCK_DATA.dates, MOCK_DATA.participants);
@@ -97,9 +98,9 @@ export default async function ResultPage({ params }: ResultPageProps) {
   return (
     <div className='flex min-h-screen flex-col bg-gray-50 pt-14 pb-25'>
       <div className='fixed top-0 right-0 left-0 z-50 mx-auto w-full max-w-screen-sm bg-white'>
-        <TopBar
+        <ParticipantHeader
           title='어쩔래미저쩔래님이 초대한 두쫀쿠투어두쫀'
-          rightIcon='ic_other_share'
+          url={`http://localhost:3000/participant/${meetingId}`}
           className='bg-white'
         />
       </div>
