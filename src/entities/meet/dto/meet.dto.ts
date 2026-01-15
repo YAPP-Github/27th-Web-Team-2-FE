@@ -44,7 +44,7 @@ export const meetResponseDto = z.object({
   id: z.string(),
   title: z.string(),
   dates: z.array(z.string()),
-  maxParticipantCount: z.number(),
+  maxParticipantCount: z.number().nullable(),
   participants: z.array(participantDto),
 });
 
