@@ -1,4 +1,5 @@
 import { Person } from '@/shared/types/common';
+import Button from '@/shared/ui/button/Button';
 import { Header } from '@/shared/ui/header';
 import { TopBar } from '@/shared/ui/top-bar';
 import { VoteResultDataView } from '@/widgets/vote-result/ui/VoteResultDataView';
@@ -94,12 +95,14 @@ export default async function ResultPage({ params }: ResultPageProps) {
   const participantNames = MOCK_DATA.participants.map((p) => p.name);
 
   return (
-    <div className='flex min-h-screen flex-col bg-gray-50'>
-      <TopBar
-        title='어쩔래미저쩔래님이 초대한 두쫀쿠투어두쫀'
-        rightIcon='ic_other_share'
-        className='bg-white'
-      />
+    <div className='flex min-h-screen flex-col bg-gray-50 pt-14 pb-25'>
+      <div className='fixed top-0 right-0 left-0 z-50 mx-auto w-full max-w-screen-sm bg-white'>
+        <TopBar
+          title='어쩔래미저쩔래님이 초대한 두쫀쿠투어두쫀'
+          rightIcon='ic_other_share'
+          className='bg-white'
+        />
+      </div>
 
       <Header voteCount={MOCK_DATA.participants.length} />
 
@@ -108,6 +111,15 @@ export default async function ResultPage({ params }: ResultPageProps) {
         openRange={openRange}
         stats={stats}
       />
+
+      <div className='fixed right-0 bottom-0 left-0 z-50 mx-auto w-full max-w-screen-sm bg-gray-50 p-4'>
+        <div className='flex gap-3'>
+          <Button variant='secondary' fullWidth>
+            투표 수정하기
+          </Button>
+          <Button fullWidth>투표하기</Button>
+        </div>
+      </div>
     </div>
   );
 }
