@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { useState } from 'react';
 
-import { Input } from './Input';
+import Input from './Input';
 
 const meta = {
   title: 'Shared/UI/Input',
