@@ -44,7 +44,7 @@ export default function Dropdown({
           borderRadius: '0.8rem',
           border: '1px solid var(--primary-subtler, rgba(60, 126, 250, 0.30))',
           background:
-            'linear-gradient(10deg, rgba(255, 255, 255, 0.00) 7.66%, rgba(46, 107, 250, 0.09) 93.19%), var(--Primitive-Gray-scale-0, #FFF)',
+            'linear-gradient(0deg, rgba(255, 255, 255, 0.00) 7.66%, rgba(46, 107, 250, 0.09) 93.19%), var(--Primitive-Gray-scale-0, #FFF)',
           boxShadow: '0 0 30px 0 rgba(0, 0, 0, 0.04)',
         }}
       >
@@ -56,13 +56,12 @@ export default function Dropdown({
             'flex w-full items-center justify-between',
             'px-5 py-4',
             // 닫혀있을 땐 높이만, 열렸을 땐 아래 구분선 느낌
-            isOpen ? 'border-b border-blue-200/20' : '',
           ].join(' ')}
           aria-expanded={isOpen}
         >
           <div className='flex items-center gap-2'>
             <Icon name='ic_people' className='text-primary-default' size={24} />
-            <span className='text-body-2 text-primary-default'>
+            <span className='text-body-4 text-primary-default'>
               참여자 보기
             </span>
           </div>
@@ -89,7 +88,7 @@ export default function Dropdown({
           ].join(' ')}
         >
           <div className='overflow-hidden'>
-            <div className='flex flex-col gap-3 px-5 pt-4 pb-5'>
+            <div className='flex flex-col gap-3 px-4 pb-4'>
               {participants.length > 0 ? (
                 <div className='flex max-h-41 flex-wrap gap-2 overflow-y-auto'>
                   {participants.map((name) => (
@@ -111,9 +110,9 @@ export default function Dropdown({
               )}
 
               {/* Info Footer */}
-              <div className='flex items-center gap-1.5 rounded-xl bg-gray-100 px-4 py-3'>
+              <div className='flex items-center gap-1.5 rounded-xl bg-gray-100 p-2.5'>
                 <Icon name='ic_info_outline' size={16} />
-                <span className='text-caption-4 text-text-secondary'>
+                <span className='text-caption-4 text-text-primary'>
                   참여자 이름을 클릭하면 필터가 적용돼요!
                 </span>
               </div>
