@@ -18,7 +18,7 @@ import {
  * @returns 투표 생성 응답 (스키마 검증 완료)
  */
 export async function voteMeeting(data: VoteRequest): Promise<VoteResponse> {
-  const ENDPOINT = '/api/v1/meeting/vote';
+  const ENDPOINT = 'v1/meeting/vote';
 
   // 1) 요청 바디 스키마 검증 (클라이언트 측 검증)
   const json = voteRequestDto.parse(data);
