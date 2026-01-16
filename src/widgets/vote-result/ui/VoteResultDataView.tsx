@@ -32,14 +32,14 @@ export function VoteResultDataView({
   };
 
   return (
-    <div className='flex w-full flex-col items-center px-5 py-6'>
+    <div className='flex w-full flex-col items-center px-5 py-2'>
       <div className='w-full space-y-4'>
         {/* Dropdown for participants */}
         <Dropdown
           participants={participantNames}
           selectedParticipant={selectedParticipant}
           onSelectParticipant={handleParticipantSelect}
-          className='mb-6'
+          className='mb-2'
         />
 
         <ReactDatePickerVoteResultsCalendar

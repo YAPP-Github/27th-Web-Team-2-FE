@@ -10,7 +10,7 @@ import { type MeetResponse, meetResponseDto } from '../dto/meet.dto';
  * @returns 모임 정보와 참여자 투표 현황 (스키마 검증 완료)
  */
 export async function getMeetingById(meetId: string): Promise<MeetResponse> {
-  const ENDPOINT = `/api/v1/meeting`;
+  const ENDPOINT = `v1/meeting`;
 
   // 1) 실제 HTTP 요청 (query parameter로 meetId 전달)
   const rawResponse = await api
