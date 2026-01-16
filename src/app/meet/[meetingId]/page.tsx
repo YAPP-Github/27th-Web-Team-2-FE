@@ -1,3 +1,5 @@
+import { getMeetingById } from '@/entities/meet/api/getMeetingById';
+import { type Participant } from '@/entities/meet/dto/meet.dto';
 import { Person } from '@/shared/types/common';
 import Button from '@/shared/ui/button/Button';
 import { Header } from '@/shared/ui/header';
@@ -5,53 +7,10 @@ import { VoteResultDataView } from '@/widgets/vote-result/ui/VoteResultDataView'
 
 import ParticipantHeader from './ParticipantHeader';
 
-// 1. Mock Data based on User Schema
-const MOCK_DATA = {
-  id: 'meeting-123',
-  title: '신년 모임 날짜 투표',
-  dates: [
-    '2026-01-14',
-    '2026-01-15',
-    '2026-01-16',
-    '2026-01-17',
-    '2026-01-20',
-    '2026-01-21',
-    '2026-01-22',
-  ], // Candidate dates
-  maxParticipantCount: 0,
-  participants: [
-    {
-      id: '1',
-      name: '김철수',
-      voteDates: ['2026-01-14', '2026-01-15', '2026-01-16'],
-    },
-    {
-      id: '2',
-      name: '이영희',
-      voteDates: ['2026-01-14', '2026-01-15'],
-    },
-    {
-      id: '3',
-      name: '박민수',
-      voteDates: ['2026-01-14', '2026-01-17'],
-    },
-    {
-      id: '4',
-      name: '최지혜',
-      voteDates: ['2026-01-20'],
-    },
-    {
-      id: '5',
-      name: '정수빈',
-      voteDates: ['2026-01-14', '2026-01-15', '2026-01-16', '2026-01-17'],
-    },
-  ],
-};
-
-// 2. Transform Logic
-function getStatsFromMock(
+// Transform Logic
+function getStatsFromParticipants(
   candidateDates: string[],
-  participants: { id: string; name: string; voteDates: string[] }[],
+  participants: Participant[],
 ) {
   return candidateDates.map((date) => {
     const can: Person[] = [];
@@ -59,9 +18,9 @@ function getStatsFromMock(
 
     participants.forEach((p) => {
       if (p.voteDates.includes(date)) {
-        can.push({ id: p.id, name: p.name });
+        can.push({ id: String(p.id), name: p.name });
       } else {
-        cannot.push({ id: p.id, name: p.name });
+        cannot.push({ id: String(p.id), name: p.name });
       }
     });
 
@@ -81,31 +40,42 @@ interface ResultPageProps {
 
 export default async function ResultPage({ params }: ResultPageProps) {
   const { meetingId } = await params;
-
+  // Fetch meeting data from API
+  const meetingData = await getMeetingById(meetingId);
   // Derive stats
-  const stats = getStatsFromMock(MOCK_DATA.dates, MOCK_DATA.participants);
+  const stats = getStatsFromParticipants(
+    meetingData.dates,
+    meetingData.participants,
+  );
 
   // Derive date range (min/max of candidate dates)
-  const sortedDates = [...MOCK_DATA.dates].sort();
+  const sortedDates = [...meetingData.dates].sort();
   const openRange = {
     start: sortedDates[0],
     end: sortedDates[sortedDates.length - 1],
   };
 
   // Extract participant names for the dropdown
-  const participantNames = MOCK_DATA.participants.map((p) => p.name);
+  const participantNames = meetingData.participants.map((p) => p.name);
+
+  // 데이터 로드 시간 (HH:MM 형식)
+  const now = new Date();
+  const standardTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
 
   return (
     <div className='flex min-h-screen flex-col bg-gray-50 pt-14 pb-25'>
       <div className='fixed top-0 right-0 left-0 z-50 mx-auto w-full max-w-screen-sm bg-white'>
         <ParticipantHeader
-          title='어쩔래미저쩔래님이 초대한 두쫀쿠투어두쫀'
+          title={meetingData.title}
           url={`http://localhost:3000/participant/${meetingId}`}
           className='bg-white'
         />
       </div>
 
-      <Header voteCount={MOCK_DATA.participants.length} />
+      <Header
+        voteCount={meetingData.participants.length}
+        standardTime={standardTime}
+      />
 
       <VoteResultDataView
         participantNames={participantNames}

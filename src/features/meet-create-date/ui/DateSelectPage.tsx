@@ -1,5 +1,7 @@
 'use client';
 
+import { useDateSelection } from '@/features/host-range-selector/model/useDateSelection';
+import { ReactDatepickerAdapter } from '@/features/host-range-selector/ui/ReactDatepickerAdapter';
 import Button from '@/shared/ui/button';
 import TopBar from '@/shared/ui/top-bar/TopBar';
 
@@ -15,6 +17,8 @@ export default function DateSelectPage({
   meetingName,
 }: DateSelectPageProps) {
   const { handleBack, handleNext } = useDateSelect(hostName, meetingName);
+  const { selectedDates, handleDateChange, formattedDates } =
+    useDateSelection();
 
   return (
     <div className='bg-gray-0 flex min-h-screen flex-col'>
@@ -34,13 +38,20 @@ export default function DateSelectPage({
           날짜 범위를 선택해주세요
         </h1>
 
-        {/* 캘린더 영역 (플레이스홀더) */}
-        <div className='mb-6 flex flex-1 items-center justify-center rounded-lg border border-gray-200 bg-white'>
-          <p className='text-text-tertiary text-body-3'>캘린더 영역</p>
+        {/* 캘린더 영역 */}
+        <div className='mb-6 flex flex-1 justify-center'>
+          <ReactDatepickerAdapter
+            selectedDates={selectedDates}
+            onChange={handleDateChange}
+          />
         </div>
 
         {/* CTA 버튼 */}
-        <Button onClick={handleNext} fullWidth>
+        <Button
+          onClick={() => handleNext(formattedDates)}
+          fullWidth
+          disabled={selectedDates.length === 0}
+        >
           모임 만들기
         </Button>
       </main>

@@ -8,14 +8,9 @@ import { z } from 'zod';
  * - validateSchema로 응답 검증 시에도 사용 가능
  */
 export const createMeetRequestDto = z.object({
+  title: z.string().min(1, '모임 이름은 필수입니다.'),
   hostName: z.string().min(1, '모임장 이름은 필수입니다.'),
-  meetingName: z.string().optional(),
-  dateRange: z
-    .object({
-      startDate: z.string(),
-      endDate: z.string(),
-    })
-    .optional(),
+  dates: z.array(z.string()).min(1, '날짜를 선택해주세요.'),
 });
 
 /**
@@ -23,10 +18,7 @@ export const createMeetRequestDto = z.object({
  * - API 응답 검증에 사용
  */
 export const createMeetResponseDto = z.object({
-  meetId: z.string(),
-  hostName: z.string(),
-  meetingName: z.string().optional(),
-  createdAt: z.string(),
+  id: z.string(),
 });
 
 /**
@@ -52,7 +44,7 @@ export const meetResponseDto = z.object({
   id: z.string(),
   title: z.string(),
   dates: z.array(z.string()),
-  maxParticipantCount: z.number(),
+  maxParticipantCount: z.number().nullable(),
   participants: z.array(participantDto),
 });
 
