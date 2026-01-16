@@ -1,19 +1,21 @@
-'use client';
-
-import { useSearchParams } from 'next/navigation';
-
 import MeetCreatePage from '@/features/meet-create/ui/MeetCreatePage';
 
-export default function CreateMeetingPage() {
-  const searchParams = useSearchParams();
+interface CreateMeetingPageProps {
+  searchParams: Promise<{
+    hostName?: string;
+    meetingName?: string;
+  }>;
+}
 
-  const initialHostName = searchParams.get('hostName') || '';
-  const initialMeetingName = searchParams.get('meetingName') || '';
+export default async function CreateMeetingPage({
+  searchParams,
+}: CreateMeetingPageProps) {
+  const { hostName, meetingName } = await searchParams;
 
   return (
     <MeetCreatePage
-      initialHostName={initialHostName}
-      initialMeetingName={initialMeetingName}
+      initialHostName={hostName || ''}
+      initialMeetingName={meetingName || ''}
     />
   );
 }
