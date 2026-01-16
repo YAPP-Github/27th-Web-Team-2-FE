@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { useState } from 'react';
+
+import { useDisclosure } from '@/shared/hooks/useDisclosure';
 
 import BottomSheet from './BottomSheet';
 
@@ -16,40 +17,38 @@ export default meta;
 type Story = StoryObj<typeof BottomSheet>;
 
 const BottomSheetWithHooks = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, open, close } = useDisclosure();
 
   return (
     <div className='flex h-screen w-full items-center justify-center bg-gray-100 p-4'>
       <button
         className='rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700'
-        onClick={() => setIsOpen(true)}
+        onClick={open}
       >
         Open BottomSheet
       </button>
-      {isOpen && (
-        <BottomSheet onClose={() => setIsOpen(false)}>
-          <div className='px-5'>
-            <h2 className='text-title-2 text-text-primary mb-2'>
-              Bottom Sheet Title
-            </h2>
-            <p className='text-body-2 text-text-secondary'>
-              Here is some content inside the bottom sheet. You can put anything
-              here.
-            </p>
-            <div className='mt-4 flex flex-col gap-2'>
-              <button className='bg-primary-default w-full rounded py-3 font-medium text-white'>
-                Confirm
-              </button>
-              <button
-                className='text-text-secondary w-full rounded bg-gray-100 py-3 font-medium'
-                onClick={() => setIsOpen(false)}
-              >
-                Cancel
-              </button>
-            </div>
+      <BottomSheet onClose={close} isOpen={isOpen}>
+        <div className='px-5'>
+          <h2 className='text-title-2 text-text-primary mb-2'>
+            Bottom Sheet Title
+          </h2>
+          <p className='text-body-2 text-text-secondary'>
+            Here is some content inside the bottom sheet. You can put anything
+            here.
+          </p>
+          <div className='mt-4 flex flex-col gap-2'>
+            <button className='bg-primary-default w-full rounded py-3 font-medium text-white'>
+              Confirm
+            </button>
+            <button
+              className='text-text-secondary w-full rounded bg-gray-100 py-3 font-medium'
+              onClick={close}
+            >
+              Cancel
+            </button>
           </div>
-        </BottomSheet>
-      )}
+        </div>
+      </BottomSheet>
     </div>
   );
 };
