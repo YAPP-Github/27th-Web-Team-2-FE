@@ -78,4 +78,31 @@ export const handlers = [
     const response: VoteResponse = { success: true };
     return HttpResponse.json(response);
   }),
+  // 4. 투표 생성 (신규 참여)
+  http.post('*/v1/meeting/vote', async ({ request }) => {
+    const body = (await request.json()) as {
+      meetingId: string;
+      name: string;
+      voteDates: string[];
+    };
+    const { name, voteDates } = body;
+
+    // 중복 체크 (선택 사항)
+    const exists = mockMeeting.participants.some((p) => p.name === name);
+    if (exists) {
+      return new HttpResponse(JSON.stringify({ message: 'Already exists' }), {
+        status: 409,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
+    mockMeeting.participants.push({
+      id: mockMeeting.participants.length + 1,
+      name,
+      voteDates,
+    });
+
+    const response: VoteResponse = { success: true };
+    return HttpResponse.json(response);
+  }),
 ];
