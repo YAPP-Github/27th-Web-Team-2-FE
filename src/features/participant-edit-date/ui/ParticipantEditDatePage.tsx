@@ -3,6 +3,7 @@
 import { ReactDatepickerAdapter } from '@/features/host-range-selector/ui/ReactDatepickerAdapter';
 import Button from '@/shared/ui/button/Button';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
+import { Header } from '@/shared/ui/header';
 import TopBar from '@/shared/ui/top-bar/TopBar';
 
 import { useParticipantEditDate } from '../model/useParticipantEditDate';
@@ -44,23 +45,13 @@ export default function ParticipantEditDatePage({
         leftIcon='arrow_prev'
         onLeftClick={handleBack}
       />
+      <Header
+        variant='subHeader'
+        title={'달력에서 가능한 날짜를\n모두 선택해주세요'}
+      />
 
       <main className='flex flex-1 flex-col px-5 pt-6 pb-10'>
-        {/* 2-2. 안내 문구 */}
-        <h1 className='text-title-4 text-text-primary mb-6'>
-          달력에서 가능한 날짜를
-          <br />
-          모두 선택해주세요
-        </h1>
-
-        {/* 2-3. 월 단위 캘린더 */}
         <div className='relative mb-6 flex flex-1 justify-center'>
-          {/* 
-            TODO: ReactDatepickerAdapter에 '가능한 날짜(availableDates)'만 활성화하는 기능 추가 고려 
-            현재는 단순히 날짜 선택 로직만 연결.
-            불참 상태일 때 disabled 처리를 위해 overlay 등을 사용할 수도 있고, 
-            Adapter가 disabled prop을 받으면 좋음.
-          */}
           <ReactDatepickerAdapter
             selectedDates={selectedDates}
             onChange={onDateClick}

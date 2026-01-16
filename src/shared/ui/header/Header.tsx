@@ -82,7 +82,9 @@ export function Header({
       {/* SubHeader Variant */}
       {variant === 'subHeader' && (
         <div className='flex w-full items-center bg-white px-5 pt-6 pb-2'>
-          <h2 className='text-title-4 text-text-primary'>{title}</h2>
+          <h2 className='text-title-4 text-text-primary whitespace-pre-wrap'>
+            {title}
+          </h2>
         </div>
       )}
 
