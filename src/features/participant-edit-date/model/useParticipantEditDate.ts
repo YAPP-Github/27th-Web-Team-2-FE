@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { getMeetingById } from '@/entities/meet/api/getMeetingById';
 import { updateVote } from '@/entities/meet/api/updateVote';
 import { useDateSelection } from '@/features/host-range-selector/model/useDateSelection';
+import { useDisclosure } from '@/shared/hooks/useDisclosure';
 
 export function useParticipantEditDate(meetingId: string) {
   const router = useRouter();
@@ -95,14 +96,15 @@ export function useParticipantEditDate(meetingId: string) {
     }
   };
 
-  // 날짜 선택 핸들러 래퍼 (불참 체크 시 선택 불가 처리 등을 위해)
-  // const onDateClick = (date: string) => { // This function is no longer needed as handleDateChange is used directly
-  //   if (isAllImpossible) return; // 불참 체크된 상태면 동작 안 함
-  //   handleDateChange(date);
-  // };
+  const successModal = useDisclosure();
 
   const handleBack = () => {
     router.back();
+  };
+
+  const handleSuccessModalClose = () => {
+    successModal.close();
+    router.push(`/meet/${meetingId}`);
   };
 
   const handleSubmit = async () => {
@@ -119,11 +121,8 @@ export function useParticipantEditDate(meetingId: string) {
         voteDates: datesToSend,
       });
 
-      // 성공 시 완료 처리 (기획서: 완료 모달 노출 -> 여기서는 window.confirm or custom modal)
-      // "완료 모달 노출... 확인 클릭 시 참여자 메인 화면으로 이동"
-      // 간단하게 alert 후 이동으로 구현하겠습니다. (Design system modal 사용은 추후 고도화)
-      alert('투표가 수정되었어요!\n지금 투표 현황을 확인해보세요.');
-      router.push(`/meet/${meetingId}`);
+      // 성공 시 완료 모달 노출
+      successModal.open();
     } catch (error) {
       console.error('Failed to update vote:', error);
       alert('투표 수정에 실패했습니다. 다시 시도해주세요.');
@@ -147,5 +146,7 @@ export function useParticipantEditDate(meetingId: string) {
     onDateClick: handleDateChange, // 어댑터용 (Date[] => void)
     handleBack,
     handleSubmit,
+    isSuccessModalOpen: successModal.isOpen,
+    handleSuccessModalClose,
   };
 }

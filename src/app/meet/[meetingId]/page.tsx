@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { getMeetingById } from '@/entities/meet/api/getMeetingById';
 import { type Participant } from '@/entities/meet/dto/meet.dto';
+import { BASE_URL } from '@/shared/config/constants';
 import { Person } from '@/shared/types/common';
 import Button from '@/shared/ui/button/Button';
 import { Header } from '@/shared/ui/header';
@@ -69,7 +70,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
       <div className='fixed top-0 right-0 left-0 z-50 mx-auto w-full max-w-screen-sm bg-white'>
         <ParticipantHeader
           title={meetingData.title}
-          url={`http://localhost:3000/participant/${meetingId}`}
+          url={`${BASE_URL}/meet/${meetingId}`}
           className='bg-white'
         />
       </div>

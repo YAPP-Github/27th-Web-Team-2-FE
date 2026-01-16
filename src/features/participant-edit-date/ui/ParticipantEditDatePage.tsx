@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactDatepickerAdapter } from '@/features/host-range-selector/ui/ReactDatepickerAdapter';
+import SuccessBottomSheet from '@/shared/ui/bottom-sheet/SuccessBottomSheet';
 import Button from '@/shared/ui/button/Button';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
 import { Header } from '@/shared/ui/header';
@@ -26,7 +27,10 @@ export default function ParticipantEditDatePage({
     handleAllImpossibleChange,
     onDateClick,
     handleBack,
+
     handleSubmit,
+    isSuccessModalOpen,
+    handleSuccessModalClose,
   } = useParticipantEditDate(meetingId);
 
   if (isLoading) {
@@ -87,6 +91,14 @@ export default function ParticipantEditDatePage({
           투표하기
         </Button>
       </main>
+
+      <SuccessBottomSheet
+        isOpen={isSuccessModalOpen}
+        onClose={handleSuccessModalClose}
+        onConfirm={handleSuccessModalClose}
+        title={'투표가 수정되었어요!'}
+        subtitle={'지금 투표 현황을 확인해보세요'}
+      />
     </div>
   );
 }

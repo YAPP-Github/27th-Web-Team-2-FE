@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { getMeetingById } from '@/entities/meet/api/getMeetingById';
 import { voteMeeting } from '@/entities/meet/api/voteMeeting';
 import { useDateSelection } from '@/features/host-range-selector/model/useDateSelection';
+import { useDisclosure } from '@/shared/hooks/useDisclosure';
 
 export function useParticipantRegisterDate(meetingId: string) {
   const router = useRouter();
@@ -79,8 +80,21 @@ export function useParticipantRegisterDate(meetingId: string) {
     }
   };
 
+  /* 
+    모달 상태 관리 (useDisclosure 사용)
+    - isOpen: 모달 열림 여부
+    - open: 모달 열기
+    - close: 모달 닫기
+  */
+  const successModal = useDisclosure();
+
   const handleBack = () => {
     router.back();
+  };
+
+  const handleSuccessModalClose = () => {
+    successModal.close();
+    router.push(`/meet/${meetingId}`);
   };
 
   const handleSubmit = async () => {
@@ -98,9 +112,8 @@ export function useParticipantRegisterDate(meetingId: string) {
         voteDates: datesToSend,
       });
 
-      // 성공 시 완료 처리
-      alert('투표가 완료되었어요!\n지금 투표 현황을 확인해보세요.');
-      router.push(`/meet/${meetingId}`);
+      // 성공 시 완료 모달 노출
+      successModal.open();
     } catch (error) {
       console.error('Failed to create vote:', error);
       alert('투표 제출에 실패했습니다. 다시 시도해주세요.');
@@ -124,5 +137,7 @@ export function useParticipantRegisterDate(meetingId: string) {
     onDateClick: handleDateChange,
     handleBack,
     handleSubmit,
+    isSuccessModalOpen: successModal.isOpen,
+    handleSuccessModalClose,
   };
 }
