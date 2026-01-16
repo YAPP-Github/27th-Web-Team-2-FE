@@ -3,8 +3,9 @@ import { type Participant } from '@/entities/meet/dto/meet.dto';
 import { Person } from '@/shared/types/common';
 import Button from '@/shared/ui/button/Button';
 import { Header } from '@/shared/ui/header';
-import { TopBar } from '@/shared/ui/top-bar';
 import { VoteResultDataView } from '@/widgets/vote-result/ui/VoteResultDataView';
+
+import ParticipantHeader from './ParticipantHeader';
 
 // Transform Logic
 function getStatsFromParticipants(
@@ -39,10 +40,8 @@ interface ResultPageProps {
 
 export default async function ResultPage({ params }: ResultPageProps) {
   const { meetingId } = await params;
-
   // Fetch meeting data from API
   const meetingData = await getMeetingById(meetingId);
-
   // Derive stats
   const stats = getStatsFromParticipants(
     meetingData.dates,
@@ -66,9 +65,9 @@ export default async function ResultPage({ params }: ResultPageProps) {
   return (
     <div className='flex min-h-screen flex-col bg-gray-50 pt-14 pb-25'>
       <div className='fixed top-0 right-0 left-0 z-50 mx-auto w-full max-w-screen-sm bg-white'>
-        <TopBar
+        <ParticipantHeader
           title={meetingData.title}
-          rightIcon='ic_other_share'
+          url={`http://localhost:3000/participant/${meetingId}`}
           className='bg-white'
         />
       </div>
