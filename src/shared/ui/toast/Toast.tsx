@@ -25,7 +25,7 @@ export default function Toast({
 
   // 텍스트 스타일: text-primary
   // Pretendard 폰트 특성상 영문/숫자 대비 한글이 시각적으로 약간 위로 떠보일 수 있어 pt-[2px]로 보정
-  const textClass = 'text-text-primary text-title-6 font-semibold pt-[2px]';
+  const textClass = 'text-text-primary text-title-8 pt-[2px]';
 
   const combinedClasses = `${baseClasses} ${className}`;
 
@@ -36,7 +36,7 @@ export default function Toast({
         {variant === 'error' ? (
           <Icon
             name='ic_circle_x_filled'
-            size={24}
+            size={20}
             className='text-status-error'
           />
         ) : (
