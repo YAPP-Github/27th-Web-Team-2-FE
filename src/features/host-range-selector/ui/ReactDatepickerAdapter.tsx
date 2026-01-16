@@ -18,6 +18,7 @@ import { HostRangeSelectorProps } from '../model/types';
 export function ReactDatepickerAdapter({
   selectedDates,
   onChange,
+  availableDates,
 }: HostRangeSelectorProps) {
   const { minDate, maxDate } = getNavigationLimits();
 
@@ -43,9 +44,21 @@ export function ReactDatepickerAdapter({
     end: null,
   });
 
+  const isDateAllowed = (date: Date) => {
+    // 1. 기본 비활성화 (오늘 이전)
+    if (isDateDisabled(date)) return false;
+
+    // 2. 가능 날짜 목록이 있으면, 그 안에 포함되어야 함
+    if (availableDates && availableDates.length > 0) {
+      return availableDates.some((d) => isSameDay(d, date));
+    }
+
+    return true;
+  };
+
   const handleTouchStart = (e: React.TouchEvent, date: Date) => {
     touchHandledRef.current = true;
-    if (isDateDisabled(date)) return;
+    if (!isDateAllowed(date)) return;
     dragRef.current = { isDragging: true, start: date, end: date };
     setDragState({ isDragging: true, start: date, end: date });
   };
@@ -63,11 +76,7 @@ export function ReactDatepickerAdapter({
       if (ts) {
         const hoveredDate = new Date(parseInt(ts, 10));
 
-        if (
-          end &&
-          !isSameDay(hoveredDate, end) &&
-          !isDateDisabled(hoveredDate)
-        ) {
+        if (end && !isSameDay(hoveredDate, end) && isDateAllowed(hoveredDate)) {
           dragRef.current.end = hoveredDate;
           setDragState((prev) => ({ ...prev, end: hoveredDate }));
         }
@@ -85,14 +94,14 @@ export function ReactDatepickerAdapter({
 
   const handleMouseDown = (date: Date) => {
     if (touchHandledRef.current) return; // 터치 이벤트 후 발생한 마우스 이벤트 무시
-    if (isDateDisabled(date)) return;
+    if (!isDateAllowed(date)) return;
     dragRef.current = { isDragging: true, start: date, end: date };
     setDragState({ isDragging: true, start: date, end: date });
   };
 
   const handleMouseEnter = (date: Date) => {
     const { isDragging, start } = dragRef.current;
-    if (!isDragging || !start || isDateDisabled(date)) {
+    if (!isDragging || !start || !isDateAllowed(date)) {
       return;
     }
 
@@ -164,12 +173,12 @@ export function ReactDatepickerAdapter({
           </div>
         )}
         dayClassName={getDayClass}
-        filterDate={(date) => !isDateDisabled(date)}
+        filterDate={(date) => isDateAllowed(date)}
         dateFormat='yyyy. MM'
         renderDayContents={(day, date) => {
           if (!date) return <span>{day}</span>;
 
-          const disabled = isDateDisabled(date);
+          const disabled = !isDateAllowed(date);
 
           const isSelected = selectedDates.some((d) => isSameDay(d, date));
 
