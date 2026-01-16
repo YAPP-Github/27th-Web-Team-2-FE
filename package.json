@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev-msw": "NEXT_PUBLIC_MSW_ENABLED=true next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -55,6 +56,7 @@
     "eslint-plugin-unused-imports": "^4.3.0",
     "lefthook": "^2.0.12",
     "lint-staged": "^16.2.7",
+    "msw": "^2.12.7",
     "playwright": "^1.57.0",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
@@ -64,5 +66,10 @@
     "typescript": "^5",
     "vite": "^7.3.0",
     "vitest": "^4.0.16"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

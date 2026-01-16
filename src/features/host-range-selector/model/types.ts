@@ -9,4 +9,10 @@ export interface HostRangeSelectorProps {
    * Callback when selection changes.
    */
   onChange: (dates: Date[]) => void;
+
+  /**
+   * Optional. If provided, only these dates will be enabled.
+   * Dates not in this list will be disabled (grayed out & unclickable).
+   */
+  availableDates?: Date[];
 }

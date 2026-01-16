@@ -1,5 +1,8 @@
+import Link from 'next/link';
+
 import { getMeetingById } from '@/entities/meet/api/getMeetingById';
 import { type Participant } from '@/entities/meet/dto/meet.dto';
+import { BASE_URL } from '@/shared/config/constants';
 import { Person } from '@/shared/types/common';
 import Button from '@/shared/ui/button/Button';
 import { Header } from '@/shared/ui/header';
@@ -67,7 +70,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
       <div className='fixed top-0 right-0 left-0 z-50 mx-auto w-full max-w-screen-sm bg-white'>
         <ParticipantHeader
           title={meetingData.title}
-          url={`http://localhost:3000/participant/${meetingId}`}
+          url={`${BASE_URL}/meet/${meetingId}`}
           className='bg-white'
         />
       </div>
@@ -85,10 +88,14 @@ export default async function ResultPage({ params }: ResultPageProps) {
 
       <div className='fixed right-0 bottom-0 left-0 z-50 mx-auto w-full max-w-screen-sm bg-gray-50 p-4'>
         <div className='flex gap-3'>
-          <Button variant='secondary' fullWidth>
-            투표 수정하기
-          </Button>
-          <Button fullWidth>투표하기</Button>
+          <Link href={`/meet/${meetingId}/edit`} className='flex-1'>
+            <Button variant='secondary' fullWidth>
+              투표 수정하기
+            </Button>
+          </Link>
+          <Link href={`/meet/${meetingId}/register`} className='flex-1'>
+            <Button fullWidth>투표하기</Button>
+          </Link>
         </div>
       </div>
     </div>
