@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { createMeeting } from '@/entities/meet/api/createMeeting';
-import { voteMeeting } from '@/entities/meet/api/voteMeeting';
+import { updateVote } from '@/entities/meet/api/updateVote';
 
 export function useDateSelect(hostName: string, meetingName: string) {
   const router = useRouter();
@@ -59,7 +59,7 @@ export function useDateSelect(hostName: string, meetingName: string) {
   const handleAllAvailable = async () => {
     if (createdMeetingId && selectedDates.length > 0) {
       try {
-        await voteMeeting({
+        await updateVote({
           meetingId: createdMeetingId,
           name: hostName,
           voteDates: selectedDates,

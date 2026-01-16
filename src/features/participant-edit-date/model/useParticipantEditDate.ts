@@ -1,6 +1,5 @@
 'use client';
 
-import { parseISO } from 'date-fns';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -8,6 +7,7 @@ import { getMeetingById } from '@/entities/meet/api/getMeetingById';
 import { updateVote } from '@/entities/meet/api/updateVote';
 import { useDateSelection } from '@/features/host-range-selector/model/useDateSelection';
 import { useDisclosure } from '@/shared/hooks/useDisclosure';
+import { parseDate } from '@/shared/lib/date';
 
 export function useParticipantEditDate(meetingId: string) {
   const router = useRouter();
@@ -33,7 +33,7 @@ export function useParticipantEditDate(meetingId: string) {
   const [meetingTitle, setMeetingTitle] = useState('');
 
   // ReactDatepickerAdapter에 전달할 가능 날짜 (Date[])
-  const availableDatesForCalendar = availableDates.map((d) => parseISO(d));
+  const availableDatesForCalendar = availableDates.map((d) => parseDate(d));
 
   useEffect(() => {
     // 1. 이름 식별
@@ -65,7 +65,7 @@ export function useParticipantEditDate(meetingId: string) {
         if (participant) {
           // string[] -> Date[] 변환하여 설정
           const voteDatesAsDates = participant.voteDates.map((d) =>
-            parseISO(d),
+            parseDate(d),
           );
           setSelectedDates(voteDatesAsDates);
         } else {
