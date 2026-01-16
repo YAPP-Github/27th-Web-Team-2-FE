@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { getMeetingById } from '@/entities/meet/api/getMeetingById';
 import { type Participant } from '@/entities/meet/dto/meet.dto';
 import { Person } from '@/shared/types/common';
@@ -86,9 +88,11 @@ export default async function ResultPage({ params }: ResultPageProps) {
 
       <div className='fixed right-0 bottom-0 left-0 z-50 mx-auto w-full max-w-screen-sm bg-gray-50 p-4'>
         <div className='flex gap-3'>
-          <Button variant='secondary' fullWidth>
-            투표 수정하기
-          </Button>
+          <Link href={`/meet/${meetingId}/edit`}>
+            <Button variant='secondary' fullWidth>
+              투표 수정하기
+            </Button>
+          </Link>
           <Button fullWidth>투표하기</Button>
         </div>
       </div>

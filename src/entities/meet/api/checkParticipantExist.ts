@@ -17,7 +17,7 @@ export async function checkParticipantExist(
   meetId: string,
   name: string,
 ): Promise<CheckParticipantExistResponse> {
-  const ENDPOINT = `/api/v1/meeting/participant/exist`;
+  const ENDPOINT = `v1/meeting/participant/exist`;
 
   // 1) 실제 HTTP 요청 (query parameters로 meetId와 name 전달)
   const rawResponse = await api
