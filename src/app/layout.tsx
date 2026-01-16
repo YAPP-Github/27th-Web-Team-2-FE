@@ -3,8 +3,6 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 
-import { MSWProvider } from '@/mocks/MSWProvider';
-
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -31,7 +29,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} bg-[#f5f5f5] antialiased`}
       >
         <div className='mx-auto w-full max-w-screen-sm bg-white'>
-          <MSWProvider>{children}</MSWProvider>
+          {children}
         </div>
       </body>
     </html>
