@@ -2,6 +2,7 @@
 
 import { useDateSelection } from '@/features/host-range-selector/model/useDateSelection';
 import { ReactDatepickerAdapter } from '@/features/host-range-selector/ui/ReactDatepickerAdapter';
+import { BottomSheet } from '@/shared/ui/bottom-sheet';
 import Button from '@/shared/ui/button';
 import TopBar from '@/shared/ui/top-bar/TopBar';
 
@@ -16,7 +17,14 @@ export default function DateSelectPage({
   hostName,
   meetingName,
 }: DateSelectPageProps) {
-  const { handleBack, handleNext } = useDateSelect(hostName, meetingName);
+  const {
+    handleBack,
+    handleNext,
+    isBottomSheetOpen,
+    handleCloseBottomSheet,
+    handleDirectVote,
+    handleAllAvailable,
+  } = useDateSelect(hostName, meetingName);
   const { selectedDates, handleDateChange, formattedDates } =
     useDateSelection();
 
@@ -55,6 +63,30 @@ export default function DateSelectPage({
           모임 만들기
         </Button>
       </main>
+
+      {/* 바텀시트 */}
+      <BottomSheet isOpen={isBottomSheetOpen} onClose={handleCloseBottomSheet}>
+        <div className='flex flex-col items-center'>
+          <h2 className='text-title-4 text-text-primary mb-1 text-center'>
+            선택한 날짜에 모두 참여 가능한가요?
+          </h2>
+          <p className='text-body-2 text-text-tertiary mb-6 text-center'>
+            모두 가능한 경우, 자동으로 투표에 반영해드려요
+          </p>
+          <div className='flex w-full gap-3'>
+            <Button variant='secondary' fullWidth onClick={handleDirectVote}>
+              직접 투표하기
+            </Button>
+            <Button
+              fullWidth
+              onClick={handleAllAvailable}
+              className='!bg-gray-800 hover:!bg-gray-700'
+            >
+              가능해요
+            </Button>
+          </div>
+        </div>
+      </BottomSheet>
     </div>
   );
 }
