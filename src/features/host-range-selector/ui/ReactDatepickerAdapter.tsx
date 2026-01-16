@@ -1,11 +1,12 @@
 import 'react-datepicker/dist/react-datepicker.css';
 
-import { format, isSameDay } from 'date-fns';
+import { endOfMonth, format, isSameDay, startOfMonth } from 'date-fns';
 import { ko } from 'date-fns/locale';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 
 import Icon from '@/shared/ui/icon/Icon';
+import Tooltip from '@/shared/ui/tooltip/Tooltip';
 
 import {
   generateDateRange,
@@ -15,12 +16,40 @@ import {
 } from '../lib/dateUtils';
 import { HostRangeSelectorProps } from '../model/types';
 
+interface ReactDatepickerAdapterProps extends HostRangeSelectorProps {
+  showNextMonthTooltip?: boolean;
+}
+
 export function ReactDatepickerAdapter({
   selectedDates,
   onChange,
   availableDates,
-}: HostRangeSelectorProps) {
-  const { minDate, maxDate } = getNavigationLimits();
+  showNextMonthTooltip = false,
+}: ReactDatepickerAdapterProps) {
+  const { minDate: defaultMin, maxDate: defaultMax } = getNavigationLimits();
+
+  // availableDates가 있으면 그 범위를 최우선으로 적용
+  const navigationLimits = React.useMemo(() => {
+    if (!availableDates || availableDates.length === 0) {
+      return { minDate: defaultMin, maxDate: defaultMax };
+    }
+
+    // availableDates가 정렬되어 있다고 가정하거나, 직접 정렬
+    const sortedDates = [...availableDates].sort(
+      (a, b) => a.getTime() - b.getTime(),
+    );
+    const firstDate = sortedDates[0];
+    const lastDate = sortedDates[sortedDates.length - 1];
+
+    // minDate: 첫 번째 가능 날짜의 월의 1일
+    // maxDate: 마지막 가능 날짜의 월의 마지막 날
+    return {
+      minDate: startOfMonth(firstDate),
+      maxDate: endOfMonth(lastDate),
+    };
+  }, [availableDates, defaultMin, defaultMax]);
+
+  const { minDate, maxDate } = navigationLimits;
 
   const dragRef = useRef<{
     isDragging: boolean;
@@ -43,6 +72,23 @@ export function ReactDatepickerAdapter({
     start: null,
     end: null,
   });
+
+  const [isTooltipVisible, setIsTooltipVisible] =
+    useState(showNextMonthTooltip);
+
+  useEffect(() => {
+    if (!showNextMonthTooltip) return;
+
+    // 초기 진입 시 툴팁을 띄우고 3초 뒤에 사라지게 합니다.
+    // useState(showNextMonthTooltip)으로 초기값을 잡았으므로,
+    // 여기서 setIsTooltipVisible(true)를 다시 호출할 필요가 없습니다.
+
+    const timer = setTimeout(() => {
+      setIsTooltipVisible(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [showNextMonthTooltip]);
 
   const isDateAllowed = (date: Date) => {
     // 1. 기본 비활성화 (오늘 이전)
@@ -162,14 +208,32 @@ export function ReactDatepickerAdapter({
             <span className='text-xl font-bold text-slate-800'>
               {format(date, 'M월')}
             </span>
-            <button
-              onClick={increaseMonth}
-              disabled={nextMonthButtonDisabled}
-              type='button'
-              className='flex items-center justify-center text-slate-400 transition-colors hover:text-slate-400 disabled:opacity-30'
-            >
-              <Icon name='arrow_next' size={24} />
-            </button>
+            {showNextMonthTooltip && !nextMonthButtonDisabled ? (
+              <Tooltip
+                message='다음 달도 투표할 수 있어요'
+                visible={isTooltipVisible}
+                className='z-50'
+                triggerOnHover={false}
+              >
+                <button
+                  onClick={increaseMonth}
+                  disabled={nextMonthButtonDisabled}
+                  type='button'
+                  className='flex items-center justify-center text-slate-400 transition-colors hover:text-slate-400 disabled:opacity-30'
+                >
+                  <Icon name='arrow_next' size={24} />
+                </button>
+              </Tooltip>
+            ) : (
+              <button
+                onClick={increaseMonth}
+                disabled={nextMonthButtonDisabled}
+                type='button'
+                className='flex items-center justify-center text-slate-400 transition-colors hover:text-slate-400 disabled:opacity-30'
+              >
+                <Icon name='arrow_next' size={24} />
+              </button>
+            )}
           </div>
         )}
         dayClassName={getDayClass}

@@ -60,6 +60,7 @@ export default function ParticipantEditDatePage({
             selectedDates={selectedDates}
             onChange={onDateClick}
             availableDates={availableDates}
+            showNextMonthTooltip={true}
           />
 
           {/* 불참 체크 시 캘린더 비활성 (오버레이 처리) */}
