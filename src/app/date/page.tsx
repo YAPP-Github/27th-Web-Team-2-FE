@@ -1,16 +1,21 @@
-'use client';
-
-import { useSearchParams } from 'next/navigation';
-
 import DateSelectPageContent from '@/features/meet-create-date/ui/DateSelectPage';
 
-export default function DateSelectPage() {
-  const searchParams = useSearchParams();
+interface DateSelectPageProps {
+  searchParams: Promise<{
+    hostName?: string;
+    meetingName?: string;
+  }>;
+}
 
-  const hostName = searchParams.get('hostName') || '';
-  const meetingName = searchParams.get('meetingName') || '';
+export default async function DateSelectPage({
+  searchParams,
+}: DateSelectPageProps) {
+  const { hostName, meetingName } = await searchParams;
 
   return (
-    <DateSelectPageContent hostName={hostName} meetingName={meetingName} />
+    <DateSelectPageContent
+      hostName={hostName || ''}
+      meetingName={meetingName || ''}
+    />
   );
 }
