@@ -2,6 +2,8 @@ import ArrowDown from './ArrowDown';
 import ArrowNext from './ArrowNext';
 import ArrowPrev from './ArrowPrev';
 import ArrowUp from './ArrowUp';
+import IcCheckboxChecked from './IcCheckboxChecked';
+import IcCheckboxDefault from './IcCheckboxDefault';
 import IcCircleCheckFilled from './IcCircleCheckFilled';
 import IcCircleCheckOutline from './IcCircleCheckOutline';
 import IcCircleXFilled from './IcCircleXFilled';
@@ -32,6 +34,8 @@ export const icons = {
   ic_other_share: IcOtherShare,
   ic_people: IcPeople,
   ic_refresh: IcRefresh,
+  ic_checkbox_checked: IcCheckboxChecked,
+  ic_checkbox_default: IcCheckboxDefault,
 } as const;
 
 export type IconName = keyof typeof icons;
