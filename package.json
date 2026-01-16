@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev-msw": "NEXT_PUBLIC_MSW_ENABLED=true next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -20,12 +21,12 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "ky": "^1.14.2",
     "next": "16.1.0",
     "react": "19.2.3",
     "react-datepicker": "^9.1.0",
     "react-dom": "19.2.3",
     "tailwind-merge": "^3.4.0",
-    "ky": "^1.14.2",
     "zod": "^4.3.5"
   },
   "devDependencies": {
@@ -53,6 +54,7 @@
     "eslint-plugin-unused-imports": "^4.3.0",
     "lefthook": "^2.0.12",
     "lint-staged": "^16.2.7",
+    "msw": "^2.12.7",
     "playwright": "^1.57.0",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
@@ -62,5 +64,10 @@
     "typescript": "^5",
     "vite": "^7.3.0",
     "vitest": "^4.0.16"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
