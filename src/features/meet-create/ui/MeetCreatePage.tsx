@@ -21,6 +21,7 @@ export default function MeetCreatePage({
   const {
     hostName,
     meetingName,
+    meetingNamePlaceholder,
     hostNameError,
     isValid,
     handleHostNameChange,
@@ -34,9 +35,11 @@ export default function MeetCreatePage({
   };
 
   const handleSubmit = () => {
+    // meetingName이 비어있으면 플레이스홀더 값 사용
+    const finalMeetingName = meetingName.trim() || meetingNamePlaceholder;
     const params = new URLSearchParams({
       hostName: hostName.trim(),
-      ...(meetingName.trim() && { meetingName: meetingName.trim() }),
+      meetingName: finalMeetingName,
     });
     router.push(`/date?${params.toString()}`);
   };
@@ -78,7 +81,7 @@ export default function MeetCreatePage({
             value={meetingName}
             onChange={handleMeetingNameChange}
             onClear={handleMeetingNameClear}
-            placeholder='멋지고 이쁜 모임'
+            placeholder={meetingNamePlaceholder}
             maxLength={10}
             fullWidth
           />

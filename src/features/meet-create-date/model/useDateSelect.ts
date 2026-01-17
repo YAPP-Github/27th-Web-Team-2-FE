@@ -12,13 +12,10 @@ export function useDateSelect(hostName: string, meetingName: string) {
   const [createdMeetingId, setCreatedMeetingId] = useState<string | null>(null);
   const [selectedDates, setSelectedDates] = useState<string[]>([]);
 
-  // meetingName이 없으면 hostName + "모임"
-  const finalMeetingName = meetingName || `${hostName}모임`;
-
   const handleBack = () => {
     const params = new URLSearchParams({
       hostName,
-      ...(meetingName && { meetingName }),
+      meetingName,
     });
     router.push(`/create?${params.toString()}`);
   };
@@ -31,7 +28,7 @@ export function useDateSelect(hostName: string, meetingName: string) {
 
     try {
       const response = await createMeeting({
-        title: finalMeetingName,
+        title: meetingName,
         hostName,
         dates: formattedDates,
       });
