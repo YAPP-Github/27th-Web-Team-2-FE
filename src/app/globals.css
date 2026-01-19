@@ -506,7 +506,8 @@
 }
 
 /* Hide screen reader only text visually */
-.react-datepicker__sr-only {
+.react-datepicker__sr-only,
+.react-datepicker__aria-live {
   position: absolute;
   width: 1px;
   height: 1px;
