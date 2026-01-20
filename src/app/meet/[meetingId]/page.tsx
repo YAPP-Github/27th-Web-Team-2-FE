@@ -71,7 +71,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
     <div className='flex min-h-screen flex-col bg-gray-50 pt-14 pb-25'>
       <div className='fixed top-0 right-0 left-0 z-50 mx-auto w-full max-w-screen-sm bg-white'>
         <ParticipantHeader
-          title={meetingData.title}
+          title={`${meetingData.hostName}님이 초대한 ${meetingData.title}`}
           url={`${BASE_URL}/meet/${meetingId}`}
           className='bg-white'
         />
