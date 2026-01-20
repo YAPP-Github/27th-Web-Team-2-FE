@@ -11,6 +11,7 @@ const config: UserConfig = {
         'docs',
         'feat',
         'fix',
+        'hotfix',
         'refactor',
         'style',
         'test',
