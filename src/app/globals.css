@@ -506,7 +506,8 @@
 }
 
 /* Hide screen reader only text visually */
-.react-datepicker__sr-only {
+.react-datepicker__sr-only,
+.react-datepicker__aria-live {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -615,4 +616,9 @@
 }
 .rmdp-day.rmdp-selected span:not(.highlight) {
   background-color: #2563eb !important;
+}
+
+/* Vote Result Calendar에서 기본 헤더(년월)가 중복 노출되는 문제 해결 */
+.vote-result-calendar .react-datepicker__current-month {
+  display: none !important;
 }
