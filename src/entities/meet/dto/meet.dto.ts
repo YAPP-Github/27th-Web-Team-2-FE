@@ -46,6 +46,7 @@ export const meetResponseDto = z.object({
   dates: z.array(z.string()),
   maxParticipantCount: z.number().nullable(),
   participants: z.array(participantDto),
+  hostName: z.string(),
 });
 
 // ==================== TypeScript Types ====================

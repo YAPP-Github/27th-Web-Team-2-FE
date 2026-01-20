@@ -61,15 +61,17 @@ export default async function ResultPage({ params }: ResultPageProps) {
   // Extract participant names for the dropdown
   const participantNames = meetingData.participants.map((p) => p.name);
 
-  // 데이터 로드 시간 (HH:MM 형식)
-  const now = new Date();
-  const standardTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+  // 데이터 로드 시간 (HH:MM 형식, 한국 시간 기준)
+  const koreaTime = new Date(
+    new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }),
+  );
+  const standardTime = `${koreaTime.getHours().toString().padStart(2, '0')}:${koreaTime.getMinutes().toString().padStart(2, '0')}`;
 
   return (
     <div className='flex min-h-screen flex-col bg-gray-50 pt-14 pb-25'>
       <div className='fixed top-0 right-0 left-0 z-50 mx-auto w-full max-w-screen-sm bg-white'>
         <ParticipantHeader
-          title={meetingData.title}
+          title={`${meetingData.hostName}님이 초대한 ${meetingData.title}`}
           url={`${BASE_URL}/meet/${meetingId}`}
           className='bg-white'
         />

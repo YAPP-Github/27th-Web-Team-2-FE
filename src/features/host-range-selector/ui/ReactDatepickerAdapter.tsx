@@ -260,7 +260,6 @@ export function ReactDatepickerAdapter({
 
           let bgClass = '';
           let textClass = 'text-slate-900';
-          let selectedClass = '';
 
           if (disabled) {
             bgClass = '';
@@ -268,7 +267,6 @@ export function ReactDatepickerAdapter({
           } else if (isSelected) {
             bgClass = 'bg-gray-800';
             textClass = 'text-white font-bold';
-            selectedClass = 'ring-2 ring-blue-100 ring-offset-2';
           } else if (isInDragRange) {
             bgClass = 'bg-slate-100';
             textClass = 'text-slate-900';
@@ -292,7 +290,7 @@ export function ReactDatepickerAdapter({
               style={{ touchAction: 'none' }}
             >
               <div
-                className={`relative flex h-10 w-10 items-center justify-center rounded-lg text-base font-normal transition-colors ${bgClass} ${textClass} ${selectedClass}`}
+                className={`relative flex h-10 w-10 items-center justify-center rounded-lg text-base font-normal transition-colors ${bgClass} ${textClass}`}
               >
                 {day}
               </div>
