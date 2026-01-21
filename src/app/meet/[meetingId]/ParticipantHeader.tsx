@@ -43,7 +43,7 @@ export default function ParticipantHeader({
         />
 
         <Menu isOpen={isMenuOpen} onClose={closeMenu} className='top-12 left-4'>
-          <Menu.Item onClick={() => router.push('/')}>투표 생성하기</Menu.Item>
+          <Menu.Item onClick={() => router.push('/')}>모임 생성하기</Menu.Item>
         </Menu>
       </div>
 
