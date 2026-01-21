@@ -15,11 +15,14 @@ function getStatsFromParticipants(
   candidateDates: string[],
   participants: Participant[],
 ) {
+  // 투표한 참여자만 필터링
+  const votedParticipants = participants.filter((p) => p.hasVoted);
+
   return candidateDates.map((date) => {
     const can: Person[] = [];
     const cannot: Person[] = [];
 
-    participants.forEach((p) => {
+    votedParticipants.forEach((p) => {
       if (p.voteDates.includes(date)) {
         can.push({ id: String(p.id), name: p.name });
       } else {
