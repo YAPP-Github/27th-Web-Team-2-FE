@@ -87,7 +87,7 @@ export function useParticipantRegisterName(meetingId: string) {
         const params = new URLSearchParams();
         params.set('name', trimmedName);
         // [수정] 이동 경로: register/date
-        router.push(`/meet/${meetingId}/register/date?${params.toString()}`);
+        router.replace(`/meet/${meetingId}/register/date?${params.toString()}`);
       }
     } catch (error) {
       console.error('Failed to check participant existence:', error);
