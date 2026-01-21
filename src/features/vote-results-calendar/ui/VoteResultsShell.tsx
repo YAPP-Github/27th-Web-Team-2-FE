@@ -26,12 +26,12 @@ export function VoteResultsShell({
   // Scroll to detail when opened
   useEffect(() => {
     if (selectedDate && detailRef.current) {
-      calendarRef?.current?.scrollIntoView({
+      detailRef.current.scrollIntoView({
         behavior: 'smooth',
-        block: 'start',
+        block: 'end',
       });
     }
-  }, [selectedDate, calendarRef]);
+  }, [selectedDate]);
 
   return (
     <div className='flex flex-col gap-6' ref={calendarRef}>
@@ -44,7 +44,7 @@ export function VoteResultsShell({
       {selectedDate && (
         <div
           ref={detailRef}
-          className='animate-in slide-in-from-top-4 fade-in rounded-xl border border-slate-100 bg-white p-6 shadow-sm duration-300'
+          className='animate-in slide-in-from-top-4 fade-in scroll-mb-24 rounded-xl border border-slate-100 bg-white p-6 shadow-sm duration-300'
         >
           <div className='mb-6 flex items-start justify-between'>
             <div>
