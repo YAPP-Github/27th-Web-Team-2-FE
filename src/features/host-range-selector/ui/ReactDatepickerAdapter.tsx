@@ -205,7 +205,7 @@ export function ReactDatepickerAdapter({
             >
               <Icon name='arrow_prev' size={24} />
             </button>
-            <span className='text-xl font-bold text-slate-800'>
+            <span className='text-title-6 text-slate-800'>
               {format(date, 'M월')}
             </span>
             {showNextMonthTooltip && !nextMonthButtonDisabled ? (
@@ -266,7 +266,7 @@ export function ReactDatepickerAdapter({
             textClass = 'text-slate-300';
           } else if (isSelected) {
             bgClass = 'bg-gray-800';
-            textClass = 'text-white font-bold';
+            textClass = 'text-white';
           } else if (isInDragRange) {
             bgClass = 'bg-slate-100';
             textClass = 'text-slate-900';
@@ -290,7 +290,7 @@ export function ReactDatepickerAdapter({
               style={{ touchAction: 'none' }}
             >
               <div
-                className={`relative flex h-10 w-10 items-center justify-center rounded-lg text-base font-normal transition-colors ${bgClass} ${textClass}`}
+                className={`relative flex h-10 w-10 items-center justify-center rounded-lg transition-colors ${bgClass} ${textClass} text-body-4`}
               >
                 {day}
               </div>

@@ -99,13 +99,13 @@ export function ReactDatePickerVoteResultsCalendar({
         if (votes > 0) {
           if (focusedParticipant) {
             bgClass = 'bg-gray-800';
-            textClass = 'text-white font-bold';
+            textClass = 'text-white';
           } else if (rank && rank <= 3) {
             bgClass = 'bg-blue-100 shadow-sm';
-            textClass = 'text-white font-bold';
+            textClass = 'text-white';
           } else {
             bgClass = 'bg-blue-30';
-            textClass = 'text-blue-100 font-medium';
+            textClass = 'text-blue-100';
           }
         } else {
           bgClass = 'hover:bg-slate-100';
@@ -126,16 +126,18 @@ export function ReactDatePickerVoteResultsCalendar({
     return (
       <div className='flex h-full w-full items-center justify-center py-1'>
         <div
-          className={cn(
-            'relative flex h-9 w-9 items-center justify-center rounded-lg text-base font-normal transition-colors sm:h-10 sm:w-10',
-            bgClass,
-            textClass,
-            selectedClass,
-            isInteractive && !isSelected && 'hover:brightness-95',
-            !isInteractive && 'pointer-events-none text-slate-300',
-            isFilteredOut && 'text-slate-900',
-            isInteractive && 'pointer-events-auto cursor-pointer',
-          )}
+          className={
+            cn(
+              'relative flex h-9 w-9 items-center justify-center rounded-lg transition-colors sm:h-10 sm:w-10',
+              bgClass,
+              textClass,
+              selectedClass,
+              isInteractive && !isSelected && 'hover:brightness-95',
+              !isInteractive && 'pointer-events-none text-slate-300',
+              isFilteredOut && 'text-slate-900',
+              isInteractive && 'pointer-events-auto cursor-pointer',
+            ) + ' text-body-4'
+          }
         >
           {day}
 
@@ -184,7 +186,7 @@ export function ReactDatePickerVoteResultsCalendar({
               >
                 <Icon name='arrow_prev' size={24} />
               </button>
-              <span className='text-xl font-bold text-slate-800'>
+              <span className='text-title-6 text-slate-800'>
                 {format(date, 'M월')}
               </span>
               <button

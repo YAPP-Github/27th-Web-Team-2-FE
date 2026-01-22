@@ -17,7 +17,7 @@ export function useDateSelect(hostName: string, meetingName: string) {
       hostName,
       meetingName,
     });
-    router.push(`/create?${params.toString()}`);
+    router.replace(`/create?${params.toString()}`);
   };
 
   const handleNext = async (formattedDates: string[]) => {
@@ -49,7 +49,7 @@ export function useDateSelect(hostName: string, meetingName: string) {
 
   const handleDirectVote = () => {
     if (createdMeetingId) {
-      router.push(`/meet/${createdMeetingId}`);
+      router.replace(`/meet/${createdMeetingId}`);
     }
   };
 
@@ -63,10 +63,10 @@ export function useDateSelect(hostName: string, meetingName: string) {
         });
         console.log('주최자 투표 완료');
         // 캐시 무효화를 위해 전체 페이지 새로고침으로 이동
-        window.location.href = `/meet/${createdMeetingId}`;
+        router.replace(`/meet/${createdMeetingId}`);
       } catch (error) {
         console.error('투표 실패:', error);
-        window.location.href = `/meet/${createdMeetingId}`;
+        router.replace(`/meet/${createdMeetingId}`);
       }
     }
   };

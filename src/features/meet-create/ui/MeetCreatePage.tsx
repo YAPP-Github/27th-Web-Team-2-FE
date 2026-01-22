@@ -41,7 +41,7 @@ export default function MeetCreatePage({
       hostName: hostName.trim(),
       meetingName: finalMeetingName,
     });
-    router.push(`/date?${params.toString()}`);
+    router.replace(`/date?${params.toString()}`);
   };
 
   return (

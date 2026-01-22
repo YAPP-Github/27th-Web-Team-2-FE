@@ -89,12 +89,16 @@ export function useParticipantRegisterDate(meetingId: string) {
   const successModal = useDisclosure();
 
   const handleBack = () => {
-    router.back();
+    const params = new URLSearchParams();
+    if (participantName) {
+      params.set('name', participantName);
+    }
+    router.replace(`/meet/${meetingId}/register?${params.toString()}`);
   };
 
   const handleSuccessModalClose = () => {
     successModal.close();
-    router.push(`/meet/${meetingId}`);
+    router.replace(`/meet/${meetingId}`);
   };
 
   const handleSubmit = async () => {

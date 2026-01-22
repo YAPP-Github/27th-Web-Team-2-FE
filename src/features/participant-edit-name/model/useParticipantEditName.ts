@@ -89,7 +89,7 @@ export function useParticipantEditName(meetingId: string) {
         // 식별을 위해 encodedName을 쿼리로 넘기는 방식을 채택 (간단한 구현)
         const params = new URLSearchParams();
         params.set('name', trimmedName);
-        router.push(`/meet/${meetingId}/edit/date?${params.toString()}`);
+        router.replace(`/meet/${meetingId}/edit/date?${params.toString()}`);
       } else {
         // 실패 케이스: 참여 이력 없음
         setErrorDetails({
