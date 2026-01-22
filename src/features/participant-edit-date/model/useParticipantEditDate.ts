@@ -147,7 +147,12 @@ export function useParticipantEditDate(meetingId: string) {
     isSubmitting,
     isCtaActive,
     handleAllImpossibleChange,
-    onDateClick: handleDateChange, // 어댑터용 (Date[] => void)
+    onDateClick: (dates: Date[]) => {
+      if (isAllImpossible) {
+        setIsAllImpossible(false);
+      }
+      handleDateChange(dates);
+    },
     handleBack,
     handleSubmit,
     isSuccessModalOpen: successModal.isOpen,

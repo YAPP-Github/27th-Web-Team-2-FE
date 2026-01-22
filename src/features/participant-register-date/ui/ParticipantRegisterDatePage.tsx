@@ -61,11 +61,6 @@ export default function ParticipantRegisterDatePage({
             availableDates={availableDates}
             showNextMonthTooltip={true}
           />
-
-          {/* 불참 체크 시 캘린더 비활성 (오버레이 처리) */}
-          {isAllImpossible && (
-            <div className='absolute inset-0 z-10 bg-white/50' />
-          )}
         </div>
 
         {/* 2-4. '모든 날짜에 참여가 어려워요' 체크박스 */}

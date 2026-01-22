@@ -138,7 +138,12 @@ export function useParticipantRegisterDate(meetingId: string) {
     isSubmitting,
     isCtaActive,
     handleAllImpossibleChange,
-    onDateClick: handleDateChange,
+    onDateClick: (dates: Date[]) => {
+      if (isAllImpossible) {
+        setIsAllImpossible(false);
+      }
+      handleDateChange(dates);
+    },
     handleBack,
     handleSubmit,
     isSuccessModalOpen: successModal.isOpen,
