@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 
 import { getMeetingById } from '@/entities/meet/api/getMeetingById';
@@ -10,16 +11,44 @@ import { VoteResultDataView } from '@/widgets/vote-result/ui/VoteResultDataView'
 
 import ParticipantHeader from './ParticipantHeader';
 
+interface PageProps {
+  params: Promise<{
+    meetingId: string;
+  }>;
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { meetingId } = await params;
+
+  try {
+    const meetingData = await getMeetingById(meetingId);
+    return {
+      title: `${meetingData.hostName}님이 초대한 ${meetingData.title}`,
+      description: 'MOIT | 모두의 만남을 잇다, 모잇',
+    };
+  } catch {
+    return {
+      title: 'MOIT | 모두의 만남을 잇다, 모잇',
+      description: '모잇으로 모임 일정을 쉽게 조율해보세요',
+    };
+  }
+}
+
 // Transform Logic
 function getStatsFromParticipants(
   candidateDates: string[],
   participants: Participant[],
 ) {
+  // 투표한 참여자만 필터링
+  const votedParticipants = participants.filter((p) => p.hasVoted);
+
   return candidateDates.map((date) => {
     const can: Person[] = [];
     const cannot: Person[] = [];
 
-    participants.forEach((p) => {
+    votedParticipants.forEach((p) => {
       if (p.voteDates.includes(date)) {
         can.push({ id: String(p.id), name: p.name });
       } else {
@@ -35,13 +64,7 @@ function getStatsFromParticipants(
   });
 }
 
-interface ResultPageProps {
-  params: Promise<{
-    meetingId: string;
-  }>;
-}
-
-export default async function ResultPage({ params }: ResultPageProps) {
+export default async function ResultPage({ params }: PageProps) {
   const { meetingId } = await params;
   // Fetch meeting data from API
   const meetingData = await getMeetingById(meetingId);

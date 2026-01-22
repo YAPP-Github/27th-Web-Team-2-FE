@@ -35,6 +35,7 @@ export const participantDto = z.object({
   id: z.number(),
   name: z.string(),
   voteDates: z.array(z.string()),
+  hasVoted: z.boolean(),
 });
 
 /**
