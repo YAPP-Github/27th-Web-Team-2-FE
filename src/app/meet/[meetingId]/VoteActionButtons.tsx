@@ -19,7 +19,7 @@ export function VoteActionButtons({ meetingId }: VoteActionButtonsProps) {
   };
 
   return (
-    <div className='fixed right-0 bottom-0 left-0 z-50 mx-auto w-full max-w-screen-sm bg-gray-50 p-4'>
+    <div className='fixed right-0 bottom-0 left-0 z-50 mx-auto w-full max-w-screen-sm bg-gray-50 px-5 py-4'>
       <div className='flex gap-3'>
         <Link
           href={`/meet/${meetingId}/edit`}
