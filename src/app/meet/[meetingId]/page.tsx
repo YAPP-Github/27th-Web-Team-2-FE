@@ -33,7 +33,6 @@ export async function generateMetadata({
       openGraph: {
         title,
         description,
-        images: [{ url: '/og-image.png' }],
       },
     };
   } catch {
@@ -46,7 +45,6 @@ export async function generateMetadata({
       openGraph: {
         title,
         description,
-        images: [{ url: '/og-image.png' }],
       },
     };
   }
