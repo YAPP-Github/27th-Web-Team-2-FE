@@ -128,7 +128,7 @@ export function ReactDatePickerVoteResultsCalendar({
         <div
           className={
             cn(
-              'relative flex h-9 w-9 items-center justify-center rounded-lg transition-colors sm:h-10 sm:w-10',
+              'relative flex h-9 w-9 items-center justify-center rounded-[4px] transition-colors sm:h-10 sm:w-10',
               bgClass,
               textClass,
               selectedClass,
@@ -146,7 +146,7 @@ export function ReactDatePickerVoteResultsCalendar({
               <Badge
                 variant={rank === 1 ? 'rank1' : rank === 2 ? 'rank2' : 'rank3'}
                 size='sm'
-                className='h-5 min-w-5 justify-center px-1 py-0 text-[10px] shadow-sm'
+                className='h-5 min-w-5 justify-center py-0 text-[10px] shadow-sm'
               >
                 {rank}위
               </Badge>

@@ -4,22 +4,23 @@ import * as React from 'react';
 import { cn } from '@/shared/lib/utils';
 
 const badgeVariants = cva(
-  'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+  'inline-flex items-center justify-center rounded-full border px-2 py-0.5 text-xs font-semibold',
   {
     variants: {
       variant: {
         default:
-          'border-transparent bg-primary text-primary-foreground hover:bg-primary/80',
-        secondary: 'border-transparent bg-slate-100 text-slate-900',
-        rank1: 'border-blue-500 bg-white text-blue-600 border', // User requested: Blue border, white bg
-        rank2: 'border-blue-400 bg-white text-blue-500 border',
-        rank3: 'border-blue-300 bg-white text-blue-400 border',
-        outline: 'text-foreground',
-        rank_outline: 'border border-blue-500 bg-white text-blue-600',
+          'border-transparent bg-primary-default text-text-inverse hover:bg-primary-subtle',
+        secondary: 'border-transparent bg-gray-100 text-gray-900',
+        rank1: 'border-primary-default bg-gray-0 text-primary-default',
+        rank2: 'border-primary-default bg-gray-0 text-primary-default', // Keep approximated until design provided
+        rank3: 'border-primary-default bg-gray-0 text-primary-default', // Keep approximated until design provided
+        outline: 'text-text-primary',
+        rank_outline:
+          'border border-primary-default bg-gray-0 text-primary-default',
       },
       size: {
         default: 'px-2 py-0.5 text-xs',
-        sm: 'px-1.5 py-0 text-[10px]',
+        sm: 'px-[6px] py-0 text-[10px] tracking-[-0.2px] leading-[16px]',
       },
     },
     defaultVariants: {
