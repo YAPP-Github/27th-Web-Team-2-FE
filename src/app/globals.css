@@ -17,10 +17,10 @@
 
   /* Primitive: Blue */
   --color-blue-10: #2e6bfa1a;
-  --color-blue-30: #2e6bfa4d;
-  --color-blue-60: #2e6bfa99;
+  --color-blue-30: #3c7efa;
+  --color-blue-60: #3c7efa;
   --color-blue-70: #0085ff;
-  --color-blue-100: #2e6bfa;
+  --color-blue-100: #3c7efa;
 
   /* Primitive: Green */
   --color-green-100: #ebffea;
@@ -41,10 +41,34 @@
   --color-red-700: #f05a5a;
 
   /* Semantic: Primary */
-  --color-primary-default: #2e6bfa;
-  --color-primary-subtle: #2e6bfa99;
-  --color-primary-subtler: #2e6bfa4d;
-  --color-primary-subtlest: #2e6bfa1a;
+  --color-primary-default: #3c7efa;
+  --color-primary-subtle: rgba(60, 126, 250, 0.6);
+  --color-primary-subtler: rgba(60, 126, 250, 0.3);
+  --color-primary-subtlest: rgba(60, 126, 250, 0.1);
+
+  /* Semantic: Success */
+  --color-success-default: #27c227;
+  --color-success-subtle: #7ae079;
+  --color-success-subtler: #cffccf;
+  --color-success-subtlest: #ebffea;
+
+  /* Semantic: Warning */
+  --color-warning-default: #ff6749;
+  --color-warning-subtle: #ff8d76;
+  --color-warning-subtler: #ffb3a4;
+  --color-warning-subtlest: #ffe0da;
+
+  /* Semantic: Error */
+  --color-error-default: #f05a5a;
+  --color-error-subtle: #f88e8e;
+  --color-error-subtler: #fbc3c3;
+  --color-error-subtlest: #ffe7e7;
+
+  /* Semantic: Processing */
+  --color-processing-default: #3c7efa;
+  --color-processing-subtle: rgba(60, 126, 250, 0.6);
+  --color-processing-subtler: rgba(60, 126, 250, 0.3);
+  --color-processing-subtlest: rgba(60, 126, 250, 0.1);
 
   /* Semantic: Text */
   --color-text-primary: #191f28;
@@ -52,12 +76,6 @@
   --color-text-tertiary: #8b95a1;
   --color-text-quaternary: #b1b8c1;
   --color-text-inverse: #ffffff;
-
-  /* Semantic: Status */
-  --color-status-success: #27c227;
-  --color-status-warning: #ff6749;
-  --color-status-error: #f05a5a;
-  --color-status-processing: #2e6bfa;
 
   /* Semantic: Line */
   --color-line-clickable: #d1d6dc;
@@ -335,12 +353,12 @@
   }
 
   .input-field.input-error {
-    border-color: var(--color-status-error);
+    border-color: var(--color-error-default);
   }
 
   .input-field.input-error:focus {
-    border-color: var(--color-status-error);
-    box-shadow: 0 0 0 1px var(--color-status-error);
+    border-color: var(--color-error-default);
+    box-shadow: 0 0 0 1px var(--color-error-default);
   }
 
   .input-field.input-full-width {
@@ -354,7 +372,7 @@
 
   .input-error-text {
     /* text-caption-7 */
-    color: var(--color-status-error);
+    color: var(--color-error-default);
   }
 
   /* Input Extras in globals.css */
@@ -601,29 +619,4 @@
 .react-datepicker-wrapper-custom .react-datepicker__day--keyboard-selected {
   background-color: transparent;
   color: inherit;
-}
-
-/* Multi Date Picker overrides */
-.rmdp-container {
-  width: 100%;
-}
-.rmdp-wrapper {
-  border: none !important;
-  box-shadow: none !important;
-}
-.rmdp-top-class {
-  width: 100% !important;
-}
-.rmdp-day.rmdp-today span {
-  background-color: transparent !important;
-  color: inherit !important;
-  border: 1px solid #2563eb;
-}
-.rmdp-day.rmdp-selected span:not(.highlight) {
-  background-color: #2563eb !important;
-}
-
-/* Vote Result Calendar에서 기본 헤더(년월)가 중복 노출되는 문제 해결 */
-.vote-result-calendar .react-datepicker__current-month {
-  display: none !important;
 }
