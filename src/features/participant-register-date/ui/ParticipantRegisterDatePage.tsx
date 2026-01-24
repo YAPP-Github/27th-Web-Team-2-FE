@@ -44,7 +44,7 @@ export default function ParticipantRegisterDatePage({
     <div className='bg-gray-0 flex min-h-screen flex-col'>
       {/* 2-1. 상단 영역 */}
       <TopBar
-        title='일정 수정하기'
+        title='일정 투표하기'
         leftIcon='arrow_prev'
         onLeftClick={handleBack}
       />
