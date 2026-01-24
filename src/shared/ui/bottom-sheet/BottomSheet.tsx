@@ -3,6 +3,7 @@
 import type { PropsWithChildren } from 'react';
 import { Drawer } from 'vaul';
 
+import { trackEvent } from '@/shared/lib/amplitude';
 import Icon from '@/shared/ui/icon/Icon';
 
 interface BottomSheetProps extends PropsWithChildren {
@@ -44,7 +45,10 @@ export default function BottomSheet({
           <div className='flex w-full justify-end pt-2 pr-5'>
             <button
               type='button'
-              onClick={onClose}
+              onClick={() => {
+                trackEvent('modal_x_btn_click');
+                onClose();
+              }}
               className='text-text-primary flex h-6 w-6 items-center justify-center active:scale-95'
               aria-label='닫기'
             >

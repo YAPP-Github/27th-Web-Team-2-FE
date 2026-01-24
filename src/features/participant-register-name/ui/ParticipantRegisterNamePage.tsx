@@ -1,5 +1,6 @@
 'use client';
 
+import { trackEvent } from '@/shared/lib/amplitude';
 import Button from '@/shared/ui/button/Button';
 import { Header } from '@/shared/ui/header';
 import Input from '@/shared/ui/input/Input';
@@ -25,6 +26,17 @@ export default function ParticipantRegisterNamePage({
     handleBack,
   } = useParticipantRegisterName(meetingId);
 
+  const handleNameBlur = () => {
+    if (name.trim()) {
+      trackEvent('voter_name_input');
+    }
+  };
+
+  const handleSubmitWithTracking = () => {
+    trackEvent('voter_name_completed_cta_click');
+    handleSubmit();
+  };
+
   return (
     <div className='bg-gray-0 flex min-h-screen flex-col'>
       {/* 2. 상단 영역 */}
@@ -41,6 +53,7 @@ export default function ParticipantRegisterNamePage({
           <Input
             value={name}
             onChange={handleNameChange}
+            onBlur={handleNameBlur}
             onClear={handleNameClear}
             placeholder='이름을 입력해주세요'
             maxLength={maxLength}
@@ -56,7 +69,11 @@ export default function ParticipantRegisterNamePage({
         <div className='flex-1' />
 
         {/* 2-3. CTA 영역 */}
-        <Button onClick={handleSubmit} disabled={!isValidInput} fullWidth>
+        <Button
+          onClick={handleSubmitWithTracking}
+          disabled={!isValidInput}
+          fullWidth
+        >
           일정 선택하기
         </Button>
       </main>

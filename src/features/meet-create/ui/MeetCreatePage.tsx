@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
+import { trackEvent } from '@/shared/lib/amplitude';
 import Button from '@/shared/ui/button/Button';
 import Input from '@/shared/ui/input/Input';
 import TopBar from '@/shared/ui/top-bar/TopBar';
@@ -34,9 +35,34 @@ export default function MeetCreatePage({
     router.push('/');
   };
 
+  const handleHostNameBlur = () => {
+    if (hostName.trim()) {
+      trackEvent('host_name_input');
+    }
+  };
+
+  const handleMeetingNameBlur = () => {
+    // 사용자가 직접 입력한 경우에만 이벤트 발생 (is_autofilled: false)
+    // 입력하지 않고 플레이스홀더를 사용하는 경우는 handleSubmit에서 처리
+    if (meetingName.trim()) {
+      trackEvent('host_meeting_name_input', {
+        is_autofilled: false,
+      });
+    }
+  };
+
   const handleSubmit = () => {
     // meetingName이 비어있으면 플레이스홀더 값 사용
+    const isUsingPlaceholder = !meetingName.trim();
     const finalMeetingName = meetingName.trim() || meetingNamePlaceholder;
+
+    // 플레이스홀더를 사용하는 경우 (사용자가 입력하지 않은 경우)
+    if (isUsingPlaceholder) {
+      trackEvent('host_meeting_name_input', {
+        is_autofilled: true,
+      });
+    }
+
     const params = new URLSearchParams({
       hostName: hostName.trim(),
       meetingName: finalMeetingName,
@@ -67,6 +93,7 @@ export default function MeetCreatePage({
             <Input
               value={hostName}
               onChange={handleHostNameChange}
+              onBlur={handleHostNameBlur}
               onClear={handleHostNameClear}
               placeholder='이름을 입력해주세요'
               maxLength={10}
@@ -80,10 +107,12 @@ export default function MeetCreatePage({
             label='모임명'
             value={meetingName}
             onChange={handleMeetingNameChange}
+            onBlur={handleMeetingNameBlur}
             onClear={handleMeetingNameClear}
             placeholder={meetingNamePlaceholder}
             maxLength={10}
             fullWidth
+            suppressHydrationWarning
           />
         </div>
 
