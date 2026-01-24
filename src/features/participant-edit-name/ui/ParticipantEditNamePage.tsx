@@ -1,5 +1,6 @@
 'use client';
 
+import { trackEvent } from '@/shared/lib/amplitude';
 import Button from '@/shared/ui/button/Button';
 import { Header } from '@/shared/ui/header';
 import Input from '@/shared/ui/input/Input';
@@ -25,6 +26,17 @@ export default function ParticipantEditNamePage({
     handleBack,
   } = useParticipantEditName(meetingId);
 
+  const handleNameBlur = () => {
+    if (name.trim()) {
+      trackEvent('voter_name_input_edit');
+    }
+  };
+
+  const handleSubmitWithTracking = () => {
+    trackEvent('voter_name_input_completed_cta_click');
+    handleSubmit();
+  };
+
   return (
     <div className='bg-gray-0 flex min-h-screen flex-col'>
       {/* 2. 상단 영역 */}
@@ -45,6 +57,7 @@ export default function ParticipantEditNamePage({
           <Input
             value={name}
             onChange={handleNameChange}
+            onBlur={handleNameBlur}
             onClear={handleNameClear}
             placeholder='투표에 참여했던 이름을 입력해주세요'
             maxLength={maxLength}
@@ -60,7 +73,11 @@ export default function ParticipantEditNamePage({
         <div className='flex-1' />
 
         {/* 2-3. CTA 영역 */}
-        <Button onClick={handleSubmit} disabled={!isValidInput} fullWidth>
+        <Button
+          onClick={handleSubmitWithTracking}
+          disabled={!isValidInput}
+          fullWidth
+        >
           일정 수정하기
         </Button>
       </main>

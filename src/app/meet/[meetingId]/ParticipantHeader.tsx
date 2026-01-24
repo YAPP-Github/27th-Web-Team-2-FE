@@ -1,6 +1,7 @@
 'use client';
 
 import { useDisclosure } from '@/shared/hooks/useDisclosure';
+import { trackEvent } from '@/shared/lib/amplitude';
 import LinkShareBottomSheet from '@/shared/ui/bottom-sheet/LinkShareBottomSheet';
 import RegisterSequenceBottomSheet from '@/shared/ui/bottom-sheet/RegisterSequenceBottomSheet';
 import { TopBar } from '@/shared/ui/top-bar';
@@ -28,6 +29,11 @@ export default function ParticipantHeader({
     close: closeRegister,
   } = useDisclosure();
 
+  const handleOpenShare = () => {
+    trackEvent('modal_share_sheet_open', { entry_point: 'main_top' });
+    openShare();
+  };
+
   return (
     <>
       <div className={`relative ${className}`}>
@@ -36,7 +42,7 @@ export default function ParticipantHeader({
           leftIcon='ic_calendar_add'
           onLeftClick={openRegister}
           rightIcon='ic_other_share'
-          onRightClick={openShare}
+          onRightClick={handleOpenShare}
         />
       </div>
 

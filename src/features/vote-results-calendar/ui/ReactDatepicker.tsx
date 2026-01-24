@@ -6,6 +6,7 @@ import { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 
 import { VoteResultsProps } from '@/entities/voteDateStat/dto/voteDateStat.dto';
+import { trackEvent } from '@/shared/lib/amplitude';
 import { calculateRank, isDateDisabled, parseDate } from '@/shared/lib/date';
 import { cn } from '@/shared/lib/utils';
 import { Badge } from '@/shared/ui/Badge';
@@ -56,10 +57,16 @@ export function ReactDatePickerVoteResultsCalendar({
       if (!isParticipantPossible) return;
     }
 
+    trackEvent('voter_date_cell_click');
+
     if (selectedDate === dateStr) {
       setRawSelectedDate(null);
     } else {
       setRawSelectedDate(dateStr);
+      // 날짜 선택 시 voter_view_voter_count 이벤트
+      trackEvent('voter_view_voter_count', {
+        count: stat.can.length,
+      });
     }
   };
 
@@ -179,7 +186,10 @@ export function ReactDatePickerVoteResultsCalendar({
           }) => (
             <div className='mb-4 flex items-center justify-center gap-9'>
               <button
-                onClick={decreaseMonth}
+                onClick={() => {
+                  trackEvent('voter_month_move_btn_click');
+                  decreaseMonth();
+                }}
                 disabled={prevMonthButtonDisabled}
                 type='button'
                 className='flex items-center justify-center text-slate-400 transition-colors hover:text-slate-400 disabled:opacity-30'
@@ -190,7 +200,10 @@ export function ReactDatePickerVoteResultsCalendar({
                 {format(date, 'M월')}
               </span>
               <button
-                onClick={increaseMonth}
+                onClick={() => {
+                  trackEvent('voter_month_move_btn_click');
+                  increaseMonth();
+                }}
                 disabled={nextMonthButtonDisabled}
                 type='button'
                 className='flex items-center justify-center text-slate-400 transition-colors hover:text-slate-400 disabled:opacity-30'

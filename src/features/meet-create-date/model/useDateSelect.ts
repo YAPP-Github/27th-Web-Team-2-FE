@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import { createMeeting } from '@/entities/meet/api/createMeeting';
 import { updateVote } from '@/entities/meet/api/updateVote';
+import { trackEvent } from '@/shared/lib/amplitude';
 
 export function useDateSelect(hostName: string, meetingName: string) {
   const router = useRouter();
@@ -25,6 +26,10 @@ export function useDateSelect(hostName: string, meetingName: string) {
       alert('날짜를 선택해주세요.');
       return;
     }
+
+    trackEvent('host_create_meeting_cta_click', {
+      total_days: formattedDates.length,
+    });
 
     try {
       const response = await createMeeting({
@@ -48,12 +53,18 @@ export function useDateSelect(hostName: string, meetingName: string) {
   };
 
   const handleDirectVote = () => {
+    trackEvent('host_direct_vote_cta_click', {
+      selection: 'direct_vote',
+    });
     if (createdMeetingId) {
       router.replace(`/meet/${createdMeetingId}`);
     }
   };
 
   const handleAllAvailable = async () => {
+    trackEvent('host_option_modal_click', {
+      selection: 'all_available',
+    });
     if (createdMeetingId && selectedDates.length > 0) {
       try {
         await updateVote({

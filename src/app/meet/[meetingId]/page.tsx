@@ -1,15 +1,14 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
 
 import { getMeetingById } from '@/entities/meet/api/getMeetingById';
 import { type Participant } from '@/entities/meet/dto/meet.dto';
 import { BASE_URL } from '@/shared/config/constants';
 import { Person } from '@/shared/types/common';
-import Button from '@/shared/ui/button/Button';
 import { Header } from '@/shared/ui/header';
 import { VoteResultDataView } from '@/widgets/vote-result/ui/VoteResultDataView';
 
 import ParticipantHeader from './ParticipantHeader';
+import { VoteActionButtons } from './VoteActionButtons';
 
 interface PageProps {
   params: Promise<{
@@ -125,18 +124,7 @@ export default async function ResultPage({ params }: PageProps) {
         stats={stats}
       />
 
-      <div className='fixed right-0 bottom-0 left-0 z-50 mx-auto w-full max-w-screen-sm bg-gray-50 p-4'>
-        <div className='flex gap-3'>
-          <Link href={`/meet/${meetingId}/edit`} className='flex-1'>
-            <Button variant='secondary' fullWidth>
-              투표 수정하기
-            </Button>
-          </Link>
-          <Link href={`/meet/${meetingId}/register`} className='flex-1'>
-            <Button fullWidth>투표하기</Button>
-          </Link>
-        </div>
-      </div>
+      <VoteActionButtons meetingId={meetingId} />
     </div>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useDateSelection } from '@/features/host-range-selector/model/useDateSelection';
 import { ReactDatepickerAdapter } from '@/features/host-range-selector/ui/ReactDatepickerAdapter';
+import { trackEvent } from '@/shared/lib/amplitude';
 import { BottomSheet } from '@/shared/ui/bottom-sheet';
 import Button from '@/shared/ui/button';
 import TopBar from '@/shared/ui/top-bar/TopBar';
@@ -28,6 +29,13 @@ export default function DateSelectPage({
   const { selectedDates, handleDateChange, formattedDates } =
     useDateSelection();
 
+  const handleDateChangeWithTracking = (dates: Date[]) => {
+    trackEvent('host_date_select', {
+      total_days: dates.length,
+    });
+    handleDateChange(dates);
+  };
+
   return (
     <div className='bg-gray-0 flex min-h-screen flex-col'>
       {/* 헤더 */}
@@ -50,7 +58,7 @@ export default function DateSelectPage({
         <div className='mb-6 flex flex-1 justify-center'>
           <ReactDatepickerAdapter
             selectedDates={selectedDates}
-            onChange={handleDateChange}
+            onChange={handleDateChangeWithTracking}
           />
         </div>
 
