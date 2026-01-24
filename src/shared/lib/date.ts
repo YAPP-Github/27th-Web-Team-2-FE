@@ -36,16 +36,16 @@ export function calculateRank(
   stats: { date: string; count: number }[],
   targetDate: string,
 ): number | null {
-  // 1. count 내림차순, 2. date 오름차순 (빠른 날짜 우선)
-  const sorted = [...stats].sort((a, b) => {
-    if (b.count !== a.count) return b.count - a.count;
-    return a.date.localeCompare(b.date);
-  });
+  const targetStat = stats.find((s) => s.date === targetDate);
+  if (!targetStat || targetStat.count === 0) return null;
 
-  // 0표 제외
-  const validSorted = sorted.filter((s) => s.count > 0);
+  // 1. 0표 제외하고 count만 추출하여 중복 제거 및 내림차순 정렬
+  const uniqueCounts = Array.from(
+    new Set(stats.filter((s) => s.count > 0).map((s) => s.count)),
+  ).sort((a, b) => b - a);
 
-  const index = validSorted.findIndex((s) => s.date === targetDate);
-  if (index === -1) return null;
-  return index + 1; // 1-based rank
+  // 2. 현재 날짜의 count가 몇 번째 순위인지 확인 (0-based index + 1)
+  const rank = uniqueCounts.indexOf(targetStat.count) + 1;
+
+  return rank;
 }
