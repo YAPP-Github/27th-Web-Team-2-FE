@@ -1,10 +1,8 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-
 import { useDisclosure } from '@/shared/hooks/useDisclosure';
 import LinkShareBottomSheet from '@/shared/ui/bottom-sheet/LinkShareBottomSheet';
-import { Menu } from '@/shared/ui/menu';
+import RegisterSequenceBottomSheet from '@/shared/ui/bottom-sheet/RegisterSequenceBottomSheet';
 import { TopBar } from '@/shared/ui/top-bar';
 
 interface ParticipantHeaderProps {
@@ -18,7 +16,6 @@ export default function ParticipantHeader({
   url,
   className,
 }: ParticipantHeaderProps) {
-  const router = useRouter();
   const {
     isOpen: isShareOpen,
     open: openShare,
@@ -26,9 +23,9 @@ export default function ParticipantHeader({
   } = useDisclosure();
 
   const {
-    isOpen: isMenuOpen,
-    open: openMenu,
-    close: closeMenu,
+    isOpen: isRegisterOpen,
+    open: openRegister,
+    close: closeRegister,
   } = useDisclosure();
 
   return (
@@ -36,21 +33,22 @@ export default function ParticipantHeader({
       <div className={`relative ${className}`}>
         <TopBar
           title={title}
-          leftIcon='ic_hamburger'
-          onLeftClick={openMenu}
+          leftIcon='ic_calendar_add'
+          onLeftClick={openRegister}
           rightIcon='ic_other_share'
           onRightClick={openShare}
         />
-
-        <Menu isOpen={isMenuOpen} onClose={closeMenu} className='top-12 left-4'>
-          <Menu.Item onClick={() => router.push('/')}>모임 생성하기</Menu.Item>
-        </Menu>
       </div>
 
       <LinkShareBottomSheet
         isOpen={isShareOpen}
         onClose={closeShare}
         url={url}
+      />
+
+      <RegisterSequenceBottomSheet
+        isOpen={isRegisterOpen}
+        onClose={closeRegister}
       />
     </>
   );
