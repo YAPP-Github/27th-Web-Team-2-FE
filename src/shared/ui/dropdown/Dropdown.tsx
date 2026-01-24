@@ -1,6 +1,7 @@
 'use client';
 import { useRef, useState } from 'react';
 
+import { trackEvent } from '@/shared/lib/amplitude';
 import Chip from '@/shared/ui/chip/Chip';
 
 import { Icon } from '../icon';
@@ -35,7 +36,10 @@ export default function Dropdown({
   //   return () => document.removeEventListener('mousedown', handleClickOutside);
   // }, []);
 
-  const handleToggle = () => setIsOpen((prev) => !prev);
+  const handleToggle = () => {
+    trackEvent('voter_dropdown_click');
+    setIsOpen((prev) => !prev);
+  };
 
   return (
     <div ref={containerRef} className={`font-pretendard w-full ${className}`}>

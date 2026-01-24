@@ -18,6 +18,8 @@
     "prepare": "lefthook install"
   },
   "dependencies": {
+    "@amplitude/analytics-browser": "^2.33.5",
+    "@amplitude/session-replay-browser": "^1.30.8",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "copy-to-clipboard": "^3.3.3",

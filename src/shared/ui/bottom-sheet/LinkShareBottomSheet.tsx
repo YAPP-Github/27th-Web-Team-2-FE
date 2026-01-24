@@ -4,6 +4,7 @@ import copy from 'copy-to-clipboard';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 
+import { trackEvent } from '@/shared/lib/amplitude';
 import BottomSheet from '@/shared/ui/bottom-sheet/BottomSheet';
 import Button from '@/shared/ui/button/Button';
 import Chip from '@/shared/ui/chip/Chip';
@@ -16,7 +17,7 @@ interface LinkShareBottomSheetProps {
   title?: string;
   description?: string;
   shareTitle?: string;
-  shareText?: string;
+  entryPoint?: 'host_create' | 'main_top';
 }
 
 export default function LinkShareBottomSheet({
@@ -26,12 +27,13 @@ export default function LinkShareBottomSheet({
   title = '모임 투표 링크가 생성됐어요!',
   description = '친구들에게 링크를 공유해 보세요',
   shareTitle = '모임 투표 링크',
-  shareText = '모임 투표 링크가 생성됐어요!',
+  entryPoint = 'main_top',
 }: LinkShareBottomSheetProps) {
   const [isCopied, setIsCopied] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
   const handleCopy = () => {
+    trackEvent('modal_link_copy_click');
     copy(url);
     setIsCopied(true);
     setShowToast(true);
@@ -43,9 +45,12 @@ export default function LinkShareBottomSheet({
   };
 
   const handleShare = async () => {
+    trackEvent('os_share_cta_click', {
+      entry_point: entryPoint,
+    });
+
     const shareData = {
       title: shareTitle,
-      text: shareText,
       url: url,
     };
 

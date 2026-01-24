@@ -25,6 +25,11 @@ interface InputProps extends ComponentProps<'input'> {
    * 제공하지 않으면 내부적으로 값을 비우고 포커스를 설정합니다.
    */
   onClear?: () => void;
+  /**
+   * SSR/CSR 불일치 경고를 무시합니다. (랜덤 placeholder 등)
+   * https://react.dev/reference/react-dom/components/common #suppressHydrationWarning
+   */
+  suppressHydrationWarning?: boolean;
 }
 
 /**
@@ -46,6 +51,7 @@ export default function Input({
   onClear,
   onChange,
   onKeyDown,
+  suppressHydrationWarning,
   ...props
 }: InputProps) {
   // 접근성 ID 자동 생성
@@ -134,6 +140,7 @@ export default function Input({
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           style={{ paddingRight: rightPadding }}
+          suppressHydrationWarning={suppressHydrationWarning}
           {...props}
         />
 

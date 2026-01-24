@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactDatepickerAdapter } from '@/features/host-range-selector/ui/ReactDatepickerAdapter';
+import { trackEvent } from '@/shared/lib/amplitude';
 import SuccessBottomSheet from '@/shared/ui/bottom-sheet/SuccessBottomSheet';
 import Button from '@/shared/ui/button/Button';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
@@ -33,6 +34,23 @@ export default function ParticipantEditDatePage({
     handleSuccessModalClose,
   } = useParticipantEditDate(meetingId);
 
+  const handleDateChangeWithTracking = (dates: Date[]) => {
+    trackEvent('voter_date_edit', {
+      vote_type: dates.length > 0 ? 'selective' : 'all_disabled',
+    });
+    onDateClick(dates);
+  };
+
+  const handleSubmitWithTracking = () => {
+    trackEvent('voter_date_edit_confirm_cta_click');
+    handleSubmit();
+  };
+
+  const handleSuccessModalCloseWithTracking = () => {
+    trackEvent('voter_edit_completed_cta_click');
+    handleSuccessModalClose();
+  };
+
   if (isLoading) {
     return (
       <div className='flex min-h-screen items-center justify-center bg-white'>
@@ -58,7 +76,7 @@ export default function ParticipantEditDatePage({
         <div className='relative mb-6 flex flex-1 justify-center'>
           <ReactDatepickerAdapter
             selectedDates={selectedDates}
-            onChange={onDateClick}
+            onChange={handleDateChangeWithTracking}
             availableDates={availableDates}
             showNextMonthTooltip={true}
           />
@@ -83,15 +101,19 @@ export default function ParticipantEditDatePage({
         <div className='flex-1' />
 
         {/* 2-5. CTA 영역 */}
-        <Button onClick={handleSubmit} disabled={!isCtaActive} fullWidth>
+        <Button
+          onClick={handleSubmitWithTracking}
+          disabled={!isCtaActive}
+          fullWidth
+        >
           투표하기
         </Button>
       </main>
 
       <SuccessBottomSheet
         isOpen={isSuccessModalOpen}
-        onClose={handleSuccessModalClose}
-        onConfirm={handleSuccessModalClose}
+        onClose={handleSuccessModalCloseWithTracking}
+        onConfirm={handleSuccessModalCloseWithTracking}
         title={'투표가 수정되었어요!'}
         subtitle={'지금 투표 현황을 확인해보세요'}
       />

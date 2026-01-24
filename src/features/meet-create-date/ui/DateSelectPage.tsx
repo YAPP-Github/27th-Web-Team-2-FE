@@ -2,6 +2,7 @@
 
 import { useDateSelection } from '@/features/host-range-selector/model/useDateSelection';
 import { ReactDatepickerAdapter } from '@/features/host-range-selector/ui/ReactDatepickerAdapter';
+import { trackEvent } from '@/shared/lib/amplitude';
 import { BottomSheet } from '@/shared/ui/bottom-sheet';
 import Button from '@/shared/ui/button';
 import TopBar from '@/shared/ui/top-bar/TopBar';
@@ -28,6 +29,13 @@ export default function DateSelectPage({
   const { selectedDates, handleDateChange, formattedDates } =
     useDateSelection();
 
+  const handleDateChangeWithTracking = (dates: Date[]) => {
+    trackEvent('host_date_select', {
+      total_days: dates.length,
+    });
+    handleDateChange(dates);
+  };
+
   return (
     <div className='bg-gray-0 flex min-h-screen flex-col'>
       {/* 헤더 */}
@@ -50,7 +58,7 @@ export default function DateSelectPage({
         <div className='mb-6 flex flex-1 justify-center'>
           <ReactDatepickerAdapter
             selectedDates={selectedDates}
-            onChange={handleDateChange}
+            onChange={handleDateChangeWithTracking}
           />
         </div>
 
@@ -67,10 +75,10 @@ export default function DateSelectPage({
       {/* 바텀시트 */}
       <BottomSheet isOpen={isBottomSheetOpen} onClose={handleCloseBottomSheet}>
         <div className='flex flex-col items-center'>
-          <h2 className='text-title-4 text-text-primary mb-1 text-center'>
+          <h2 className='text-headline-5 text-text-primary mb-1 text-center'>
             선택한 날짜에 모두 참여 가능한가요?
           </h2>
-          <p className='text-body-2 text-text-tertiary mb-6 text-center'>
+          <p className='text-body-2 text-text-tertiary mb-8 text-center'>
             모두 가능한 경우, 자동으로 투표에 반영해드려요
           </p>
           <div className='flex w-full gap-3'>
