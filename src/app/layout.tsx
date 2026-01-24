@@ -14,11 +14,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://moit.kr'),
   title: 'moit | 모두의 만남을 잇다, 모잇',
   description: '모잇으로 모임 일정을 쉽고 빠르게 조율해보세요',
   openGraph: {
     title: 'moit | 모두의 만남을 잇다, 모잇',
     description: '모잇으로 모임 일정을 쉽고 빠르게 조율해보세요',
+    images: ['/opengraph-image.png'],
   },
 };
 
