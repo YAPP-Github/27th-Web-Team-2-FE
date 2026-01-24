@@ -104,8 +104,8 @@ export function ReactDatePickerVoteResultsCalendar({
             bgClass = 'bg-blue-100 shadow-sm';
             textClass = 'text-white';
           } else {
-            bgClass = 'bg-blue-30';
-            textClass = 'text-blue-100';
+            bgClass = 'bg-blue-10';
+            textClass = 'text-gray-900';
           }
         } else {
           bgClass = 'hover:bg-slate-100';
