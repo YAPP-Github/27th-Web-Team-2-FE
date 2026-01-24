@@ -112,6 +112,7 @@ export default function MeetCreatePage({
             placeholder={meetingNamePlaceholder}
             maxLength={10}
             fullWidth
+            suppressHydrationWarning
           />
         </div>
 

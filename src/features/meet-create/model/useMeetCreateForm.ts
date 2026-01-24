@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 // 랜덤 모임명 플레이스홀더 목록
 const MEETING_NAME_PLACEHOLDERS = [
@@ -11,12 +11,12 @@ const MEETING_NAME_PLACEHOLDERS = [
   '설레는 모임',
 ];
 
-function getRandomPlaceholder() {
+const getRandomPlaceholder = () => {
   const randomIndex = Math.floor(
     Math.random() * MEETING_NAME_PLACEHOLDERS.length,
   );
   return MEETING_NAME_PLACEHOLDERS[randomIndex];
-}
+};
 
 export function useMeetCreateForm(
   initialHostName = '',
@@ -26,8 +26,9 @@ export function useMeetCreateForm(
   const [meetingName, setMeetingName] = useState(initialMeetingName);
   const [hostNameError, setHostNameError] = useState('');
 
-  // 컴포넌트 마운트 시 한 번만 랜덤 플레이스홀더 선택
-  const meetingNamePlaceholder = useMemo(() => getRandomPlaceholder(), []);
+  // useState의 lazy initializer로 마운트 시 한 번만 랜덤값 생성
+  // SSR/CSR 불일치는 Input의 suppressHydrationWarning으로 처리
+  const [meetingNamePlaceholder] = useState(getRandomPlaceholder);
 
   const validateHostName = (value: string) => {
     // 한글, 영문(대소문자)만 허용하는 정규식
