@@ -67,10 +67,10 @@ export default function DateSelectPage({
       {/* 바텀시트 */}
       <BottomSheet isOpen={isBottomSheetOpen} onClose={handleCloseBottomSheet}>
         <div className='flex flex-col items-center'>
-          <h2 className='text-title-4 text-text-primary mb-1 text-center'>
+          <h2 className='text-headline-5 text-text-primary mb-1 text-center'>
             선택한 날짜에 모두 참여 가능한가요?
           </h2>
-          <p className='text-body-2 text-text-tertiary mb-6 text-center'>
+          <p className='text-body-2 text-text-tertiary mb-8 text-center'>
             모두 가능한 경우, 자동으로 투표에 반영해드려요
           </p>
           <div className='flex w-full gap-3'>

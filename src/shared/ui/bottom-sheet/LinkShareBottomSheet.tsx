@@ -16,7 +16,6 @@ interface LinkShareBottomSheetProps {
   title?: string;
   description?: string;
   shareTitle?: string;
-  shareText?: string;
 }
 
 export default function LinkShareBottomSheet({
@@ -26,7 +25,6 @@ export default function LinkShareBottomSheet({
   title = '모임 투표 링크가 생성됐어요!',
   description = '친구들에게 링크를 공유해 보세요',
   shareTitle = '모임 투표 링크',
-  shareText = '모임 투표 링크가 생성됐어요!',
 }: LinkShareBottomSheetProps) {
   const [isCopied, setIsCopied] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -45,7 +43,6 @@ export default function LinkShareBottomSheet({
   const handleShare = async () => {
     const shareData = {
       title: shareTitle,
-      text: shareText,
       url: url,
     };
 
