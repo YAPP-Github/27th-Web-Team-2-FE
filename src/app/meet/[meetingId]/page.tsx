@@ -24,14 +24,28 @@ export async function generateMetadata({
 
   try {
     const meetingData = await getMeetingById(meetingId);
+    const title = `${meetingData.hostName}님이 초대한 ${meetingData.title}`;
+    const description = 'moit | 모두의 만남을 잇다, 모잇';
+
     return {
-      title: `${meetingData.hostName}님이 초대한 ${meetingData.title}`,
-      description: 'MOIT | 모두의 만남을 잇다, 모잇',
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+      },
     };
   } catch {
+    const title = 'moit | 모두의 만남을 잇다, 모잇';
+    const description = '모잇으로 모임 일정을 쉽게 빠르게 조율해보세요';
+
     return {
-      title: 'MOIT | 모두의 만남을 잇다, 모잇',
-      description: '모잇으로 모임 일정을 쉽게 조율해보세요',
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+      },
     };
   }
 }
