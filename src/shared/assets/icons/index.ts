@@ -2,6 +2,7 @@ import ArrowDown from './ArrowDown';
 import ArrowNext from './ArrowNext';
 import ArrowPrev from './ArrowPrev';
 import ArrowUp from './ArrowUp';
+import IcCalendarAdd from './IcCalendarAdd';
 import IcCheckboxChecked from './IcCheckboxChecked';
 import IcCheckboxDefault from './IcCheckboxDefault';
 import IcCircleCheckFilled from './IcCircleCheckFilled';
@@ -22,6 +23,7 @@ export const icons = {
   arrow_next: ArrowNext,
   arrow_prev: ArrowPrev,
   arrow_up: ArrowUp,
+  ic_calendar_add: IcCalendarAdd,
   ic_circle_check_filled: IcCircleCheckFilled,
   ic_circle_check_outline: IcCircleCheckOutline,
   ic_circle_x_filled: IcCircleXFilled,
