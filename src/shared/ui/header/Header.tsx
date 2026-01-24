@@ -1,5 +1,3 @@
-import Icon from '../icon/Icon';
-
 interface HeaderProps {
   /**
    * 헤더의 변형(Variant)을 결정합니다.
@@ -72,7 +70,7 @@ export function Header({
               type='button'
             >
               {/* Refresh Icon Placeholder or SVG */}
-              <Icon name='ic_refresh' size={16} />
+              {/* <Icon name='ic_refresh' size={16} /> */}
               <span>{standardTime} 기준</span>
             </button>
           )}
