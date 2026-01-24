@@ -82,7 +82,7 @@ export default function DateSelectPage({
               onClick={handleAllAvailable}
               className='!bg-gray-800 hover:!bg-gray-700'
             >
-              가능해요
+              모두 가능해요
             </Button>
           </div>
         </div>
