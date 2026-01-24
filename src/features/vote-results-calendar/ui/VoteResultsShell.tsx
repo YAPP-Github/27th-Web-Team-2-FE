@@ -34,7 +34,7 @@ export function VoteResultsShell({
   }, [selectedDate]);
 
   return (
-    <div className='flex flex-col gap-6' ref={calendarRef}>
+    <div className='flex flex-col gap-2' ref={calendarRef}>
       {/* 1. Calendar Area */}
       <div className='flex min-h-100 justify-center rounded-xl border border-slate-100 bg-white p-4 shadow-sm'>
         {children}
@@ -44,73 +44,76 @@ export function VoteResultsShell({
       {selectedDate && (
         <div
           ref={detailRef}
-          className='animate-in slide-in-from-top-4 fade-in scroll-mb-24 rounded-xl border border-slate-100 bg-white p-6 shadow-sm duration-300'
+          className='animate-in slide-in-from-top-4 fade-in relative flex scroll-mb-24 flex-col gap-6 rounded-lg bg-white p-5 shadow-[0px_0px_30px_0px_rgba(0,0,0,0.04)] duration-300'
         >
-          <div className='mb-6 flex items-start justify-between'>
-            <div>
-              <h3 className='mb-1 text-sm font-medium text-slate-500'>
+          {/* Header */}
+          <div className='flex items-start justify-between'>
+            <div className='flex flex-col gap-1.5'>
+              <h3 className='text-caption-7 text-gray-600'>
                 {format(parseISO(selectedDate), 'M월 d일 EEEE', { locale: ko })}
               </h3>
-              <div className='flex items-center gap-2'>
-                <span className='text-2xl font-bold text-slate-900'>
-                  {selectedStat ? selectedStat.can.length : 0}명이 가능해요
+              <span className='text-title-6 text-gray-900'>
+                <span className='text-primary-default'>
+                  {selectedStat ? selectedStat.can.length : 0}
                 </span>
-              </div>
+                명이 가능해요
+              </span>
             </div>
             <button
               onClick={onCloseDetail}
-              className='-mr-2 p-2 text-slate-400 hover:text-slate-600'
+              className='text-gray-400 hover:text-gray-600'
             >
-              <Icon name='ic_menu_close' size={20} />
+              <Icon name='ic_menu_close' size={24} />
             </button>
           </div>
 
-          <div className='space-y-6'>
+          <div className='flex flex-col gap-6'>
             {/* Possible */}
-            <div>
-              <div className='mb-3 flex items-center gap-2 text-sm font-medium text-blue-600'>
+            <div className='flex flex-col gap-3'>
+              <div className='text-body-5 text-primary-default flex items-center gap-0.5'>
                 <Icon name='ic_circle_check_filled' size={16} />
-                가능한 사람
+                가능한 사람 ({selectedStat ? selectedStat.can.length : 0})
               </div>
               {selectedStat && selectedStat.can.length > 0 ? (
-                <div className='flex flex-wrap gap-2'>
+                <div className='flex flex-wrap gap-1.5'>
                   {selectedStat.can.map((p) => (
                     <Chip
                       key={p.id}
                       text={p.name}
                       variant='fill'
-                      size='md'
-                      className='bg-slate-100 text-slate-700'
+                      size='sm'
+                      selectable={false}
                     />
                   ))}
                 </div>
               ) : (
-                <p className='text-sm text-slate-400'>
+                <p className='text-body-5 text-text-tertiary text-center'>
                   가능한 사람이 없습니다.
                 </p>
               )}
             </div>
 
-            <div>
-              <div className='mb-3 flex items-center gap-2 text-sm font-medium text-red-500'>
+            {/* Impossible */}
+            <div className='flex flex-col gap-3'>
+              <div className='text-body-5 flex items-center gap-0.5 text-orange-700'>
                 <Icon name='ic_circle_x_filled' size={16} />
-                안되는 사람
+                안되는 사람 ({selectedStat ? selectedStat.cannot.length : 0})
               </div>
               {selectedStat && selectedStat.cannot.length > 0 ? (
-                <div className='flex flex-wrap gap-2'>
+                <div className='flex flex-wrap gap-1.5'>
                   {selectedStat.cannot.map((p) => (
                     <Chip
                       key={p.id}
                       text={p.name}
                       variant='fill'
-                      size='md'
-                      className='bg-slate-100 text-slate-700'
+                      size='sm'
+                      selectable={false}
                     />
                   ))}
                 </div>
               ) : (
-                <p className='text-sm text-slate-400'>
-                  불가능한 사람이 없습니다.
+                <p className='text-body-5 text-text-tertiary text-center'>
+                  안되는 사람이 없어요
                 </p>
               )}
             </div>

@@ -111,8 +111,8 @@ export function ReactDatePickerVoteResultsCalendar({
             bgClass = 'bg-blue-100 shadow-sm';
             textClass = 'text-white';
           } else {
-            bgClass = 'bg-blue-30';
-            textClass = 'text-blue-100';
+            bgClass = 'bg-blue-10';
+            textClass = 'text-gray-900';
           }
         } else {
           bgClass = 'hover:bg-slate-100';
@@ -135,7 +135,7 @@ export function ReactDatePickerVoteResultsCalendar({
         <div
           className={
             cn(
-              'relative flex h-9 w-9 items-center justify-center rounded-lg transition-colors sm:h-10 sm:w-10',
+              'relative flex h-9 w-9 items-center justify-center rounded-sm transition-colors sm:h-10 sm:w-10',
               bgClass,
               textClass,
               selectedClass,
@@ -153,7 +153,7 @@ export function ReactDatePickerVoteResultsCalendar({
               <Badge
                 variant={rank === 1 ? 'rank1' : rank === 2 ? 'rank2' : 'rank3'}
                 size='sm'
-                className='h-5 min-w-5 justify-center px-1 py-0 text-[10px] shadow-sm'
+                className='h-5 min-w-5 justify-center py-0 text-[10px] shadow-sm'
               >
                 {rank}위
               </Badge>

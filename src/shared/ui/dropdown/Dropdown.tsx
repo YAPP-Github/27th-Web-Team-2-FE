@@ -45,7 +45,7 @@ export default function Dropdown({
     <div ref={containerRef} className={`font-pretendard w-full ${className}`}>
       <div
         style={{
-          borderRadius: '0.8rem',
+          borderRadius: '4px',
           border: '1px solid var(--primary-subtler, rgba(60, 126, 250, 0.30))',
           background:
             'linear-gradient(0deg, rgba(255, 255, 255, 0.00) 7.66%, rgba(46, 107, 250, 0.09) 93.19%), var(--Primitive-Gray-scale-0, #FFF)',
@@ -108,7 +108,7 @@ export default function Dropdown({
                   ))}
                 </div>
               ) : (
-                <div className='text-body-2 flex h-22 items-center justify-center text-gray-400'>
+                <div className='text-body-5 flex h-22 items-center justify-center text-gray-400'>
                   아직 참여자가 없어요
                 </div>
               )}
