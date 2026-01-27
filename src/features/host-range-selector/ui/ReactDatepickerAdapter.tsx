@@ -196,7 +196,7 @@ export function ReactDatepickerAdapter({
           prevMonthButtonDisabled,
           nextMonthButtonDisabled,
         }) => (
-          <div className='mb-4 flex items-center justify-center gap-9'>
+          <div className='flex items-center justify-center gap-1.5 p-4'>
             <button
               onClick={decreaseMonth}
               disabled={prevMonthButtonDisabled}
