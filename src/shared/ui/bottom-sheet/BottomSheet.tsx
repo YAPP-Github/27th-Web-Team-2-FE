@@ -34,27 +34,22 @@ export default function BottomSheet({
           }`}
           aria-describedby={undefined}
         >
-          {/* Handle Bar (Optional, but good for UX) */}
-          <div className='mx-auto mt-3 h-1.5 w-12 rounded-full bg-gray-300' />
-
           <Drawer.Title className='sr-only'>Bottom Sheet</Drawer.Title>
           <Drawer.Description className='sr-only'>
             This is a bottom sheet component.
           </Drawer.Description>
 
-          <div className='flex w-full justify-end pt-2 pr-5'>
-            <button
-              type='button'
-              onClick={() => {
-                trackEvent('modal_x_btn_click');
-                onClose();
-              }}
-              className='text-text-primary flex h-6 w-6 items-center justify-center active:scale-95'
-              aria-label='닫기'
-            >
-              <Icon name='ic_menu_close' size={24} />
-            </button>
-          </div>
+          <button
+            type='button'
+            onClick={() => {
+              trackEvent('modal_x_btn_click');
+              onClose();
+            }}
+            className='text-text-primary absolute top-5 right-5 z-50 flex h-6 w-6 items-center justify-center active:scale-95'
+            aria-label='닫기'
+          >
+            <Icon name='ic_menu_close' size={24} />
+          </button>
           <div className='p-4 pb-8'>{children}</div>
         </Drawer.Content>
       </Drawer.Portal>
