@@ -122,9 +122,17 @@ export default function Input({
   return (
     <div className={containerClasses}>
       {label && (
-        <label htmlFor={inputId} className='input-label text-title-8'>
-          {label}
-        </label>
+        <div className='flex items-start gap-0.5'>
+          <label
+            htmlFor={inputId}
+            className='input-label text-title-8 shrink-0 text-gray-600'
+          >
+            {label}
+          </label>
+          {props.required && (
+            <div className='bg-error-default mt-1.5 h-1 w-1 rounded-full' />
+          )}
+        </div>
       )}
 
       <div className='input-wrapper'>

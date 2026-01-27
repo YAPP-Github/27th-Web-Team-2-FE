@@ -86,22 +86,18 @@ export default function MeetCreatePage({
         </h1>
 
         <div className='flex flex-col gap-1'>
-          <div className='mt-1 flex flex-col gap-1.5'>
-            <label className='input-label text-title-8'>
-              모임장 이름 <span className='text-status-error'>*</span>
-            </label>
-            <Input
-              value={hostName}
-              onChange={handleHostNameChange}
-              onBlur={handleHostNameBlur}
-              onClear={handleHostNameClear}
-              placeholder='이름을 입력해주세요'
-              maxLength={10}
-              fullWidth
-              required
-              errorMessage={hostNameError}
-            />
-          </div>
+          <Input
+            label='모임장 이름'
+            value={hostName}
+            onChange={handleHostNameChange}
+            onBlur={handleHostNameBlur}
+            onClear={handleHostNameClear}
+            placeholder='이름을 입력해주세요'
+            maxLength={10}
+            fullWidth
+            required
+            errorMessage={hostNameError}
+          />
 
           <Input
             label='모임명'
