@@ -36,7 +36,7 @@ export function VoteResultsShell({
   return (
     <div className='flex flex-col gap-2' ref={calendarRef}>
       {/* 1. Calendar Area */}
-      <div className='flex min-h-100 justify-center rounded-xl border border-slate-100 bg-white p-4 shadow-sm'>
+      <div className='flex min-h-100 justify-center rounded-lg border border-slate-100 bg-white p-4 shadow-[0_0_30px_0_rgba(0,0,0,0.04)]'>
         {children}
       </div>
 

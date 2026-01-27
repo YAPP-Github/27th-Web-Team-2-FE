@@ -45,7 +45,7 @@ export default function Dropdown({
     <div ref={containerRef} className={`font-pretendard w-full ${className}`}>
       <div
         style={{
-          borderRadius: '4px',
+          borderRadius: '8px',
           border: '1px solid var(--primary-subtler, rgba(60, 126, 250, 0.30))',
           background:
             'linear-gradient(0deg, rgba(255, 255, 255, 0.00) 7.66%, rgba(46, 107, 250, 0.09) 93.19%), var(--Primitive-Gray-scale-0, #FFF)',
@@ -114,9 +114,9 @@ export default function Dropdown({
               )}
 
               {/* Info Footer */}
-              <div className='flex items-center gap-1.5 rounded-xl bg-gray-100 p-2.5'>
+              <div className='flex items-center gap-1.5 rounded-sm bg-gray-100 p-2.5'>
                 <Icon name='ic_info_outline' size={16} />
-                <span className='text-caption-4 text-text-primary'>
+                <span className='text-body-5 text-text-primary'>
                   참여자 이름을 클릭하면 필터가 적용돼요!
                 </span>
               </div>
