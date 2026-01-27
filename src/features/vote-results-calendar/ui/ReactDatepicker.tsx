@@ -106,12 +106,12 @@ export function ReactDatePickerVoteResultsCalendar({
         if (votes > 0) {
           if (focusedParticipant) {
             bgClass = 'bg-gray-800';
-            textClass = 'text-white';
+            textClass = 'text-inverse';
           } else if (rank && rank <= 3) {
-            bgClass = 'bg-blue-100 shadow-sm';
-            textClass = 'text-white';
+            bgClass = 'bg-primary-default shadow-sm';
+            textClass = 'text-text-inverse';
           } else {
-            bgClass = 'bg-blue-10';
+            bgClass = 'bg-primary-subtlest';
             textClass = 'text-gray-900';
           }
         } else {
