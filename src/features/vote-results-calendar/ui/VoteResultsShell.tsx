@@ -72,7 +72,7 @@ export function VoteResultsShell({
             <div className='flex flex-col gap-3'>
               <div className='text-body-5 text-primary-default flex items-center gap-0.5'>
                 <Icon name='ic_circle_check_filled' size={16} />
-                가능한 사람 ({selectedStat ? selectedStat.can.length : 0})
+                가능한 사람
               </div>
               {selectedStat && selectedStat.can.length > 0 ? (
                 <div className='flex flex-wrap gap-1.5'>
@@ -97,7 +97,7 @@ export function VoteResultsShell({
             <div className='flex flex-col gap-3'>
               <div className='text-body-5 flex items-center gap-0.5 text-orange-700'>
                 <Icon name='ic_circle_x_filled' size={16} />
-                안되는 사람 ({selectedStat ? selectedStat.cannot.length : 0})
+                안되는 사람
               </div>
               {selectedStat && selectedStat.cannot.length > 0 ? (
                 <div className='flex flex-wrap gap-1.5'>
