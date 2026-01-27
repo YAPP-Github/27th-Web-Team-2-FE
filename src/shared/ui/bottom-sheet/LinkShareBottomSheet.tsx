@@ -29,17 +29,14 @@ export default function LinkShareBottomSheet({
   shareTitle = '모임 투표 링크',
   entryPoint = 'main_top',
 }: LinkShareBottomSheetProps) {
-  const [isCopied, setIsCopied] = useState(false);
   const [showToast, setShowToast] = useState(false);
 
   const handleCopy = () => {
     trackEvent('modal_link_copy_click');
     copy(url);
-    setIsCopied(true);
     setShowToast(true);
 
     setTimeout(() => {
-      setIsCopied(false);
       setShowToast(false);
     }, 2000);
   };
@@ -77,10 +74,12 @@ export default function LinkShareBottomSheet({
 
           {/* Link Box */}
           <div className='mb-4 flex w-full items-center justify-between rounded-lg bg-slate-100 px-4 py-3'>
-            <span className='text-body-2 truncate text-gray-500'>{url}</span>
+            <span className='text-body-4 text-text-tertiary truncate'>
+              {url}
+            </span>
             <Chip
-              text={isCopied ? '복사완료' : '복사'}
-              variant={isCopied ? 'fill' : 'line'}
+              text='복사'
+              variant='line'
               size='sm'
               selected
               onClick={handleCopy}
@@ -102,7 +101,7 @@ export default function LinkShareBottomSheet({
           <Toast
             message='주소가 복사되었어요'
             variant='success'
-            className='fixed top-8 left-1/2 z-[100] -translate-x-1/2'
+            className='animate-toast-slide-down fixed top-8 left-1/2 z-[100] -translate-x-1/2'
           />,
           document.body,
         )}
