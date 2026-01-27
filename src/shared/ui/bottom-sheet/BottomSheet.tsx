@@ -29,7 +29,7 @@ export default function BottomSheet({
           onClick={onClose}
         />
         <Drawer.Content
-          className={`bg-gray-0 fixed right-0 bottom-0 left-0 z-50 mx-auto flex max-h-[96%] max-w-screen-sm flex-col rounded-t-[20px] outline-none ${
+          className={`bg-gray-0 fixed right-0 bottom-0 left-0 z-50 mx-auto flex max-h-[96%] max-w-screen-sm flex-col rounded-t-lg outline-none ${
             className || ''
           }`}
           aria-describedby={undefined}

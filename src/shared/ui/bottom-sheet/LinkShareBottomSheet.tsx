@@ -24,8 +24,8 @@ export default function LinkShareBottomSheet({
   isOpen,
   onClose,
   url,
-  title = '모임 투표 링크가 생성됐어요!',
-  description = '친구들에게 링크를 공유해 보세요',
+  title = '모임을 공유하시겠어요?',
+  description = '더 많은 친구들에게 모임을 공유해보세요',
   shareTitle = '모임 투표 링크',
   entryPoint = 'main_top',
 }: LinkShareBottomSheetProps) {
@@ -68,29 +68,28 @@ export default function LinkShareBottomSheet({
   return (
     <>
       <BottomSheet isOpen={isOpen} onClose={onClose}>
-        <div className='flex flex-col items-center px-5 pt-2 pb-5 text-center'>
+        <div className='flex flex-col items-center pt-6 pb-5 text-center'>
           <h2 className='text-headline-5 mb-1 text-gray-900'>{title}</h2>
-          <p className='text-body-2 mb-8 text-gray-500'>{description}</p>
+          <p className='text-body-2 mb-5 text-gray-500'>{description}</p>
 
           {/* Link Box */}
-          <div className='mb-4 flex w-full items-center justify-between rounded-lg bg-slate-100 px-4 py-3'>
-            <span className='text-body-4 text-text-tertiary truncate'>
-              {url}
-            </span>
-            <Chip
-              text='복사'
-              variant='line'
-              size='sm'
-              selected
-              onClick={handleCopy}
-              className='ml-3'
-            />
+          <div className='w-full px-5'>
+            <div className='mb-5 flex w-full items-center justify-between rounded-lg bg-gray-100 px-4 py-3'>
+              <span className='text-body-4 truncate text-gray-500'>{url}</span>
+              <Chip
+                text='복사'
+                variant='line'
+                size='sm'
+                selected
+                onClick={handleCopy}
+                className='ml-3'
+              />
+            </div>
           </div>
-
           <Button
             fullWidth
             onClick={handleShare}
-            className='hover:bg-opacity-90 bg-gray-800 font-bold'
+            className='text-body-2 hover:bg-opacity-90 bg-gray-800'
           >
             링크 공유하기
           </Button>
