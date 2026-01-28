@@ -72,8 +72,8 @@ export default function ParticipantEditDatePage({
         title={'달력에서 가능한 날짜를\n모두 선택해주세요'}
       />
 
-      <main className='flex flex-1 flex-col px-5 pt-6 pb-10'>
-        <div className='relative mb-6 flex flex-1 justify-center'>
+      <main className='flex flex-1 flex-col px-5 pt-1 pb-10'>
+        <div className='relative flex justify-center pb-3'>
           <ReactDatepickerAdapter
             selectedDates={selectedDates}
             onChange={handleDateChangeWithTracking}
@@ -92,7 +92,7 @@ export default function ParticipantEditDatePage({
               checked={isAllImpossible}
               onChange={() => {}} // 부모 div onClick으로 처리
             />
-            <span className='text-body-2 text-text-secondary select-none'>
+            <span className='text-body-4 text-text-secondary select-none'>
               모든 날짜에 참여가 어려워요
             </span>
           </div>
