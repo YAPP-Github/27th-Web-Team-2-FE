@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev-msw": "NEXT_PUBLIC_MSW_ENABLED=true next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
