@@ -22,7 +22,7 @@ export default function RegisterSequenceBottomSheet({
 
   return (
     <BottomSheet isOpen={isOpen} onClose={onClose}>
-      <div className='flex flex-col items-center text-center'>
+      <div className='flex flex-col items-center justify-center px-1 pt-6'>
         <h2 className='text-headline-5 mb-1 text-gray-900'>
           새로운 투표 링크를 만드시겠어요?
         </h2>

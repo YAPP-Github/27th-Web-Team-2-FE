@@ -13,6 +13,11 @@ interface BottomSheetProps extends PropsWithChildren {
    * 바텀 시트 내용의 추가 클래스 이름
    */
   className?: string;
+  /**
+   * 닫기 버튼 렌더링 여부
+   * @default true
+   */
+  showCloseButton?: boolean;
 }
 
 export default function BottomSheet({
@@ -20,6 +25,7 @@ export default function BottomSheet({
   onClose,
   children,
   className,
+  showCloseButton = true,
 }: BottomSheetProps) {
   return (
     <Drawer.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
@@ -39,17 +45,19 @@ export default function BottomSheet({
             This is a bottom sheet component.
           </Drawer.Description>
 
-          <button
-            type='button'
-            onClick={() => {
-              trackEvent('modal_x_btn_click');
-              onClose();
-            }}
-            className='text-text-primary absolute top-5 right-5 z-50 flex h-6 w-6 items-center justify-center active:scale-95'
-            aria-label='닫기'
-          >
-            <Icon name='ic_menu_close' size={24} />
-          </button>
+          {showCloseButton && (
+            <button
+              type='button'
+              onClick={() => {
+                trackEvent('modal_x_btn_click');
+                onClose();
+              }}
+              className='text-text-primary absolute top-5 right-5 z-50 flex h-6 w-6 items-center justify-center active:scale-95'
+              aria-label='닫기'
+            >
+              <Icon name='ic_menu_close' size={24} />
+            </button>
+          )}
           <div className='p-4 pb-8'>{children}</div>
         </Drawer.Content>
       </Drawer.Portal>
