@@ -106,7 +106,7 @@ export default function Input({
 
   const inputClasses = [
     'input-field',
-    'text-body-2',
+    'text-body-3',
     fullWidth ? 'input-full-width' : '',
     isError ? 'input-error' : '',
     className || '',
@@ -180,7 +180,7 @@ export default function Input({
         </div>
 
         {showCount && (
-          <span className='input-count text-caption-5'>
+          <span className='input-count text-body-5'>
             {currentCount}/{maxLength}
           </span>
         )}
