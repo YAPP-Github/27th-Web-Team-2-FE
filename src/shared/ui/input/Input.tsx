@@ -106,7 +106,7 @@ export default function Input({
 
   const inputClasses = [
     'input-field',
-    'text-body-2',
+    'text-body-3',
     fullWidth ? 'input-full-width' : '',
     isError ? 'input-error' : '',
     className || '',
@@ -122,9 +122,17 @@ export default function Input({
   return (
     <div className={containerClasses}>
       {label && (
-        <label htmlFor={inputId} className='input-label text-title-8'>
-          {label}
-        </label>
+        <div className='flex items-start gap-0.5'>
+          <label
+            htmlFor={inputId}
+            className='input-label text-title-8 shrink-0 text-gray-600'
+          >
+            {label}
+          </label>
+          {props.required && (
+            <div className='bg-error-default mt-1.5 h-1 w-1 rounded-full' />
+          )}
+        </div>
       )}
 
       <div className='input-wrapper'>
@@ -172,7 +180,7 @@ export default function Input({
         </div>
 
         {showCount && (
-          <span className='input-count text-caption-5'>
+          <span className='input-count text-body-5'>
             {currentCount}/{maxLength}
           </span>
         )}

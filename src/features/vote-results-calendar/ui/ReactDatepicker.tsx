@@ -106,12 +106,12 @@ export function ReactDatePickerVoteResultsCalendar({
         if (votes > 0) {
           if (focusedParticipant) {
             bgClass = 'bg-gray-800';
-            textClass = 'text-white';
+            textClass = 'text-inverse';
           } else if (rank && rank <= 3) {
-            bgClass = 'bg-blue-100 shadow-sm';
-            textClass = 'text-white';
+            bgClass = 'bg-primary-default shadow-sm';
+            textClass = 'text-text-inverse';
           } else {
-            bgClass = 'bg-blue-10';
+            bgClass = 'bg-primary-subtlest';
             textClass = 'text-gray-900';
           }
         } else {
@@ -184,7 +184,7 @@ export function ReactDatePickerVoteResultsCalendar({
             prevMonthButtonDisabled,
             nextMonthButtonDisabled,
           }) => (
-            <div className='mb-4 flex items-center justify-center gap-9'>
+            <div className='flex items-center justify-center gap-1.5 p-4'>
               <button
                 onClick={() => {
                   trackEvent('voter_month_move_btn_click');

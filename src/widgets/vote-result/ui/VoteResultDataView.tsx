@@ -45,8 +45,8 @@ export function VoteResultDataView({
   };
 
   return (
-    <div className='flex w-full flex-col items-center px-5 py-2'>
-      <div className='w-full space-y-4'>
+    <div className='flex w-full flex-col items-center px-5'>
+      <div className='w-full gap-2'>
         {/* Dropdown for participants */}
         <Dropdown
           participants={participantNames}

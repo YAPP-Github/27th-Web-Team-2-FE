@@ -13,6 +13,11 @@ interface BottomSheetProps extends PropsWithChildren {
    * 바텀 시트 내용의 추가 클래스 이름
    */
   className?: string;
+  /**
+   * 닫기 버튼 렌더링 여부
+   * @default true
+   */
+  showCloseButton?: boolean;
 }
 
 export default function BottomSheet({
@@ -20,6 +25,7 @@ export default function BottomSheet({
   onClose,
   children,
   className,
+  showCloseButton = true,
 }: BottomSheetProps) {
   return (
     <Drawer.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
@@ -29,32 +35,29 @@ export default function BottomSheet({
           onClick={onClose}
         />
         <Drawer.Content
-          className={`bg-gray-0 fixed right-0 bottom-0 left-0 z-50 mx-auto flex max-h-[96%] max-w-screen-sm flex-col rounded-t-[20px] outline-none ${
+          className={`bg-gray-0 fixed right-0 bottom-0 left-0 z-50 mx-auto flex max-h-[96%] max-w-screen-sm flex-col rounded-t-lg outline-none ${
             className || ''
           }`}
           aria-describedby={undefined}
         >
-          {/* Handle Bar (Optional, but good for UX) */}
-          <div className='mx-auto mt-3 h-1.5 w-12 rounded-full bg-gray-300' />
-
           <Drawer.Title className='sr-only'>Bottom Sheet</Drawer.Title>
           <Drawer.Description className='sr-only'>
             This is a bottom sheet component.
           </Drawer.Description>
 
-          <div className='flex w-full justify-end pt-2 pr-5'>
+          {showCloseButton && (
             <button
               type='button'
               onClick={() => {
                 trackEvent('modal_x_btn_click');
                 onClose();
               }}
-              className='text-text-primary flex h-6 w-6 items-center justify-center active:scale-95'
+              className='text-text-primary absolute top-5 right-5 z-50 flex h-6 w-6 items-center justify-center active:scale-95'
               aria-label='닫기'
             >
               <Icon name='ic_menu_close' size={24} />
             </button>
-          </div>
+          )}
           <div className='p-4 pb-8'>{children}</div>
         </Drawer.Content>
       </Drawer.Portal>

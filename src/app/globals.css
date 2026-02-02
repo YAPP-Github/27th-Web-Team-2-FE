@@ -318,12 +318,11 @@
   .input-field {
     display: flex; /* Kept for compatibility */
     width: 100%; /* Ensure it fills the wrapper so padding doesn't expand it */
-    height: 48px;
     align-items: center;
     border-radius: 8px;
     border: 1px solid var(--color-line-clickable);
     background-color: var(--color-gray-0);
-    padding: 13px 16px;
+    padding: 14px 16px;
     outline: none;
     transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
     box-sizing: border-box; /* Ensure border-box is explicit */
@@ -619,4 +618,21 @@
 .react-datepicker-wrapper-custom .react-datepicker__day--keyboard-selected {
   background-color: transparent;
   color: inherit;
+}
+
+@layer utilities {
+  @keyframes slide-down {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-toast-slide-down {
+    animation: slide-down 0.3s ease-out forwards;
+  }
 }

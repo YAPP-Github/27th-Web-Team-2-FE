@@ -41,12 +41,9 @@ export default function ParticipantRegisterNamePage({
     <div className='bg-gray-0 flex min-h-screen flex-col'>
       {/* 2. 상단 영역 */}
       <TopBar title='투표하기' leftIcon='arrow_prev' onLeftClick={handleBack} />
-      <Header
-        variant='subHeader'
-        title={'투표에 참여할\n이름을 입력해주세요'}
-      />
+      <Header variant='subHeader' title={'이름을 입력해주세요'} />
 
-      <main className='flex flex-1 flex-col px-5 pt-6 pb-10'>
+      <main className='flex flex-1 flex-col px-5 pt-1 pb-10'>
         {/* 설명 (기획서에는 별도 설명 텍스트 언급 없으나, UI 흐름 상 필요하면 추가) */}
         {/* 2-2. 이름 입력 영역 */}
         <div className='mt-1 flex flex-col gap-1.5'>

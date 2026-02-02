@@ -19,9 +19,9 @@ export default function SuccessBottomSheet({
   subtitle,
 }: SuccessBottomSheetProps) {
   return (
-    <BottomSheet isOpen={isOpen} onClose={onClose}>
-      <div className='flex flex-col items-center justify-center pb-5'>
-        <div className='mb-6 flex flex-col items-center gap-1 text-center'>
+    <BottomSheet isOpen={isOpen} onClose={onClose} showCloseButton={false}>
+      <div className='flex flex-col items-center justify-center px-1 pt-6'>
+        <div className='mb-5 flex flex-col items-center gap-1 text-center'>
           <h2 className='text-headline-5 text-text-primary whitespace-pre-wrap'>
             {title}
           </h2>
