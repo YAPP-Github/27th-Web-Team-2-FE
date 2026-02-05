@@ -117,7 +117,7 @@ export default function Dropdown({
               <div className='flex items-center gap-1.5 rounded-sm bg-gray-100 p-2.5'>
                 <Icon name='ic_info_outline' size={16} />
                 <span className='text-body-5 text-text-primary'>
-                  참여자 이름을 클릭하면 필터가 적용돼요!
+                  참여자 이름을 클릭하면 그 사람이 선택한 날짜만 볼 수 있어요!
                 </span>
               </div>
             </div>
