@@ -17,7 +17,7 @@ export default function RegisterSequenceBottomSheet({
   const router = useRouter();
 
   const handleCreateNewLink = () => {
-    router.push('/');
+    router.push('/create');
   };
 
   return (

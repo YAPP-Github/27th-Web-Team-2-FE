@@ -1,5 +1,8 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
+
 import { useDisclosure } from '@/shared/hooks/useDisclosure';
 import { trackEvent } from '@/shared/lib/amplitude';
 import LinkShareBottomSheet from '@/shared/ui/bottom-sheet/LinkShareBottomSheet';
@@ -17,6 +20,7 @@ export default function ParticipantHeader({
   url,
   className,
 }: ParticipantHeaderProps) {
+  const searchParams = useSearchParams();
   const {
     isOpen: isShareOpen,
     open: openShare,
@@ -28,6 +32,12 @@ export default function ParticipantHeader({
     open: openRegister,
     close: closeRegister,
   } = useDisclosure();
+
+  useEffect(() => {
+    if (searchParams.get('trigger') === 'share') {
+      openShare();
+    }
+  }, [searchParams, openShare]);
 
   const handleOpenShare = () => {
     trackEvent('modal_share_sheet_open', { entry_point: 'main_top' });
