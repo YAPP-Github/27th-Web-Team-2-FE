@@ -1,6 +1,6 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { useDisclosure } from '@/shared/hooks/useDisclosure';
@@ -20,12 +20,16 @@ export default function ParticipantHeader({
   url,
   className,
 }: ParticipantHeaderProps) {
+  const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
+  const shouldOpenShare = searchParams.get('trigger') === 'share';
+
   const {
     isOpen: isShareOpen,
     open: openShare,
     close: closeShare,
-  } = useDisclosure();
+  } = useDisclosure(shouldOpenShare);
 
   const {
     isOpen: isRegisterOpen,
@@ -34,10 +38,12 @@ export default function ParticipantHeader({
   } = useDisclosure();
 
   useEffect(() => {
-    if (searchParams.get('trigger') === 'share') {
-      openShare();
+    if (shouldOpenShare) {
+      const newParams = new URLSearchParams(searchParams.toString());
+      newParams.delete('trigger');
+      router.replace(`${pathname}?${newParams.toString()}`);
     }
-  }, [searchParams, openShare]);
+  }, [shouldOpenShare, pathname, router, searchParams]);
 
   const handleOpenShare = () => {
     trackEvent('modal_share_sheet_open', { entry_point: 'main_top' });
