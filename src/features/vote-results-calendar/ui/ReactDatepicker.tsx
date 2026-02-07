@@ -106,7 +106,7 @@ export function ReactDatePickerVoteResultsCalendar({
         if (votes > 0) {
           if (focusedParticipant) {
             bgClass = 'bg-gray-800';
-            textClass = 'text-inverse';
+            textClass = 'text-text-inverse';
           } else if (rank && rank <= 3) {
             bgClass = 'bg-primary-default shadow-sm';
             textClass = 'text-text-inverse';

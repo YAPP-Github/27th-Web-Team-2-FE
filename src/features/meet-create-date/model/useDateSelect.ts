@@ -57,7 +57,7 @@ export function useDateSelect(hostName: string, meetingName: string) {
       selection: 'direct_vote',
     });
     if (createdMeetingId) {
-      router.replace(`/meet/${createdMeetingId}`);
+      router.replace(`/meet/${createdMeetingId}/register`);
     }
   };
 
@@ -74,10 +74,11 @@ export function useDateSelect(hostName: string, meetingName: string) {
         });
         console.log('주최자 투표 완료');
         // 캐시 무효화를 위해 전체 페이지 새로고침으로 이동
-        router.replace(`/meet/${createdMeetingId}`);
+        // LinkShareBottomSheet 표시를 위해 query param 추가
+        router.replace(`/meet/${createdMeetingId}?trigger=share`);
       } catch (error) {
         console.error('투표 실패:', error);
-        router.replace(`/meet/${createdMeetingId}`);
+        router.replace(`/meet/${createdMeetingId}?trigger=share`);
       }
     }
   };
