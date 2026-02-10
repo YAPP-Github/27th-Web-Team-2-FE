@@ -5,7 +5,7 @@ import { trackEvent } from '@/shared/lib/amplitude';
 import SuccessBottomSheet from '@/shared/ui/bottom-sheet/SuccessBottomSheet';
 import Button from '@/shared/ui/button/Button';
 import Checkbox from '@/shared/ui/checkbox/Checkbox';
-import { Header } from '@/shared/ui/header';
+import { Header } from '@/shared/ui/header/Header';
 import TopBar from '@/shared/ui/top-bar/TopBar';
 
 import { useParticipantRegisterDate } from '../model/useParticipantRegisterDate';

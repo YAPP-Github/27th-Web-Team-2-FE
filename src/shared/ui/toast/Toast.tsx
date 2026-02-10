@@ -1,6 +1,6 @@
 import { HTMLAttributes, ReactNode } from 'react';
 
-import { Icon } from '../icon';
+import Icon from '../icon/Icon';
 
 interface ToastProps extends HTMLAttributes<HTMLDivElement> {
   message: string;

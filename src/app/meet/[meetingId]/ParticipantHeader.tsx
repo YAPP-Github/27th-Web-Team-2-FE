@@ -7,7 +7,7 @@ import { useDisclosure } from '@/shared/hooks/useDisclosure';
 import { trackEvent } from '@/shared/lib/amplitude';
 import LinkShareBottomSheet from '@/shared/ui/bottom-sheet/LinkShareBottomSheet';
 import RegisterSequenceBottomSheet from '@/shared/ui/bottom-sheet/RegisterSequenceBottomSheet';
-import { TopBar } from '@/shared/ui/top-bar';
+import TopBar from '@/shared/ui/top-bar/TopBar';
 
 interface ParticipantHeaderProps {
   title: string;

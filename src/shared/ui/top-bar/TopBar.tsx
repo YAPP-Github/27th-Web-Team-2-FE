@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react';
 
-import { IconName } from '../../assets/icons';
+import { IconName } from '../../assets/icons/iconRegistry';
 import Icon from '../icon/Icon';
 
 interface TopBarProps extends HTMLAttributes<HTMLElement> {

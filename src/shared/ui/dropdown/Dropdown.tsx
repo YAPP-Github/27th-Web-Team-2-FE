@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { trackEvent } from '@/shared/lib/amplitude';
 import Chip from '@/shared/ui/chip/Chip';
 
-import { Icon } from '../icon';
+import Icon from '../icon/Icon';
 
 interface DropdownProps {
   participants?: string[];

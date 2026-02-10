@@ -3,8 +3,8 @@
 import { useDateSelection } from '@/features/host-range-selector/model/useDateSelection';
 import { ReactDatepickerAdapter } from '@/features/host-range-selector/ui/ReactDatepickerAdapter';
 import { trackEvent } from '@/shared/lib/amplitude';
-import { BottomSheet } from '@/shared/ui/bottom-sheet';
-import Button from '@/shared/ui/button';
+import BottomSheet from '@/shared/ui/bottom-sheet/BottomSheet';
+import Button from '@/shared/ui/button/Button';
 import TopBar from '@/shared/ui/top-bar/TopBar';
 
 import { useDateSelect } from '../model/useDateSelect';

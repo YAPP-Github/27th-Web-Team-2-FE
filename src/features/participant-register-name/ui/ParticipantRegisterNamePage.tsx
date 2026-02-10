@@ -2,7 +2,7 @@
 
 import { trackEvent } from '@/shared/lib/amplitude';
 import Button from '@/shared/ui/button/Button';
-import { Header } from '@/shared/ui/header';
+import { Header } from '@/shared/ui/header/Header';
 import Input from '@/shared/ui/input/Input';
 import TopBar from '@/shared/ui/top-bar/TopBar';
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { type IconName, icons } from '@/shared/assets/icons';
+import { type IconName, icons } from '@/shared/assets/icons/iconRegistry';
 
 import { ICON_SIZES } from './constants';
 import Icon from './Icon';

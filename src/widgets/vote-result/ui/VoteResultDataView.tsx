@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { VoteResultsProps } from '@/entities/voteDateStat/dto/voteDateStat.dto';
 import { ReactDatePickerVoteResultsCalendar } from '@/features/vote-results-calendar/ui/ReactDatepicker';
 import { trackEvent } from '@/shared/lib/amplitude';
-import { Dropdown } from '@/shared/ui/dropdown';
+import Dropdown from '@/shared/ui/dropdown/Dropdown';
 
 interface VoteResultDataViewProps {
   participantNames: string[];

@@ -3,8 +3,8 @@ import { ko } from 'date-fns/locale';
 import { useEffect, useRef } from 'react';
 
 import { VoteDateStat } from '@/entities/voteDateStat/dto/voteDateStat.dto';
-import Chip from '@/shared/ui/chip';
-import { Icon } from '@/shared/ui/icon';
+import Chip from '@/shared/ui/chip/Chip';
+import Icon from '@/shared/ui/icon/Icon';
 
 type VoteResultsShellProps = {
   children: React.ReactNode;

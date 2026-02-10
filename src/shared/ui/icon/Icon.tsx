@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react';
 
-import { IconName, icons } from '../../assets/icons';
+import { IconName, icons } from '../../assets/icons/iconRegistry';
 import { ICON_SIZES } from './constants';
 import { IconSize } from './types';
 interface IconProps extends HTMLAttributes<HTMLDivElement> {

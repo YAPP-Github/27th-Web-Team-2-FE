@@ -4,7 +4,7 @@ import { getMeetingById } from '@/entities/meet/api/getMeetingById';
 import { type Participant } from '@/entities/meet/dto/meet.dto';
 import { BASE_URL } from '@/shared/config/constants';
 import { Person } from '@/shared/types/common';
-import { Header } from '@/shared/ui/header';
+import { Header } from '@/shared/ui/header/Header';
 import { VoteResultDataView } from '@/widgets/vote-result/ui/VoteResultDataView';
 
 import ParticipantHeader from './ParticipantHeader';
