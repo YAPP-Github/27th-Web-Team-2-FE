@@ -6,8 +6,9 @@ import { useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 
 import { VoteResultsProps } from '@/entities/voteDateStat/dto/voteDateStat.dto';
+import { calculateRank } from '@/entities/voteDateStat/lib/calculateRank';
 import { trackEvent } from '@/shared/lib/amplitude';
-import { calculateRank, isDateDisabled, parseDate } from '@/shared/lib/date';
+import { isDateDisabled, parseDate } from '@/shared/lib/date';
 import { cn } from '@/shared/lib/utils';
 import { Badge } from '@/shared/ui/Badge';
 import Icon from '@/shared/ui/icon/Icon';

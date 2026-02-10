@@ -17,7 +17,10 @@ interface LinkShareBottomSheetProps {
   title?: string;
   description?: string;
   shareTitle?: string;
-  entryPoint?: 'host_create' | 'main_top';
+  copyButtonText?: string;
+  shareButtonText?: string;
+  copySuccessMessage?: string;
+  entryPoint?: string;
 }
 
 export default function LinkShareBottomSheet({
@@ -27,6 +30,9 @@ export default function LinkShareBottomSheet({
   title = '모임을 공유하시겠어요?',
   description = '더 많은 친구들에게 모임을 공유해보세요',
   shareTitle = '모임 투표 링크',
+  copyButtonText = '복사',
+  shareButtonText = '링크 공유하기',
+  copySuccessMessage = '주소가 복사되었어요',
   entryPoint = 'main_top',
 }: LinkShareBottomSheetProps) {
   const [showToast, setShowToast] = useState(false);
@@ -77,7 +83,7 @@ export default function LinkShareBottomSheet({
             <div className='mb-5 flex w-full items-center justify-between rounded-lg bg-gray-100 px-4 py-3'>
               <span className='text-body-4 truncate text-gray-500'>{url}</span>
               <Chip
-                text='복사'
+                text={copyButtonText}
                 variant='line'
                 size='sm'
                 selected
@@ -91,14 +97,14 @@ export default function LinkShareBottomSheet({
             onClick={handleShare}
             className='text-body-2 hover:bg-opacity-90 bg-gray-800'
           >
-            링크 공유하기
+            {shareButtonText}
           </Button>
         </div>
       </BottomSheet>
       {showToast &&
         createPortal(
           <Toast
-            message='주소가 복사되었어요'
+            message={copySuccessMessage}
             variant='success'
             className='animate-toast-slide-down fixed top-8 left-1/2 z-[100] -translate-x-1/2'
           />,

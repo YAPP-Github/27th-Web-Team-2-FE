@@ -71,6 +71,7 @@ export default function ParticipantHeader({
       <RegisterSequenceBottomSheet
         isOpen={isRegisterOpen}
         onClose={closeRegister}
+        onConfirm={() => router.push('/create')}
       />
     </>
   );
