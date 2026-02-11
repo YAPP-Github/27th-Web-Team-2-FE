@@ -2,35 +2,23 @@
   "name": "27th-web-team-2-fe",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "npm run dev --workspace=apps/moit",
+    "build": "npm run build --workspace=apps/moit",
+    "start": "npm run start --workspace=apps/moit",
     "lint": "eslint",
     "lint-staged": "lint-staged --config lint-staged.config.mjs",
     "commitlint": "commitlint",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit --project apps/moit/tsconfig.json",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepare": "lefthook install"
-  },
-  "dependencies": {
-    "@amplitude/analytics-browser": "^2.33.5",
-    "@amplitude/session-replay-browser": "^1.30.8",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "copy-to-clipboard": "^3.3.3",
-    "date-fns": "^4.1.0",
-    "ky": "^1.14.2",
-    "next": "16.1.0",
-    "react": "19.2.3",
-    "react-datepicker": "^9.1.0",
-    "react-dom": "19.2.3",
-    "tailwind-merge": "^3.4.0",
-    "vaul": "^1.1.2",
-    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.3",
@@ -44,7 +32,6 @@
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
-    "@types/react-datepicker": "^6.2.0",
     "@types/react-dom": "^19",
     "@vitest/browser-playwright": "^4.0.16",
     "@vitest/coverage-v8": "^4.0.16",
@@ -57,7 +44,6 @@
     "eslint-plugin-unused-imports": "^4.3.0",
     "lefthook": "^2.0.12",
     "lint-staged": "^16.2.7",
-    "msw": "^2.12.7",
     "playwright": "^1.57.0",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
@@ -67,10 +53,5 @@
     "typescript": "^5",
     "vite": "^7.3.0",
     "vitest": "^4.0.16"
-  },
-  "msw": {
-    "workerDirectory": [
-      "public"
-    ]
   }
 }
