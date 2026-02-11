@@ -8,7 +8,11 @@
   ],
   "scripts": {
     "dev": "npm run dev --workspace=apps/moit",
+    "dev:moit": "npm run dev --workspace=apps/moit",
+    "dev:weddin": "npm run dev --workspace=apps/weddin",
     "build": "npm run build --workspace=apps/moit",
+    "build:moit": "npm run build --workspace=apps/moit",
+    "build:weddin": "npm run build --workspace=apps/weddin",
     "start": "npm run start --workspace=apps/moit",
     "lint": "eslint",
     "lint-staged": "lint-staged --config lint-staged.config.mjs",

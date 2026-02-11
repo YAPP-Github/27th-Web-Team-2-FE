@@ -1,0 +1,42 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov-dynamic-subset.min.css');
+@import 'tailwindcss';
+@source '../../../../packages/shared';
+
+@theme {
+  /* Primitive: Gray Scale */
+  --color-gray-0: #ffffff;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e6e8eb;
+  --color-gray-300: #d1d6dc;
+  --color-gray-400: #b1b8c1;
+  --color-gray-500: #8b95a1;
+  --color-gray-600: #6b7684;
+  --color-gray-700: #4e5968;
+  --color-gray-800: #333d4b;
+  --color-gray-900: #191f28;
+
+  /* Semantic: Text */
+  --color-text-primary: #191f28;
+  --color-text-secondary: #4e5968;
+  --color-text-tertiary: #8b95a1;
+  --color-text-quaternary: #b1b8c1;
+  --color-text-inverse: #ffffff;
+
+  /* Semantic: Primary */
+  --color-primary-default: #3c7efa;
+  --color-primary-subtle: rgba(60, 126, 250, 0.6);
+  --color-primary-subtler: rgba(60, 126, 250, 0.3);
+  --color-primary-subtlest: rgba(60, 126, 250, 0.1);
+
+  /* Semantic: Line */
+  --color-line-clickable: #d1d6dc;
+  --color-line-nonclickable: #e6e8eb;
+  --color-line-selected: #333d4b;
+
+  /* Semantic: Dimmed */
+  --color-dimmed-default: #00000080;
+
+  /* Typography */
+  --font-pretendard: 'Pretendard GOV', sans-serif;
+}

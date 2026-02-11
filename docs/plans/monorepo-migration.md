@@ -303,6 +303,21 @@ grep -r "from '@/shared/" apps/ packages/  # 잔여 import 없는지 확인
 | Storybook          | 루트에서 전체 관리                                |
 | env 변수           | 각 앱의 .env에서 관리 (shared는 빌드 시 주입받음) |
 
+## TODO
+
+- [x] .gitignore 패턴 모노레포 호환으로 수정
+- [x] 디렉토리 구조 전환 + 파일 이동 (src/ → apps/moit/, packages/shared/)
+- [x] import 경로 일괄 변경 (@/shared/ → @repo/shared/)
+- [x] npm workspaces 설정 + 패키지 config 추가
+- [x] next.config.ts transpilePackages 추가
+- [x] Tailwind CSS @source 설정
+- [x] Storybook 설정 업데이트
+- [x] ESLint 설정 업데이트
+- [x] 빌드/타입체크/린트 검증 통과
+- [x] apps/weddin/ 기본 세팅
+- [x] 각 앱 dev 포트 분리 (moit: 3000, weddin: 3001)
+- [x] 루트 package.json에 dev:moit, dev:weddin 스크립트 추가
+
 ## 수정 대상 파일 요약
 
 | 카테고리           | 파일 수                                                  |
