@@ -1,8 +1,7 @@
 'use client';
 
+import Icon from '@repo/shared/ui/icon/Icon';
 import { InputHTMLAttributes } from 'react';
-
-import Icon from '../icon/Icon';
 
 interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
   checked: boolean;

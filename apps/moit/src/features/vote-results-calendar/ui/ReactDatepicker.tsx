@@ -1,9 +1,5 @@
 'use client';
 
-import { trackEvent } from '@repo/shared/lib/amplitude';
-import { isDateDisabled, parseDate } from '@repo/shared/lib/date';
-import { cn } from '@repo/shared/lib/utils';
-import { Badge } from '@repo/shared/ui/Badge';
 import Icon from '@repo/shared/ui/icon/Icon';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
@@ -12,6 +8,10 @@ import DatePicker from 'react-datepicker';
 
 import { VoteResultsProps } from '@/entities/voteDateStat/dto/voteDateStat.dto';
 import { calculateRank } from '@/entities/voteDateStat/lib/calculateRank';
+import { trackEvent } from '@/shared/lib/amplitude';
+import { isDateDisabled, parseDate } from '@/shared/lib/date';
+import { cn } from '@/shared/lib/utils';
+import { Badge } from '@/shared/ui/Badge';
 
 import { VoteResultsShell } from './VoteResultsShell';
 

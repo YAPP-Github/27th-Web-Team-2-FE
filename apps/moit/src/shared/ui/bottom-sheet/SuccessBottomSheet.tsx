@@ -1,7 +1,7 @@
 'use client';
 
-import BottomSheet from '@repo/shared/ui/bottom-sheet/BottomSheet';
-import Button from '@repo/shared/ui/button/Button';
+import BottomSheet from '@/shared/ui/bottom-sheet/BottomSheet';
+import Button from '@/shared/ui/button/Button';
 
 interface SuccessBottomSheetProps {
   isOpen: boolean;

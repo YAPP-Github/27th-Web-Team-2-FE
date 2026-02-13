@@ -1,6 +1,5 @@
+import Icon from '@repo/shared/ui/icon/Icon';
 import { ComponentProps, KeyboardEvent, useId, useState } from 'react';
-
-import Icon from '../icon/Icon';
 
 interface InputProps extends ComponentProps<'input'> {
   /**

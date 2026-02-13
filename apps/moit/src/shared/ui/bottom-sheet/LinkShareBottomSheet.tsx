@@ -1,13 +1,14 @@
 'use client';
 
-import { trackEvent } from '@repo/shared/lib/amplitude';
-import BottomSheet from '@repo/shared/ui/bottom-sheet/BottomSheet';
-import Button from '@repo/shared/ui/button/Button';
 import Chip from '@repo/shared/ui/chip/Chip';
 import Toast from '@repo/shared/ui/toast/Toast';
 import copy from 'copy-to-clipboard';
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
+
+import { trackEvent } from '@/shared/lib/amplitude';
+import BottomSheet from '@/shared/ui/bottom-sheet/BottomSheet';
+import Button from '@/shared/ui/button/Button';
 
 interface LinkShareBottomSheetProps {
   isOpen: boolean;

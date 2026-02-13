@@ -1,5 +1,6 @@
-import { Person } from '@repo/shared/types/common';
 import { addDays, format } from 'date-fns';
+
+import { Person } from '@/shared/types/common';
 
 import { VoteDateStat } from './dto/voteDateStat.dto';
 

@@ -1,4 +1,4 @@
-import { Person } from '@repo/shared/types/common';
+import { Person } from '@/shared/types/common';
 
 export type VoteDateStat = {
   date: string; // YYYY-MM-DD

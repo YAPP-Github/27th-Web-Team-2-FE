@@ -1,4 +1,4 @@
-import { cn } from '@repo/shared/lib/utils';
+import { cn } from '@/shared/lib/utils';
 
 type SegmentedControlProps<T extends string> = {
   value: T;

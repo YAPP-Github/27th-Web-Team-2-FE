@@ -1,13 +1,13 @@
 'use client';
 
-import { trackEvent } from '@repo/shared/lib/amplitude';
-import SuccessBottomSheet from '@repo/shared/ui/bottom-sheet/SuccessBottomSheet';
-import Button from '@repo/shared/ui/button/Button';
 import Checkbox from '@repo/shared/ui/checkbox/Checkbox';
-import { Header } from '@repo/shared/ui/header/Header';
 import TopBar from '@repo/shared/ui/top-bar/TopBar';
 
 import { ReactDatepickerAdapter } from '@/features/host-range-selector/ui/ReactDatepickerAdapter';
+import { trackEvent } from '@/shared/lib/amplitude';
+import SuccessBottomSheet from '@/shared/ui/bottom-sheet/SuccessBottomSheet';
+import Button from '@/shared/ui/button/Button';
+import { Header } from '@/shared/ui/header/Header';
 
 import { useParticipantRegisterDate } from '../model/useParticipantRegisterDate';
 

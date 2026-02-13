@@ -41,7 +41,7 @@ export default function Chip({
   ...props
 }: ChipProps) {
   // 기본 스타일
-  const baseStyles = `relative flex shrink-0 items-center justify-center whitespace-nowrap rounded border transition-colors ${
+  const baseStyles = `relative flex shrink-0 items-center justify-center whitespace-nowrap rounded-[--radius-chip] border transition-colors ${
     selectable ? 'cursor-pointer' : 'cursor-default'
   }`;
 

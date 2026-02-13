@@ -1,6 +1,5 @@
 'use client';
 
-import { SegmentedControl } from '@repo/shared/ui/SegmentedControl';
 import { useState } from 'react';
 
 import { generateMockVoteData } from '@/entities/voteDateStat/lib/mock';
@@ -10,6 +9,7 @@ import { ReactDatepickerAdapter as ReactDatePickerHostRangeSelector } from '@/fe
 // import { MultiDatePickerHostRangeSelector } from '@/features/host-range-selector/ui/adapters/react-multi-date-picker';
 // Adapters - Vote
 import { ReactDatePickerVoteResultsCalendar } from '@/features/vote-results-calendar/ui/ReactDatepicker';
+import { SegmentedControl } from '@/shared/ui/SegmentedControl';
 
 const LIBRARIES = [{ label: 'React Datepicker', value: 'datepicker' }] as const;
 

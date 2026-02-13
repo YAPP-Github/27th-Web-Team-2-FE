@@ -3,8 +3,6 @@ import path from 'path';
 
 const config: StorybookConfig = {
   stories: [
-    '../packages/shared/**/*.mdx',
-    '../packages/shared/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     '../apps/moit/src/**/*.mdx',
     '../apps/moit/src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
@@ -22,7 +20,6 @@ const config: StorybookConfig = {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': path.resolve(__dirname, '../apps/moit/src'),
-      '@repo/shared': path.resolve(__dirname, '../packages/shared'),
     };
     return config;
   },

@@ -1,13 +1,13 @@
 'use client';
 
-import { useDisclosure } from '@repo/shared/hooks/useDisclosure';
-import { parseDate } from '@repo/shared/lib/date';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { getMeetingById } from '@/entities/meet/api/getMeetingById';
 import { updateVote } from '@/entities/meet/api/updateVote';
 import { useDateSelection } from '@/features/host-range-selector/model/useDateSelection';
+import { useDisclosure } from '@/shared/hooks/useDisclosure';
+import { parseDate } from '@/shared/lib/date';
 
 export function useParticipantEditDate(meetingId: string) {
   const router = useRouter();

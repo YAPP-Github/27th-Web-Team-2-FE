@@ -1,12 +1,12 @@
 'use client';
 
-import { trackEvent } from '@repo/shared/lib/amplitude';
-import BottomSheet from '@repo/shared/ui/bottom-sheet/BottomSheet';
-import Button from '@repo/shared/ui/button/Button';
 import TopBar from '@repo/shared/ui/top-bar/TopBar';
 
 import { useDateSelection } from '@/features/host-range-selector/model/useDateSelection';
 import { ReactDatepickerAdapter } from '@/features/host-range-selector/ui/ReactDatepickerAdapter';
+import { trackEvent } from '@/shared/lib/amplitude';
+import BottomSheet from '@/shared/ui/bottom-sheet/BottomSheet';
+import Button from '@/shared/ui/button/Button';
 
 import { useDateSelect } from '../model/useDateSelect';
 

@@ -1,11 +1,11 @@
 'use client';
 
-import { trackEvent } from '@repo/shared/lib/amplitude';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { createMeeting } from '@/entities/meet/api/createMeeting';
 import { updateVote } from '@/entities/meet/api/updateVote';
+import { trackEvent } from '@/shared/lib/amplitude';
 
 export function useDateSelect(hostName: string, meetingName: string) {
   const router = useRouter();

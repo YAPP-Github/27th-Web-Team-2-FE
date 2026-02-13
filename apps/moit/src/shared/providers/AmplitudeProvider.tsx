@@ -1,7 +1,8 @@
 'use client';
 
-import { initAmplitude } from '@repo/shared/lib/amplitude';
 import { useEffect } from 'react';
+
+import { initAmplitude } from '@/shared/lib/amplitude';
 
 export function AmplitudeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {

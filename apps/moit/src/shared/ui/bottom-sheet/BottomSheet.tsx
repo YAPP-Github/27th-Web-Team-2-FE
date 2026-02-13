@@ -1,9 +1,10 @@
 'use client';
 
-import { trackEvent } from '@repo/shared/lib/amplitude';
 import Icon from '@repo/shared/ui/icon/Icon';
 import type { PropsWithChildren } from 'react';
 import { Drawer } from 'vaul';
+
+import { trackEvent } from '@/shared/lib/amplitude';
 
 interface BottomSheetProps extends PropsWithChildren {
   isOpen: boolean;

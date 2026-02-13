@@ -1,12 +1,13 @@
 'use client';
 
-import { useDisclosure } from '@repo/shared/hooks/useDisclosure';
-import { trackEvent } from '@repo/shared/lib/amplitude';
-import LinkShareBottomSheet from '@repo/shared/ui/bottom-sheet/LinkShareBottomSheet';
-import RegisterSequenceBottomSheet from '@repo/shared/ui/bottom-sheet/RegisterSequenceBottomSheet';
 import TopBar from '@repo/shared/ui/top-bar/TopBar';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
+
+import { useDisclosure } from '@/shared/hooks/useDisclosure';
+import { trackEvent } from '@/shared/lib/amplitude';
+import LinkShareBottomSheet from '@/shared/ui/bottom-sheet/LinkShareBottomSheet';
+import RegisterSequenceBottomSheet from '@/shared/ui/bottom-sheet/RegisterSequenceBottomSheet';
 
 interface ParticipantHeaderProps {
   title: string;

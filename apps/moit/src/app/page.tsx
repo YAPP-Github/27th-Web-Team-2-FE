@@ -1,5 +1,6 @@
-import Button from '@repo/shared/ui/button/Button';
 import Link from 'next/link';
+
+import Button from '@/shared/ui/button/Button';
 
 export default function OnboardingPage() {
   return (

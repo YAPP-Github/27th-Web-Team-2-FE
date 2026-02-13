@@ -1,6 +1,5 @@
+import Icon from '@repo/shared/ui/icon/Icon';
 import { HTMLAttributes, ReactNode } from 'react';
-
-import Icon from '../icon/Icon';
 
 interface ToastProps extends HTMLAttributes<HTMLDivElement> {
   message: string;

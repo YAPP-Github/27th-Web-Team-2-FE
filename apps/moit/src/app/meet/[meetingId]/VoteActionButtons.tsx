@@ -1,8 +1,9 @@
 'use client';
 
-import { trackEvent } from '@repo/shared/lib/amplitude';
-import Button from '@repo/shared/ui/button/Button';
 import Link from 'next/link';
+
+import { trackEvent } from '@/shared/lib/amplitude';
+import Button from '@/shared/ui/button/Button';
 
 interface VoteActionButtonsProps {
   meetingId: string;

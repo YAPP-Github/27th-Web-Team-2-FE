@@ -1,10 +1,11 @@
 'use client';
 
-import { trackEvent } from '@repo/shared/lib/amplitude';
-import Button from '@repo/shared/ui/button/Button';
 import Input from '@repo/shared/ui/input/Input';
 import TopBar from '@repo/shared/ui/top-bar/TopBar';
 import { useRouter } from 'next/navigation';
+
+import { trackEvent } from '@/shared/lib/amplitude';
+import Button from '@/shared/ui/button/Button';
 
 import { useMeetCreateForm } from '../model/useMeetCreateForm';
 

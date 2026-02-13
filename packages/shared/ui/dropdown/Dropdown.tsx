@@ -1,14 +1,14 @@
 'use client';
-import { trackEvent } from '@repo/shared/lib/amplitude';
-import Chip from '@repo/shared/ui/chip/Chip';
+import Icon from '@repo/shared/ui/icon/Icon';
 import { useRef, useState } from 'react';
 
-import Icon from '../icon/Icon';
+import Chip from '../chip/Chip';
 
 interface DropdownProps {
   participants?: string[];
   selectedParticipant?: string | null;
   onSelectParticipant?: (name: string) => void;
+  onToggle?: () => void;
   className?: string;
 }
 
@@ -16,41 +16,20 @@ export default function Dropdown({
   participants = [],
   selectedParticipant,
   onSelectParticipant,
+  onToggle,
   className = '',
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // (옵션) 바깥 클릭 시 닫기 - 아코디언에도 그대로 써도 됨
-  // useEffect(() => {
-  //   function handleClickOutside(event: MouseEvent) {
-  //     if (
-  //       containerRef.current &&
-  //       !containerRef.current.contains(event.target as Node)
-  //     ) {
-  //       setIsOpen(false);
-  //     }
-  //   }
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => document.removeEventListener('mousedown', handleClickOutside);
-  // }, []);
-
   const handleToggle = () => {
-    trackEvent('voter_dropdown_click');
+    onToggle?.();
     setIsOpen((prev) => !prev);
   };
 
   return (
     <div ref={containerRef} className={`font-pretendard w-full ${className}`}>
-      <div
-        style={{
-          borderRadius: '8px',
-          border: '1px solid var(--primary-subtler, rgba(60, 126, 250, 0.30))',
-          background:
-            'linear-gradient(0deg, rgba(255, 255, 255, 0.00) 7.66%, rgba(46, 107, 250, 0.09) 93.19%), var(--Primitive-Gray-scale-0, #FFF)',
-          boxShadow: '0 0 30px 0 rgba(0, 0, 0, 0.04)',
-        }}
-      >
+      <div className='border-primary-subtler rounded-[--radius-dropdown] border bg-[linear-gradient(0deg,rgba(255,255,255,0)_7.66%,var(--color-primary-subtlest)_93.19%),var(--color-gray-0)] shadow-[0_0_30px_0_rgba(0,0,0,0.04)]'>
         {/* Header (Trigger) */}
         <button
           type='button'
@@ -58,7 +37,6 @@ export default function Dropdown({
           className={[
             'flex w-full items-center justify-between',
             'px-5 py-4',
-            // 닫혀있을 땐 높이만, 열렸을 땐 아래 구분선 느낌
           ].join(' ')}
           aria-expanded={isOpen}
         >
@@ -122,8 +100,6 @@ export default function Dropdown({
             </div>
           </div>
         </div>
-
-        {/* (옵션) 닫힌 상태에서도 footer를 보이고 싶으면 이 위치로 빼면 됨 */}
       </div>
     </div>
   );

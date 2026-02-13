@@ -1,10 +1,10 @@
-import { BASE_URL } from '@repo/shared/config/constants';
-import { Person } from '@repo/shared/types/common';
-import { Header } from '@repo/shared/ui/header/Header';
 import { Metadata } from 'next';
 
 import { getMeetingById } from '@/entities/meet/api/getMeetingById';
 import { type Participant } from '@/entities/meet/dto/meet.dto';
+import { BASE_URL } from '@/shared/config/constants';
+import { Person } from '@/shared/types/common';
+import { Header } from '@/shared/ui/header/Header';
 import { VoteResultDataView } from '@/widgets/vote-result/ui/VoteResultDataView';
 
 import ParticipantHeader from './ParticipantHeader';

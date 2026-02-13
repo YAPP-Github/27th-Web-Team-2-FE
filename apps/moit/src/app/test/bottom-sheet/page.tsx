@@ -1,9 +1,10 @@
 'use client';
 
-import { useDisclosure } from '@repo/shared/hooks/useDisclosure';
-import LinkShareBottomSheet from '@repo/shared/ui/bottom-sheet/LinkShareBottomSheet';
 import TopBar from '@repo/shared/ui/top-bar/TopBar';
 import { useState } from 'react';
+
+import { useDisclosure } from '@/shared/hooks/useDisclosure';
+import LinkShareBottomSheet from '@/shared/ui/bottom-sheet/LinkShareBottomSheet';
 
 export default function BottomSheetTestPage() {
   const { isOpen, open, close } = useDisclosure();

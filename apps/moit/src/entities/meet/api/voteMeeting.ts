@@ -1,5 +1,5 @@
-import { api } from '@repo/shared/api/client';
-import { validateSchema } from '@repo/shared/api/validate';
+import { api } from '@/shared/api/client';
+import { validateSchema } from '@/shared/api/validate';
 
 import {
   type VoteRequest,

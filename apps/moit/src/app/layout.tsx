@@ -1,8 +1,9 @@
 import './globals.css';
 
-import { AmplitudeProvider } from '@repo/shared/providers/AmplitudeProvider';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+
+import { AmplitudeProvider } from '@/shared/providers/AmplitudeProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

@@ -1,11 +1,11 @@
 'use client';
 
-import { trackEvent } from '@repo/shared/lib/amplitude';
 import Dropdown from '@repo/shared/ui/dropdown/Dropdown';
 import { useEffect, useState } from 'react';
 
 import { VoteResultsProps } from '@/entities/voteDateStat/dto/voteDateStat.dto';
 import { ReactDatePickerVoteResultsCalendar } from '@/features/vote-results-calendar/ui/ReactDatepicker';
+import { trackEvent } from '@/shared/lib/amplitude';
 
 interface VoteResultDataViewProps {
   participantNames: string[];
@@ -52,6 +52,7 @@ export function VoteResultDataView({
           participants={participantNames}
           selectedParticipant={selectedParticipant}
           onSelectParticipant={handleParticipantSelect}
+          onToggle={() => trackEvent('voter_dropdown_click')}
           className='mb-2'
         />
 
