@@ -44,7 +44,7 @@ Generate a concise short name (2-4 words, kebab-case) for the feature:
   - "투표 결과 캘린더 표시" → "vote-results-calendar"
   - "모임 생성 플로우 개선" → "meet-create-flow"
 
-### Step 2: GitHub Issue Creation
+### Step 2: GitHub Issue Setup
 
 1. Verify `gh` CLI is authenticated:
 
@@ -54,13 +54,26 @@ Generate a concise short name (2-4 words, kebab-case) for the feature:
 
    If not authenticated, ERROR and instruct user to run `gh auth login`.
 
-2. Create GitHub issue:
+2. **MUST ask the user** whether to create a new issue or use an existing one:
+
+   > GitHub 이슈를 어떻게 설정할까요?
+   >
+   > 1. 새 이슈 생성 (Recommended)
+   > 2. 기존 이슈 사용
+
+   **If option 1 (new issue)**:
 
    ```bash
    gh issue create --title "[FEAT] {FEATURE_SLUG}" --body "## 개요\n{feature description}\n\n## 관련 명세\n> \`specs/feat/NNN-{slug}/spec.md\`" --label "feat"
    ```
 
-3. Capture the returned issue number (e.g., `#96`).
+   Capture the returned issue number (e.g., `#96`).
+
+   **If option 2 (existing issue)**:
+   - Ask user for the issue number (e.g., `96`, `#96`, or a URL like `https://github.com/.../issues/96`)
+   - Verify the issue exists: `gh issue view {ISSUE_NUMBER} --json number,title,state`
+   - If the issue does not exist, ERROR and ask again
+   - Use the provided issue number for all subsequent steps
 
 ### Step 3: Branch Setup
 
