@@ -1,3 +1,5 @@
+'use client';
+
 import 'react-datepicker/dist/react-datepicker.css';
 
 import Icon from '@repo/shared/ui/icon/Icon';
