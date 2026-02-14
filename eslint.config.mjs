@@ -24,7 +24,7 @@ const eslintConfig = defineConfig([
       'unused-imports/no-unused-vars': ['warn'],
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
-      '@next/next/no-html-link-for-pages': ['error', 'apps/moit/src/app'],
+      '@next/next/no-html-link-for-pages': ['error', 'src/app'],
     },
   },
   // Override default ignores of eslint-config-next.
@@ -34,6 +34,7 @@ const eslintConfig = defineConfig([
     '**/out/**',
     '**/build/**',
     '**/next-env.d.ts',
+    'weddin/**',
   ]),
   // Let Prettier handle formatting rules.
   prettier,
