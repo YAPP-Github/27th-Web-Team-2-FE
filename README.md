@@ -1,8 +1,5 @@
 # 27th-Web-Team-2-FE
 
-MOIT
-WEDDIN
-
 ### 깃 전략
 
 - 커밋
