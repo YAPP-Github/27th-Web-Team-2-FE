@@ -57,31 +57,27 @@ export default function Chip({
 
   if (variant === 'line') {
     if (selected) {
-      colorStyles = 'bg-gray-800 border-gray-800 text-white hover:bg-gray-900';
+      colorStyles = 'bg-gray-800 border-gray-800 text-white';
     } else {
-      // 선택되지 않았을 때
       if (selectable) {
-        // 선택 가능하면 기본적으로 secondary, hover시 primary
         colorStyles =
-          'bg-gray-0 border-line-nonclickable text-text-secondary hover:text-text-primary hover:bg-gray-50';
+          'bg-white border-gray-100 text-text-primary hover:border-gray-200 transition-colors';
       } else {
-        // 선택 불가능하면 기본적으로 primary (강조됨)
-        colorStyles = 'bg-gray-0 border-line-nonclickable text-text-primary';
+        colorStyles = 'bg-white border-gray-100 text-text-primary';
       }
     }
   } else {
-    // Fill
+    // Fill Variant
     if (selected) {
-      // Hover brightness for 'main color' effect
+      // Fill Selected: bg-gray-900, text-white
       colorStyles =
-        'bg-primary-default border-transparent text-text-inverse hover:brightness-95';
+        'bg-gray-900 border-transparent text-white hover:brightness-95';
     } else {
       if (selectable) {
         colorStyles =
-          'bg-gray-100 border-transparent text-text-secondary hover:text-text-primary hover:bg-gray-200';
+          'bg-gray-100 border-transparent text-text-primary hover:bg-gray-700 hover:text-white transition-colors';
       } else {
-        colorStyles =
-          'bg-gray-100 border-transparent text-text-primary hover:bg-gray-200';
+        colorStyles = 'bg-gray-100 border-transparent text-text-primary';
       }
     }
   }
