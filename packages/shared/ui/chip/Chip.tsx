@@ -41,15 +41,15 @@ export default function Chip({
   ...props
 }: ChipProps) {
   // 기본 스타일
-  const baseStyles = `relative flex shrink-0 items-center justify-center whitespace-nowrap rounded-[--radius-chip] border transition-colors ${
+  const baseStyles = `relative flex shrink-0 items-center justify-center whitespace-nowrap border transition-colors ${
     selectable ? 'cursor-pointer' : 'cursor-default'
   }`;
 
-  // 크기별 스타일 (Height, Padding, Typography)
+  // 크기별 스타일 (Height, Padding, Typography, Radius)
   const sizeStyles = {
-    xs: 'text-caption-7 px-2 py-0.5',
-    sm: 'text-body-5 px-2 py-1',
-    md: 'text-body-4 px-3 py-1.5',
+    xs: 'text-caption-7 px-2 py-0.5 rounded-[4px]',
+    sm: 'text-body-5 px-2 py-1 rounded-[6px]',
+    md: 'text-body-4 px-3 py-1.5 rounded-[6px]',
   };
 
   // 변형(Variant) 및 선택(Selected) 상태에 따른 색상 스타일
