@@ -1,0 +1,26 @@
+{
+  "name": "@repo/weddin",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "start": "next start --port 3001"
+  },
+  "dependencies": {
+    "@repo/shared": "*",
+    "@amplitude/analytics-browser": "^2.33.5",
+    "@amplitude/session-replay-browser": "^1.30.8",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "copy-to-clipboard": "^3.3.3",
+    "date-fns": "^4.1.0",
+    "ky": "^1.14.2",
+    "next": "16.1.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "tailwind-merge": "^3.4.0",
+    "vaul": "^1.1.2",
+    "zod": "^4.3.5"
+  }
+}
