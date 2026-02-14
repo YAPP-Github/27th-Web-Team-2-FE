@@ -10,6 +10,7 @@ import IcCircleCheckFilled from './IcCircleCheckFilled';
 import IcCircleCheckOutline from './IcCircleCheckOutline';
 import IcCircleXFilled from './IcCircleXFilled';
 import IcCircleXOutline from './IcCircleXOutline';
+import IcFlame from './IcFlame';
 import IcHamburger from './IcHamburger';
 import IcInfoFilled from './IcInfoFilled';
 import IcInfoOutline from './IcInfoOutline';
@@ -26,10 +27,13 @@ export const icons = {
   arrow_up: ArrowUp,
   ic_calendar_add: IcCalendarAdd,
   ic_check: IcCheck,
+  ic_checkbox_checked: IcCheckboxChecked,
+  ic_checkbox_default: IcCheckboxDefault,
   ic_circle_check_filled: IcCircleCheckFilled,
   ic_circle_check_outline: IcCircleCheckOutline,
   ic_circle_x_filled: IcCircleXFilled,
   ic_circle_x_outline: IcCircleXOutline,
+  ic_flame: IcFlame,
   ic_hamburger: IcHamburger,
   ic_info_filled: IcInfoFilled,
   ic_info_outline: IcInfoOutline,
@@ -38,8 +42,6 @@ export const icons = {
   ic_other_share: IcOtherShare,
   ic_people: IcPeople,
   ic_refresh: IcRefresh,
-  ic_checkbox_checked: IcCheckboxChecked,
-  ic_checkbox_default: IcCheckboxDefault,
 } as const;
 
 export type IconName = keyof typeof icons;
