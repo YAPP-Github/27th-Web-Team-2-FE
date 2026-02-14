@@ -2,11 +2,11 @@
 description: Generate an actionable, dependency-ordered tasks.md for the feature based on available design artifacts.
 handoffs:
   - label: Analyze For Consistency
-    agent: speckit.analyze
+    agent: speckits/analyze
     prompt: Run a project analysis for consistency
     send: true
   - label: Implement Project
-    agent: speckit.implement
+    agent: speckits/implement
     prompt: Start the implementation in phases
     send: true
 ---
@@ -21,7 +21,7 @@ You **MUST** consider the user input before proceeding (if not empty).
 
 ## Outline
 
-1. **Setup**: Run `.specify/scripts/bash/check-prerequisites.sh --json` from repo root and parse FEATURE_DIR and AVAILABLE_DOCS list. All paths must be absolute. For single quotes in args like "I'm Groot", use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").
+1. **Setup**: Run `.specify/scripts/bash/check-prerequisites.sh --json` from repo root and parse FEATURE_DIR and AVAILABLE_DOCS list. All paths must be absolute. For single quotes in args, use escape syntax: e.g 'I'\''m Groot' (or double-quote if possible: "I'm Groot").
 
 2. **Load design documents**: Read from FEATURE_DIR:
    - **Required**: plan.md (tech stack, libraries, structure), spec.md (user stories with priorities)
@@ -58,11 +58,11 @@ You **MUST** consider the user input before proceeding (if not empty).
    - Parallel opportunities identified
    - Independent test criteria for each story
    - Suggested MVP scope (typically just User Story 1)
-   - Format validation: Confirm ALL tasks follow the checklist format (checkbox, ID, labels, file paths)
+   - Format validation: Confirm ALL tasks follow the checklist format
 
 Context for task generation: $ARGUMENTS
 
-The tasks.md should be immediately executable - each task must be specific enough that an LLM can complete it without additional context.
+The tasks.md should be immediately executable — each task must be specific enough that an LLM can complete it without additional context.
 
 ## Task Generation Rules
 
@@ -94,44 +94,38 @@ Every task MUST strictly follow this format:
 **Examples**:
 
 - ✅ CORRECT: `- [ ] T001 Create project structure per implementation plan`
-- ✅ CORRECT: `- [ ] T005 [P] Implement authentication middleware in src/middleware/auth.py`
-- ✅ CORRECT: `- [ ] T012 [P] [US1] Create User model in src/models/user.py`
-- ✅ CORRECT: `- [ ] T014 [US1] Implement UserService in src/services/user_service.py`
+- ✅ CORRECT: `- [ ] T005 [P] Implement authentication middleware in apps/moit/src/features/auth/model/useAuth.ts`
+- ✅ CORRECT: `- [ ] T012 [P] [US1] Create User model in apps/moit/src/entities/user/dto/user.dto.ts`
 - ❌ WRONG: `- [ ] Create User model` (missing ID and Story label)
 - ❌ WRONG: `T001 [US1] Create model` (missing checkbox)
-- ❌ WRONG: `- [ ] [US1] Create User model` (missing Task ID)
-- ❌ WRONG: `- [ ] T001 [US1] Create model` (missing file path)
 
-### Task Organization
+### Monorepo Path Conventions
 
-1. **From User Stories (spec.md)** - PRIMARY ORGANIZATION:
-   - Each user story (P1, P2, P3...) gets its own phase
-   - Map all related components to their story:
-     - Models needed for that story
-     - Services needed for that story
-     - Endpoints/UI needed for that story
-     - If tests requested: Tests specific to that story
-   - Mark story dependencies (most stories should be independent)
+This is a monorepo. All file paths MUST use the correct app/package prefix:
 
-2. **From Contracts**:
-   - Map each contract/endpoint → to the user story it serves
-   - If tests requested: Each contract → contract test task [P] before implementation in that story's phase
-
-3. **From Data Model**:
-   - Map each entity to the user story(ies) that need it
-   - If entity serves multiple stories: Put in earliest story or Setup phase
-   - Relationships → service layer tasks in appropriate story phase
-
-4. **From Setup/Infrastructure**:
-   - Shared infrastructure → Setup phase (Phase 1)
-   - Foundational/blocking tasks → Foundational phase (Phase 2)
-   - Story-specific setup → within that story's phase
+```
+apps/{appName}/src/app/          → Next.js routing (thin pages)
+apps/{appName}/src/features/     → FSD features (verb-based: meet-create, meet-vote)
+  {feature}/ui/                  → Page components + UI components
+  {feature}/model/               → Hooks (state/business logic)
+  {feature}/lib/                 → Pure utilities
+apps/{appName}/src/entities/     → Domain entities (noun-based: meet, voteDateStat)
+  {entity}/api/                  → API functions (ky-based)
+  {entity}/dto/                  → TypeScript types/interfaces
+  {entity}/lib/                  → Mock/fixture data
+apps/{appName}/src/shared/       → App-local shared code
+  ui/                            → Generic components (Button, Modal, etc.)
+  lib/                           → Utilities (cn.ts, formatDate.ts)
+  hooks/                         → Generic hooks
+  api/                           → API client wrapper (ky)
+packages/shared/src/             → Cross-app shared components
+```
 
 ### Phase Structure
 
 - **Phase 1**: Setup (project initialization)
-- **Phase 2**: Foundational (blocking prerequisites - MUST complete before user stories)
+- **Phase 2**: Foundational (blocking prerequisites — MUST complete before user stories)
 - **Phase 3+**: User Stories in priority order (P1, P2, P3...)
-  - Within each story: Tests (if requested) → Models → Services → Endpoints → Integration
+  - Within each story: Models → Services → UI → Integration
   - Each phase should be a complete, independently testable increment
 - **Final Phase**: Polish & Cross-Cutting Concerns
