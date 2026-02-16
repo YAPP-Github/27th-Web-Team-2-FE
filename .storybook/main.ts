@@ -2,10 +2,7 @@ import type { StorybookConfig } from '@storybook/nextjs-vite';
 import path from 'path';
 
 const config: StorybookConfig = {
-  stories: [
-    '../apps/moit/src/**/*.mdx',
-    '../apps/moit/src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-  ],
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@chromatic-com/storybook',
     '@storybook/addon-vitest',
@@ -14,12 +11,12 @@ const config: StorybookConfig = {
     '@storybook/addon-onboarding',
   ],
   framework: '@storybook/nextjs-vite',
-  staticDirs: ['../apps/moit/public'],
+  staticDirs: ['../public'],
   viteFinal: async (config) => {
     config.resolve = config.resolve || {};
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@': path.resolve(__dirname, '../apps/moit/src'),
+      '@': path.resolve(__dirname, '../src'),
     };
     return config;
   },
