@@ -1,9 +1,0 @@
-{
-  "name": "@repo/shared",
-  "version": "0.0.0",
-  "private": true,
-  "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  }
-}
