@@ -57,7 +57,11 @@ export function useDateSelect(hostName: string, meetingName: string) {
       selection: 'direct_vote',
     });
     if (createdMeetingId) {
-      router.replace(`/meet/${createdMeetingId}/register`);
+      const params = new URLSearchParams();
+      params.set('name', hostName);
+      router.replace(
+        `/meet/${createdMeetingId}/register/date?${params.toString()}`,
+      );
     }
   };
 
