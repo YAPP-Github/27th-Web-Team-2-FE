@@ -7,6 +7,7 @@ import { ko } from 'date-fns/locale';
 import React, { useEffect, useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
 
+import { isKoreanHoliday } from '@/shared/lib/date';
 import Icon from '@/shared/ui/icon/Icon';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
 
@@ -262,6 +263,7 @@ export function ReactDatepickerAdapter({
 
           let bgClass = '';
           let textClass = 'text-slate-900';
+          const isHolidayOrSunday = isKoreanHoliday(date);
 
           if (disabled) {
             bgClass = '';
@@ -271,9 +273,14 @@ export function ReactDatepickerAdapter({
             textClass = 'text-white';
           } else if (isInDragRange) {
             bgClass = 'bg-slate-100';
-            textClass = 'text-slate-900';
+            textClass = isHolidayOrSunday
+              ? 'text-error-subtle'
+              : 'text-slate-900';
           } else {
             bgClass = 'hover:bg-slate-100';
+            textClass = isHolidayOrSunday
+              ? 'text-error-subtle'
+              : 'text-slate-900';
           }
 
           return (

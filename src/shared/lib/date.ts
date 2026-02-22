@@ -1,4 +1,5 @@
 import { format, isAfter, isBefore, parse } from 'date-fns';
+import * as kHolidays from 'korean-holidays';
 
 export const DATE_FORMAT = 'yyyy-MM-dd';
 
@@ -29,4 +30,8 @@ export function isPastDate(date: string, today: string) {
   const target = parseDate(date);
   const todayDate = parseDate(today);
   return isBefore(target, todayDate);
+}
+
+export function isKoreanHoliday(date: Date) {
+  return date.getDay() === 0 || kHolidays.isHoliday(date);
 }

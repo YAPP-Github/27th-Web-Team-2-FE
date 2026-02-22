@@ -8,7 +8,7 @@ import DatePicker from 'react-datepicker';
 import { VoteResultsProps } from '@/entities/voteDateStat/dto/voteDateStat.dto';
 import { calculateRank } from '@/entities/voteDateStat/lib/calculateRank';
 import { trackEvent } from '@/shared/lib/amplitude';
-import { isDateDisabled, parseDate } from '@/shared/lib/date';
+import { isDateDisabled, isKoreanHoliday, parseDate } from '@/shared/lib/date';
 import { cn } from '@/shared/lib/utils';
 import { Badge } from '@/shared/ui/Badge';
 import Icon from '@/shared/ui/icon/Icon';
@@ -76,7 +76,8 @@ export function ReactDatePickerVoteResultsCalendar({
 
     const stat = stats.find((s) => s.date === dateStr);
     const votes = stat ? stat.can.length : 0;
-    const isCandidate = !!stat;
+    const isDisabled = isDateDisabled(dateStr, openRange);
+    const isCandidate = !isDisabled;
 
     const simpleStats = stats.map((s) => ({
       date: s.date,
@@ -99,10 +100,12 @@ export function ReactDatePickerVoteResultsCalendar({
       }
     }
 
+    const isHolidayOrSunday = isKoreanHoliday(date);
+
     if (isCandidate) {
       if (isFilteredOut) {
         bgClass = '';
-        textClass = 'text-slate-900';
+        textClass = isHolidayOrSunday ? 'text-error-default' : 'text-slate-900';
       } else {
         if (votes > 0) {
           if (focusedParticipant) {
@@ -113,11 +116,15 @@ export function ReactDatePickerVoteResultsCalendar({
             textClass = 'text-text-inverse';
           } else {
             bgClass = 'bg-primary-subtlest';
-            textClass = 'text-gray-900';
+            textClass = isHolidayOrSunday
+              ? 'text-error-default'
+              : 'text-gray-900';
           }
         } else {
           bgClass = 'hover:bg-slate-100';
-          textClass = 'text-slate-900';
+          textClass = isHolidayOrSunday
+            ? 'text-error-default'
+            : 'text-slate-900';
         }
       }
     } else {
@@ -141,8 +148,7 @@ export function ReactDatePickerVoteResultsCalendar({
               textClass,
               selectedClass,
               isInteractive && !isSelected && 'hover:brightness-95',
-              !isInteractive && 'pointer-events-none text-slate-300',
-              isFilteredOut && 'text-slate-900',
+              !isInteractive && 'pointer-events-none',
               isInteractive && 'pointer-events-auto cursor-pointer',
             ) + ' text-body-4'
           }
