@@ -23,6 +23,7 @@
     "clsx": "^2.1.1",
     "copy-to-clipboard": "^3.3.3",
     "date-fns": "^4.1.0",
+    "korean-holidays": "^1.0.0",
     "ky": "^1.14.2",
     "next": "16.1.0",
     "react": "19.2.3",
