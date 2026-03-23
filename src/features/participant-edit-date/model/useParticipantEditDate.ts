@@ -25,8 +25,12 @@ export function useParticipantEditDate(meetingId: string) {
 
   // useDateSelection 훅 재사용 (날짜 선택/제거 로직)
   // formattedDates: "YYYY-MM-DD" 배열 (정렬됨)
-  const { selectedDates, handleDateChange, setSelectedDates, formattedDates } =
-    useDateSelection();
+  const {
+    selectedDates,
+    handleDateChange,
+    setSelectedDates,
+    formattedDatesRef,
+  } = useDateSelection();
 
   // 모임 정보 (가능한 날짜 범위 등)
   const [availableDates, setAvailableDates] = useState<string[]>([]);
@@ -117,7 +121,7 @@ export function useParticipantEditDate(meetingId: string) {
     try {
       setIsSubmitting(true);
 
-      const datesToSend = isAllImpossible ? [] : formattedDates;
+      const datesToSend = isAllImpossible ? [] : formattedDatesRef.current;
 
       await updateVote({
         meetingId,
@@ -147,7 +151,7 @@ export function useParticipantEditDate(meetingId: string) {
     isSubmitting,
     isCtaActive,
     handleAllImpossibleChange,
-    onDateClick: (dates: Date[]) => {
+    onDateClick: (dates: Date[] | ((prev: Date[]) => Date[])) => {
       if (isAllImpossible) {
         setIsAllImpossible(false);
       }
