@@ -1,5 +1,5 @@
 import { format, parseISO } from 'date-fns';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { toggleDatesSmart } from '../lib/dateUtils';
 
@@ -18,15 +18,38 @@ export const useDateSelection = (initialDateStrings: string[] = []) => {
     return selectedDates.map((date) => format(date, 'yyyy-MM-dd')).sort();
   }, [selectedDates]);
 
+  // 투표 제출 시 stale state 방지를 위한 동기적 ref 추적
+  const selectedDatesRef = useRef<Date[]>(selectedDates);
+  const formattedDatesRef = useRef<string[]>(formattedDates);
+
+  useEffect(() => {
+    selectedDatesRef.current = selectedDates;
+  }, [selectedDates]);
+
+  useEffect(() => {
+    formattedDatesRef.current = formattedDates;
+  }, [formattedDates]);
+
   /**
    * Adapter로부터 변경된 날짜 배열을 받아 상태를 업데이트합니다.
-   * (ReactDatepickerAdapter 내부의 드래그 로직 등에 의해 계산된 최종 Date[]를 받음)
+   * Date[] 직접 전달 또는 updater function((prev) => Date[]) 패턴을 모두 지원합니다.
    */
-  const handleDateChange = useCallback((newDates: Date[]) => {
-    // UX를 위해 시간순 정렬
-    const sortedDates = [...newDates].sort((a, b) => a.getTime() - b.getTime());
-    setSelectedDates(sortedDates);
-  }, []);
+  const handleDateChange = useCallback(
+    (newDatesOrUpdater: Date[] | ((prev: Date[]) => Date[])) => {
+      if (typeof newDatesOrUpdater === 'function') {
+        setSelectedDates((prev) => {
+          const result = newDatesOrUpdater(prev);
+          return [...result].sort((a, b) => a.getTime() - b.getTime());
+        });
+      } else {
+        const sortedDates = [...newDatesOrUpdater].sort(
+          (a, b) => a.getTime() - b.getTime(),
+        );
+        setSelectedDates(sortedDates);
+      }
+    },
+    [],
+  );
 
   /**
    * 특정 날짜를 토글합니다 (Adapter 외부에서 개별 클릭 등으로 제어할 경우 사용)
@@ -41,5 +64,7 @@ export const useDateSelection = (initialDateStrings: string[] = []) => {
     handleDateChange, // <ReactDatepickerAdapter onChange={...} /> 에 전달
     toggleDate, // 필요 시 사용
     setSelectedDates, // 직접 상태 설정이 필요할 경우
+    selectedDatesRef, // 동기적 최신 상태 참조 (제출 시 stale 방지)
+    formattedDatesRef, // 동기적 최신 포맷 상태 참조 (제출 시 stale 방지)
   };
 };
