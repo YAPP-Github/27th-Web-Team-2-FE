@@ -7,10 +7,10 @@ export interface HostRangeSelectorProps {
 
   /**
    * Callback when selection changes.
-   * Accepts either a new Date[] directly, or an updater function
-   * that receives the previous selection and returns the new one.
+   * Receives an updater function that takes the previous selection
+   * and returns the new one — same semantics as React setState updater.
    */
-  onChange: (dates: Date[] | ((prev: Date[]) => Date[])) => void;
+  onChange: (updater: (prev: Date[]) => Date[]) => void;
 
   /**
    * Optional. If provided, only these dates will be enabled.

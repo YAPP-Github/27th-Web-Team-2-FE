@@ -29,15 +29,12 @@ export default function DateSelectPage({
   const { selectedDates, handleDateChange, formattedDates } =
     useDateSelection();
 
-  const handleDateChangeWithTracking = (
-    dates: Date[] | ((prev: Date[]) => Date[]),
-  ) => {
-    if (typeof dates !== 'function') {
-      trackEvent('host_date_select', {
-        total_days: dates.length,
-      });
-    }
-    handleDateChange(dates);
+  const handleDateChangeWithTracking = (updater: (prev: Date[]) => Date[]) => {
+    handleDateChange((prev) => {
+      const next = updater(prev);
+      trackEvent('host_date_select', { total_days: next.length });
+      return next;
+    });
   };
 
   return (

@@ -151,11 +151,11 @@ export function useParticipantEditDate(meetingId: string) {
     isSubmitting,
     isCtaActive,
     handleAllImpossibleChange,
-    onDateClick: (dates: Date[] | ((prev: Date[]) => Date[])) => {
+    onDateClick: (updater: (prev: Date[]) => Date[]) => {
       if (isAllImpossible) {
         setIsAllImpossible(false);
       }
-      handleDateChange(dates);
+      handleDateChange(updater);
     },
     handleBack,
     handleSubmit,
