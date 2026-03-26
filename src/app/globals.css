@@ -1,6 +1,10 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov-dynamic-subset.min.css');
 @import 'tailwindcss';
 
+html {
+  touch-action: pan-x pan-y;
+}
+
 @theme {
   /* Primitive: Gray Scale */
   --color-gray-0: #ffffff;
