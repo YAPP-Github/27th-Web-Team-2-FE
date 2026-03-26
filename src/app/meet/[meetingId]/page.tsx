@@ -106,7 +106,7 @@ export default async function ResultPage({ params }: PageProps) {
   const standardTime = `${koreaTime.getHours().toString().padStart(2, '0')}:${koreaTime.getMinutes().toString().padStart(2, '0')}`;
 
   return (
-    <div className='flex min-h-screen flex-col bg-gray-50 pt-14 pb-25'>
+    <div className='min-h-screen-safe flex flex-col bg-gray-50 pt-14 pb-25'>
       <div className='fixed top-0 right-0 left-0 z-50 mx-auto w-full max-w-screen-sm bg-white'>
         <ParticipantHeader
           title={`${meetingData.hostName}님이 초대한 ${meetingData.title}`}

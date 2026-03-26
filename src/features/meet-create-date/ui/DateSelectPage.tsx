@@ -37,7 +37,7 @@ export default function DateSelectPage({
   };
 
   return (
-    <div className='bg-gray-0 flex min-h-screen flex-col'>
+    <div className='bg-gray-0 min-h-screen-safe flex flex-col'>
       {/* 헤더 */}
       <TopBar
         title='모임 만들기'
