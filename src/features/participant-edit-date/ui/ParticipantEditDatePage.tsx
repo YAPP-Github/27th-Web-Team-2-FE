@@ -34,11 +34,14 @@ export default function ParticipantEditDatePage({
     handleSuccessModalClose,
   } = useParticipantEditDate(meetingId);
 
-  const handleDateChangeWithTracking = (dates: Date[]) => {
-    trackEvent('voter_date_edit', {
-      vote_type: dates.length > 0 ? 'selective' : 'all_disabled',
+  const handleDateChangeWithTracking = (updater: (prev: Date[]) => Date[]) => {
+    onDateClick((prev) => {
+      const next = updater(prev);
+      trackEvent('voter_date_edit', {
+        vote_type: next.length > 0 ? 'selective' : 'all_disabled',
+      });
+      return next;
     });
-    onDateClick(dates);
   };
 
   const handleSubmitWithTracking = () => {

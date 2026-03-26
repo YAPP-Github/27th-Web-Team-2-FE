@@ -33,11 +33,14 @@ export default function ParticipantRegisterDatePage({
     handleSuccessModalClose,
   } = useParticipantRegisterDate(meetingId);
 
-  const handleDateChangeWithTracking = (dates: Date[]) => {
-    trackEvent('voter_date_vote', {
-      vote_type: dates.length > 0 ? 'selective' : 'all_disabled',
+  const handleDateChangeWithTracking = (updater: (prev: Date[]) => Date[]) => {
+    onDateClick((prev) => {
+      const next = updater(prev);
+      trackEvent('voter_date_vote', {
+        vote_type: next.length > 0 ? 'selective' : 'all_disabled',
+      });
+      return next;
     });
-    onDateClick(dates);
   };
 
   const handleSubmitWithTracking = () => {
