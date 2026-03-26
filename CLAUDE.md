@@ -23,6 +23,9 @@ TypeScript 5: Follow standard conventions
 
 ## Recent Changes
 
+- feat/#121-mobile-viewport-height: Added TypeScript 5
+- feat/#121-mobile-viewport-height: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
+
 - feat/#99-number-stepper: Added TypeScript 5 + React 19, Next.js 16 (App Router), Tailwind CSS 4 + CVA + clsx + tailwind-merge
 
 <!-- MANUAL ADDITIONS START -->
