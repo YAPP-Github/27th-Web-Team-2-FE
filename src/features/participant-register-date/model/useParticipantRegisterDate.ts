@@ -24,8 +24,12 @@ export function useParticipantRegisterDate(meetingId: string) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // useDateSelection 훅 재사용
-  const { selectedDates, handleDateChange, setSelectedDates, formattedDates } =
-    useDateSelection();
+  const {
+    selectedDates,
+    handleDateChange,
+    setSelectedDates,
+    formattedDatesRef,
+  } = useDateSelection();
 
   // 모임 정보
   const [availableDates, setAvailableDates] = useState<string[]>([]);
@@ -107,7 +111,7 @@ export function useParticipantRegisterDate(meetingId: string) {
     try {
       setIsSubmitting(true);
 
-      const datesToSend = isAllImpossible ? [] : formattedDates;
+      const datesToSend = isAllImpossible ? [] : formattedDatesRef.current;
 
       // [수정] 투표 생성 API 호출 (voteMeeting)
       await voteMeeting({
@@ -138,11 +142,11 @@ export function useParticipantRegisterDate(meetingId: string) {
     isSubmitting,
     isCtaActive,
     handleAllImpossibleChange,
-    onDateClick: (dates: Date[]) => {
+    onDateClick: (updater: (prev: Date[]) => Date[]) => {
       if (isAllImpossible) {
         setIsAllImpossible(false);
       }
-      handleDateChange(dates);
+      handleDateChange(updater);
     },
     handleBack,
     handleSubmit,

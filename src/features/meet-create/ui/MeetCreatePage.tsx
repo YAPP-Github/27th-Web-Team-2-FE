@@ -71,7 +71,7 @@ export default function MeetCreatePage({
   };
 
   return (
-    <div className='bg-gray-0 flex min-h-screen flex-col'>
+    <div className='bg-gray-0 min-h-screen-safe flex flex-col'>
       <TopBar
         title='모임 만들기'
         leftIcon='arrow_prev'

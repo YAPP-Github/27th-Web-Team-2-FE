@@ -34,11 +34,14 @@ export default function ParticipantEditDatePage({
     handleSuccessModalClose,
   } = useParticipantEditDate(meetingId);
 
-  const handleDateChangeWithTracking = (dates: Date[]) => {
-    trackEvent('voter_date_edit', {
-      vote_type: dates.length > 0 ? 'selective' : 'all_disabled',
+  const handleDateChangeWithTracking = (updater: (prev: Date[]) => Date[]) => {
+    onDateClick((prev) => {
+      const next = updater(prev);
+      trackEvent('voter_date_edit', {
+        vote_type: next.length > 0 ? 'selective' : 'all_disabled',
+      });
+      return next;
     });
-    onDateClick(dates);
   };
 
   const handleSubmitWithTracking = () => {
@@ -53,14 +56,14 @@ export default function ParticipantEditDatePage({
 
   if (isLoading) {
     return (
-      <div className='flex min-h-screen items-center justify-center bg-white'>
+      <div className='min-h-screen-safe flex items-center justify-center bg-white'>
         <div className='text-gray-500'>로딩 중...</div>
       </div>
     );
   }
 
   return (
-    <div className='bg-gray-0 flex min-h-screen flex-col'>
+    <div className='bg-gray-0 min-h-screen-safe flex flex-col'>
       {/* 2-1. 상단 영역 */}
       <TopBar
         title='일정 수정하기'

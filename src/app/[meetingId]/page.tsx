@@ -8,7 +8,7 @@ export default async function MeetingPage({ params }: MeetingPageProps) {
   const { meetingId } = await params;
 
   return (
-    <div className='flex min-h-screen items-center justify-center'>
+    <div className='min-h-screen-safe flex items-center justify-center'>
       <div className='text-center'>
         <h1 className='text-headline-1 text-text-primary mb-4'>
           모임 투표 페이지

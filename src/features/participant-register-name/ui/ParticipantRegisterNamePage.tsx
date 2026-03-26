@@ -38,7 +38,7 @@ export default function ParticipantRegisterNamePage({
   };
 
   return (
-    <div className='bg-gray-0 flex min-h-screen flex-col'>
+    <div className='bg-gray-0 min-h-screen-safe flex flex-col'>
       {/* 2. 상단 영역 */}
       <TopBar title='투표하기' leftIcon='arrow_prev' onLeftClick={handleBack} />
       <Header variant='subHeader' title={'이름을 입력해주세요'} />
