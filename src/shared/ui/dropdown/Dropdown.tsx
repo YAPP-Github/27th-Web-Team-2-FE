@@ -30,7 +30,9 @@ export default function Dropdown({
 
   return (
     <div ref={containerRef} className={`font-pretendard w-full ${className}`}>
-      <div className='border-primary-subtler rounded-[--radius-dropdown] border bg-[linear-gradient(0deg,rgba(255,255,255,0)_7.66%,var(--color-primary-subtlest)_93.19%),var(--color-gray-0)] shadow-[0_0_30px_0_rgba(0,0,0,0.04)]'>
+      <div
+        className={`border-primary-subtler rounded-(--radius-dropdown) border shadow-[0_0_30px_0_rgba(0,0,0,0.04)] ${isOpen ? 'bg-dropdown-gradient-open' : 'bg-dropdown-gradient-closed'}`}
+      >
         {/* Header (Trigger) */}
         <button
           type='button'
