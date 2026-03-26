@@ -172,8 +172,7 @@ export function ReactDatepickerAdapter({
     dragRef.current = { isDragging: false, start: null, end: null };
 
     const newRange = generateDateRange(start, end);
-    const newSelection = toggleDatesSmart(selectedDates, newRange);
-    onChange(newSelection);
+    onChange((prevDates) => toggleDatesSmart(prevDates, newRange));
 
     setDragState({ isDragging: false, start: null, end: null });
   };
