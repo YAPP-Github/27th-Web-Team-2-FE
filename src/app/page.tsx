@@ -5,7 +5,7 @@ import Button from '@/shared/ui/button/Button';
 export default function OnboardingPage() {
   return (
     <div
-      className='flex min-h-screen flex-col bg-cover bg-center bg-no-repeat'
+      className='min-h-screen-safe flex flex-col bg-cover bg-center bg-no-repeat'
       style={{ backgroundImage: "url('/host_main_onboarding.png')" }}
     >
       <div className='flex-1' />
