@@ -4,6 +4,8 @@ Auto-generated from all feature plans. Last updated: 2026-02-14
 
 ## Active Technologies
 
+- TypeScript 5 + React 19, Next.js 16 (App Router), react-datepicker ^9.1.0, date-fns ^4.1.0 (feat/#127-calendar-drag-path)
+
 - TypeScript 5 + React 19, Next.js 16 (App Router), react-datepicker, date-fns (feat/#118-date-click-race-fix)
 - N/A (클라이언트 상태만 관련) (feat/#118-date-click-race-fix)
 
@@ -26,10 +28,10 @@ TypeScript 5: Follow standard conventions
 
 ## Recent Changes
 
-- feat/#121-mobile-viewport-height: Added TypeScript 5
-- feat/#121-mobile-viewport-height: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
+- feat/#127-calendar-drag-path: Added TypeScript 5 + React 19, Next.js 16 (App Router), react-datepicker ^9.1.0, date-fns ^4.1.0
+- feat/#127-calendar-drag-path: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
 
-- feat/#99-number-stepper: Added TypeScript 5 + React 19, Next.js 16 (App Router), Tailwind CSS 4 + CVA + clsx + tailwind-merge
+- feat/#121-mobile-viewport-height: Added TypeScript 5
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->
