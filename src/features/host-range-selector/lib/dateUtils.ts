@@ -3,9 +3,22 @@ import {
   endOfMonth,
   isBefore,
   isSameDay,
+  startOfDay,
   startOfMonth,
   startOfToday,
 } from 'date-fns';
+
+/**
+ * Normalizes a Date to its startOfDay timestamp (number).
+ */
+export const normalizeDateTimestamp = (date: Date): number =>
+  startOfDay(date).getTime();
+
+/**
+ * Converts a Set of timestamps to a sorted Date array.
+ */
+export const pathSetToDates = (path: Set<number>): Date[] =>
+  [...path].sort((a, b) => a - b).map((ts) => new Date(ts));
 
 /**
  * Checks if a date is disabled (before today).
