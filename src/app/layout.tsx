@@ -41,7 +41,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='ko'>
-      <head>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} bg-[#f5f5f5] antialiased`}
+      >
         <script
           type='application/ld+json'
           dangerouslySetInnerHTML={{
@@ -63,10 +65,6 @@ export default function RootLayout({
             }),
           }}
         />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-[#f5f5f5] antialiased`}
-      >
         <AmplitudeProvider>
           <div className='mx-auto w-full max-w-screen-sm bg-white'>
             {children}
