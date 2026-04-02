@@ -12,9 +12,10 @@ import Icon from '@/shared/ui/icon/Icon';
 import Tooltip from '@/shared/ui/tooltip/Tooltip';
 
 import {
-  generateDateRange,
   getNavigationLimits,
   isDateDisabled,
+  normalizeDateTimestamp,
+  pathSetToDates,
   toggleDatesSmart,
 } from '../lib/dateUtils';
 import { HostRangeSelectorProps } from '../model/types';
@@ -56,24 +57,26 @@ export function ReactDatepickerAdapter({
 
   const dragRef = useRef<{
     isDragging: boolean;
-    start: Date | null;
-    end: Date | null;
+    path: Set<number>;
+    isSelectMode: boolean;
+    startTimestamp: number | null;
   }>({
     isDragging: false,
-    start: null,
-    end: null,
+    path: new Set(),
+    isSelectMode: true,
+    startTimestamp: null,
   });
 
   const touchHandledRef = useRef(false);
 
   const [dragState, setDragState] = useState<{
     isDragging: boolean;
-    start: Date | null;
-    end: Date | null;
+    path: Set<number>;
+    isSelectMode: boolean;
   }>({
     isDragging: false,
-    start: null,
-    end: null,
+    path: new Set(),
+    isSelectMode: true,
   });
 
   const [isTooltipVisible, setIsTooltipVisible] =
@@ -108,26 +111,37 @@ export function ReactDatepickerAdapter({
   const handleTouchStart = (e: React.TouchEvent, date: Date) => {
     touchHandledRef.current = true;
     if (!isDateAllowed(date)) return;
-    dragRef.current = { isDragging: true, start: date, end: date };
-    setDragState({ isDragging: true, start: date, end: date });
+    const ts = normalizeDateTimestamp(date);
+    const isSelectMode = !selectedDates.some((d) => isSameDay(d, date));
+    const path = new Set([ts]);
+    dragRef.current = {
+      isDragging: true,
+      path,
+      isSelectMode,
+      startTimestamp: ts,
+    };
+    setDragState({ isDragging: true, path: new Set(path), isSelectMode });
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    const { isDragging, start, end } = dragRef.current;
-    if (!isDragging || !start) return;
+    const { isDragging } = dragRef.current;
+    if (!isDragging) return;
 
     const touch = e.touches[0];
     const target = document.elementFromPoint(touch.clientX, touch.clientY);
 
     const cell = target?.closest('[data-date-timestamp]');
     if (cell) {
-      const ts = cell.getAttribute('data-date-timestamp');
-      if (ts) {
-        const hoveredDate = new Date(parseInt(ts, 10));
-
-        if (end && !isSameDay(hoveredDate, end) && isDateAllowed(hoveredDate)) {
-          dragRef.current.end = hoveredDate;
-          setDragState((prev) => ({ ...prev, end: hoveredDate }));
+      const tsAttr = cell.getAttribute('data-date-timestamp');
+      if (tsAttr) {
+        const hoveredDate = new Date(parseInt(tsAttr, 10));
+        if (isDateAllowed(hoveredDate)) {
+          const ts = normalizeDateTimestamp(hoveredDate);
+          dragRef.current.path.add(ts);
+          setDragState((prev) => ({
+            ...prev,
+            path: new Set(dragRef.current.path),
+          }));
         }
       }
     }
@@ -142,39 +156,50 @@ export function ReactDatepickerAdapter({
   };
 
   const handleMouseDown = (date: Date) => {
-    if (touchHandledRef.current) return; // 터치 이벤트 후 발생한 마우스 이벤트 무시
+    if (touchHandledRef.current) return;
     if (!isDateAllowed(date)) return;
-    dragRef.current = { isDragging: true, start: date, end: date };
-    setDragState({ isDragging: true, start: date, end: date });
+    const ts = normalizeDateTimestamp(date);
+    const isSelectMode = !selectedDates.some((d) => isSameDay(d, date));
+    const path = new Set([ts]);
+    dragRef.current = {
+      isDragging: true,
+      path,
+      isSelectMode,
+      startTimestamp: ts,
+    };
+    setDragState({ isDragging: true, path: new Set(path), isSelectMode });
   };
 
   const handleMouseEnter = (date: Date) => {
-    const { isDragging, start } = dragRef.current;
-    if (!isDragging || !start || !isDateAllowed(date)) {
-      return;
-    }
+    const { isDragging } = dragRef.current;
+    if (!isDragging || !isDateAllowed(date)) return;
 
-    dragRef.current.end = date;
-    setDragState((prev) => ({ ...prev, end: date }));
+    const ts = normalizeDateTimestamp(date);
+    dragRef.current.path.add(ts);
+    setDragState((prev) => ({
+      ...prev,
+      path: new Set(dragRef.current.path),
+    }));
   };
 
   const handleMouseUp = (fromTouch = false) => {
-    // 터치가 아닌 마우스 이벤트인데 터치가 처리된 상태면 무시
-    if (!fromTouch && touchHandledRef.current) {
-      return;
-    }
+    if (!fromTouch && touchHandledRef.current) return;
 
-    const { isDragging, start, end } = dragRef.current;
-    if (!isDragging || !start || !end) {
-      return;
-    }
+    const { isDragging, path } = dragRef.current;
+    if (!isDragging || path.size === 0) return;
 
-    dragRef.current = { isDragging: false, start: null, end: null };
+    const pathDates = pathSetToDates(path);
 
-    const newRange = generateDateRange(start, end);
-    onChange((prevDates) => toggleDatesSmart(prevDates, newRange));
+    dragRef.current = {
+      isDragging: false,
+      path: new Set(),
+      isSelectMode: true,
+      startTimestamp: null,
+    };
 
-    setDragState({ isDragging: false, start: null, end: null });
+    onChange((prevDates) => toggleDatesSmart(prevDates, pathDates));
+
+    setDragState({ isDragging: false, path: new Set(), isSelectMode: true });
   };
 
   const getDayClass = () => 'bg-transparent';
@@ -248,17 +273,10 @@ export function ReactDatepickerAdapter({
 
           const isSelected = selectedDates.some((d) => isSameDay(d, date));
 
-          let isInDragRange = false;
-          if (dragState.isDragging && dragState.start && dragState.end) {
-            const [start, end] =
-              dragState.start < dragState.end
-                ? [dragState.start, dragState.end]
-                : [dragState.end, dragState.start];
-
-            if (date >= start && date <= end && !disabled) {
-              isInDragRange = true;
-            }
-          }
+          const isInDragPath =
+            dragState.isDragging &&
+            !disabled &&
+            dragState.path.has(normalizeDateTimestamp(date));
 
           let bgClass = '';
           let textClass = 'text-slate-900';
@@ -267,10 +285,15 @@ export function ReactDatepickerAdapter({
           if (disabled) {
             bgClass = '';
             textClass = 'text-slate-300';
+          } else if (isInDragPath && !dragState.isSelectMode) {
+            bgClass = 'bg-slate-300';
+            textClass = isHolidayOrSunday
+              ? 'text-error-subtle'
+              : 'text-slate-900';
           } else if (isSelected) {
             bgClass = 'bg-gray-800';
             textClass = 'text-white';
-          } else if (isInDragRange) {
+          } else if (isInDragPath) {
             bgClass = 'bg-slate-100';
             textClass = isHolidayOrSunday
               ? 'text-error-subtle'
