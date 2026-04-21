@@ -13,13 +13,12 @@
 - **shared/**: 도메인 비의존 공용 코드 (`ui/`, `lib/`, `hooks/`, `api/`, `config/`, `types/`).
 - **widgets/**: 여러 feature/shared를 조합한 섹션/블록 단위 UI (필요 시에만 생성).
 
-### II. Monorepo Structure
+### II. Project Structure
 
-npm workspaces 기반 모노레포로, 두 개의 Next.js 앱과 공유 패키지로 구성된다.
+단일 Next.js 앱 구조(`src/`)로 운영되는 moit 서비스다.
 
-- `apps/moit` — 모임 투표 서비스 (port 3000)
-- `apps/weddin` — 웨딩 서비스 (port 3001)
-- `packages/shared` — 앱 간 공유 컴포넌트/유틸 (`@repo/shared`)
+- `src/` — moit 서비스 (모임 투표, Next.js App Router, port 3000)
+- FSD 레이어(`app/`, `features/`, `entities/`, `shared/`, `widgets/`)는 모두 `src/` 하위에 위치한다.
 
 ### III. No Barrel Exports
 
