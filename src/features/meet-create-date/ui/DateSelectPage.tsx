@@ -1,7 +1,12 @@
 'use client';
 
+import { useCallback, useState } from 'react';
+
 import { useDateSelection } from '@/features/host-range-selector/model/useDateSelection';
 import { ReactDatepickerAdapter } from '@/features/host-range-selector/ui/ReactDatepickerAdapter';
+import { formatTime } from '@/features/time-range-select/lib/timeUtils';
+import type { TimeValue } from '@/features/time-range-select/model/types';
+import TimeRangePicker from '@/features/time-range-select/ui/TimeRangePicker';
 import { trackEvent } from '@/shared/lib/amplitude';
 import BottomSheet from '@/shared/ui/bottom-sheet/BottomSheet';
 import Button from '@/shared/ui/button/Button';
@@ -29,6 +34,19 @@ export default function DateSelectPage({
   const { selectedDates, handleDateChange, formattedDates } =
     useDateSelection();
 
+  const [isTimeRangeEnabled, setIsTimeRangeEnabled] = useState(false);
+  const [timeRange, setTimeRange] = useState<{
+    startTime: TimeValue;
+    endTime: TimeValue;
+  } | null>(null);
+
+  const handleRangeChange = useCallback(
+    (range: { startTime: TimeValue; endTime: TimeValue } | null) => {
+      setTimeRange(range);
+    },
+    [],
+  );
+
   const handleDateChangeWithTracking = (updater: (prev: Date[]) => Date[]) => {
     handleDateChange((prev) => {
       const next = updater(prev);
@@ -36,6 +54,20 @@ export default function DateSelectPage({
       return next;
     });
   };
+
+  const isCtaDisabled =
+    selectedDates.length === 0 || (isTimeRangeEnabled && timeRange === null);
+
+  function handleCtaClick() {
+    const payload =
+      isTimeRangeEnabled && timeRange
+        ? {
+            startTime: formatTime(timeRange.startTime),
+            endTime: formatTime(timeRange.endTime),
+          }
+        : undefined;
+    handleNext(formattedDates, payload);
+  }
 
   return (
     <div className='bg-gray-0 min-h-screen-safe flex flex-col'>
@@ -56,19 +88,24 @@ export default function DateSelectPage({
         </h1>
 
         {/* 캘린더 영역 */}
-        <div className='mb-6 flex flex-1 justify-center'>
+        <div className='mb-6 flex justify-center'>
           <ReactDatepickerAdapter
             selectedDates={selectedDates}
             onChange={handleDateChangeWithTracking}
           />
         </div>
 
+        {/* 시간 투표 섹션 */}
+        <div className='mb-6 flex-1'>
+          <TimeRangePicker
+            isEnabled={isTimeRangeEnabled}
+            onEnabledChange={setIsTimeRangeEnabled}
+            onRangeChange={handleRangeChange}
+          />
+        </div>
+
         {/* CTA 버튼 */}
-        <Button
-          onClick={() => handleNext(formattedDates)}
-          fullWidth
-          disabled={selectedDates.length === 0}
-        >
+        <Button onClick={handleCtaClick} fullWidth disabled={isCtaDisabled}>
           모임 만들기
         </Button>
       </main>
