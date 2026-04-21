@@ -2,6 +2,27 @@ import { z } from 'zod';
 
 // ==================== Zod Schemas ====================
 
+/** "HH:mm" 패턴: 24시간제, 30분 단위만 허용 */
+export const TIME_PATTERN = /^([01]\d|2[0-3]):(00|30)$/;
+
+/**
+ * 시간 범위 스키마
+ * - startTime < endTime (사전식 비교, leading zero 보장)
+ */
+export const timeRangeDto = z
+  .object({
+    startTime: z
+      .string()
+      .regex(TIME_PATTERN, '시각은 "HH:mm" 형식이어야 합니다.'),
+    endTime: z
+      .string()
+      .regex(TIME_PATTERN, '시각은 "HH:mm" 형식이어야 합니다.'),
+  })
+  .refine(({ startTime, endTime }) => startTime < endTime, {
+    message: 'endTime은 startTime보다 커야 합니다.',
+    path: ['endTime'],
+  });
+
 /**
  * 모임 생성 요청 스키마
  * - API 요청 전 클라이언트 측 검증에 사용
@@ -11,6 +32,7 @@ export const createMeetRequestDto = z.object({
   title: z.string().min(1, '모임 이름은 필수입니다.'),
   hostName: z.string().min(1, '모임장 이름은 필수입니다.'),
   dates: z.array(z.string()).min(1, '날짜를 선택해주세요.'),
+  timeRange: timeRangeDto.optional(),
 });
 
 /**
@@ -51,6 +73,11 @@ export const meetResponseDto = z.object({
 });
 
 // ==================== TypeScript Types ====================
+
+/**
+ * 시간 범위 페이로드 타입
+ */
+export type TimeRangePayload = z.infer<typeof timeRangeDto>;
 
 /**
  * 모임 생성 요청 타입

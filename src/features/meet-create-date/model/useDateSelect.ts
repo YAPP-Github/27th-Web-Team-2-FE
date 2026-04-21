@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import { createMeeting } from '@/entities/meet/api/createMeeting';
 import { updateVote } from '@/entities/meet/api/updateVote';
+import type { TimeRangePayload } from '@/entities/meet/dto/meet.dto';
 import { trackEvent } from '@/shared/lib/amplitude';
 
 export function useDateSelect(hostName: string, meetingName: string) {
@@ -21,7 +22,10 @@ export function useDateSelect(hostName: string, meetingName: string) {
     router.replace(`/create?${params.toString()}`);
   };
 
-  const handleNext = async (formattedDates: string[]) => {
+  const handleNext = async (
+    formattedDates: string[],
+    timeRangePayload?: TimeRangePayload,
+  ) => {
     if (formattedDates.length === 0) {
       alert('날짜를 선택해주세요.');
       return;
@@ -29,6 +33,9 @@ export function useDateSelect(hostName: string, meetingName: string) {
 
     trackEvent('host_create_meeting_cta_click', {
       total_days: formattedDates.length,
+      time_range_enabled: Boolean(timeRangePayload),
+      start_time: timeRangePayload?.startTime,
+      end_time: timeRangePayload?.endTime,
     });
 
     try {
@@ -36,6 +43,7 @@ export function useDateSelect(hostName: string, meetingName: string) {
         title: meetingName,
         hostName,
         dates: formattedDates,
+        timeRange: timeRangePayload,
       });
 
       console.log('모임 생성 완료:', response);
